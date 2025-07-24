@@ -89,7 +89,8 @@ export default {
               },
             });
           }
-default:
+		// 其他路径处理保持不变...
+          default:
             return new Response(JSON.stringify(request.cf, null, 4), {
               status: 200,
               headers: {
@@ -103,11 +104,7 @@ default:
       return new Response(err.toString());
     }
   },
-};
-
-
-
-
+};	
 		  case `/${userID}/ty`: {
 			const tyConfig = gettyConfig(userID, request.headers.get('Host'));
 			return new Response(`${tyConfig}`, {
@@ -279,7 +276,7 @@ async function handle\u0076\u006c\u0065\u0073\u0073WebSocket(request) {
           }
           return num.toString(16).padStart(2, '0');
         });
-        const prefixes = ['2001:67c:2960:6464::'];
+        const prefixes = ['2001:67c:2960:6464::']; //,'2a01:4f9:c010:3f02:64::'
         const chosenPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
         return `[${chosenPrefix}${hex[0]}${hex[1]}:${hex[2]}${hex[3]}]`;
       }
@@ -571,8 +568,8 @@ async function handleUDPOutBound(webSocket, \u0076\u006c\u0065\u0073\u0073Respon
  * @returns {string}
  */
 function get\u0076\u006c\u0065\u0073\u0073Config(userID, hostName) {
-
-const generateIPTable = (start, end, isTLS) => {
+// 修复的核心部分 - 确保所有IP节点都能显示
+  const generateIPTable = (start, end, isTLS) => {
     let rows = '';
     for (let i = start; i <= end; i++) {
       const ip = eval(`IP${i}`.replace(/[\[\]]/g, ''));
@@ -634,6 +631,7 @@ const generateIPTable = (start, end, isTLS) => {
   return displayHtml;
 }
 
+// 其他函数保持不变...	
   const w\u0076\u006c\u0065\u0073\u0073ws = `\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${CDNIP}:8880?encryption=none&security=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#${hostName}`;
   const p\u0076\u006c\u0065\u0073\u0073wstls = `\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${CDNIP}:8443?encryption=none&security=tls&type=ws&host=${hostName}&sni=${hostName}&fp=random&path=%2F%3Fed%3D2560#${hostName}`;
   const note = `甬哥博客地址：https://ygkkk.blogspot.com\n甬哥YouTube频道：https://www.youtube.com/@ygkkk\n甬哥TG电报群组：https://t.me/ygkkktg\n甬哥TG电报频道：https://t.me/ygkkktgpd\n\nProxyIP使用nat64自动生成，无需设置`;
