@@ -1,4 +1,3 @@
 luna-tv视频源
-https://video.gaojilingjuli.top/?url=https://raw.githubusercontent.com/666zmy/MoonTV/refs/heads/main/config.json&pretty=true
-
+https://video.gaojilingjuli.top/?url=https://raw.githubusercontent.com/hafrey1/dianshi/refs/heads/main/luna-tv-config.json&pretty=true
 
