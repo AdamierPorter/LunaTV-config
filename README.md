@@ -1,11 +1,17 @@
 # 自用LunaTV-config视频源随缘更新
 
+👉 [减少卡顿版点击转到链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt)
 
-👉 [点击转到链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
+```bash
+https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt
+```
+
+👉 [完整版点击转到链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ```
+
 
 
 
