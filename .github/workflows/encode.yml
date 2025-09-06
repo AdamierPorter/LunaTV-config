@@ -34,6 +34,13 @@ jobs:
           git add encoded.txt
           git commit -m "Update Base58 encoding" || echo "No changes"
           git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
-          git pull origin main --rebase || echo "Nothing to rebase"
+          
+          # 拉取远程 main 分支，避免冲突
+          git fetch origin main
+          git rebase origin/main || git rebase --abort
+          
+          # 推送更新
           git push origin HEAD:main --force
+
+
 
