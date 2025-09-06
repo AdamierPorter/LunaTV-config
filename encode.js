@@ -1,17 +1,20 @@
 const fs = require('fs');
-const path = require('path');
 const bs58 = require('bs58');
 
-const inputFile = path.join(__dirname, 'luna-tv-config.json');
-const outputFile = path.join(__dirname, 'LunaTV-config.txt');
+// 定义要处理的文件列表
+const files = [
+  { input: 'luna-tv-config.json', output: 'LunaTV-config.txt' },
+  { input: 'bukadun.json', output: 'bukadun.txt' }
+];
 
-// 读取 JSON 文件
-const jsonData = fs.readFileSync(inputFile);
+files.forEach(file => {
+  if (!fs.existsSync(file.input)) {
+    console.log(`⚠️ 文件不存在: ${file.input}`);
+    return;
+  }
 
-// 转 Base58
-const base58Encoded = bs58.encode(jsonData);
-
-// 写入输出文件
-fs.writeFileSync(outputFile, base58Encoded);
-
-console.log(`Base58 编码已生成: ${outputFile}`);
+  const data = fs.readFileSync(file.input);
+  const encoded = bs58.encode(Buffer.from(data));
+  fs.writeFileSync(file.output, encoded);
+  console.log(`✅ 已生成 Base58 文件: ${file.output}`);
+});
