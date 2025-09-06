@@ -1,14 +1,35 @@
-import base58
+name: Convert JSON to Base58
 
-# 读取本地 JSON 文件
-with open("luna-tv-config.json", "r", encoding="utf-8") as f:
-    data = f.read().encode("utf-8")
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-# 转 Base58
-encoded = base58.b58encode(data).decode("utf-8")
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-# 写入文件
-with open("luna-tv-config.base58.txt", "w", encoding="utf-8") as f:
-    f.write(encoded)
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-print("Base58 conversion completed.")
+      - name: Install dependencies
+        run: pip install base58
+
+      - name: Run conversion script
+        run: python convert.py
+
+      - name: Commit and push Base58 file using PAT
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add luna-tv-config.base58.txt
+          git commit -m "Update Base58 encoded config" || echo "No changes to commit"
+          git push https://$GH_PAT@github.com/<你的用户名>/<你的仓库名>.git HEAD:main
