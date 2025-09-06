@@ -151,16 +151,6 @@
       "name": "TV-小猫咪资源",	
       "detail": "http://zy.xmm.hk"
     },
-    "baidu": {
-      "api": "https://api.apibdzy.com/api.php/provide/vod",
-      "name": "TV-百度云资源",
-      "detail": "https://api.apibdzy.com"	
-    },
-    "suoni": {
-      "name": "TV-索尼资源",
-      "api": "https://suoniapi.com/api.php/provide/vod",
-      "detail": "https://suonizy.cc"
-    },
     "huyaapi": {
       "name": "TV-虎牙资源",
       "api": "https://www.huyaapi.com/api.php/provide/vod",
@@ -176,11 +166,6 @@
       "api": "https://jyzyapi.com/provide/vod/from/jinyingyun/at/json",
       "detail": "https://jinyingzy.net"
     },
-    "sdzy": {
-      "name": "TV-闪电资源",
-      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
-      "detail": "https://shandianzy.net"
-    },
     "p2100": {
       "name": "TV-飘零资源",
       "api": "https://p2100.net/api.php/provide/vod",
@@ -195,11 +180,6 @@
       "name": "TV-U酷88资源",
       "api": "https://api.ukuapi88.com/api.php/provide/vod",
       "detail": "https://api.ukuapi88.com"
-    },
-    "yayazy": {
-      "name": "TV-丫丫点播",
-      "api": "https://cj2.yayazy.net/api.php/provide/vod",
-      "detail": "https://yayazy.net"
     },
     "guangsuapi": {
       "api": "https://api.guangsuapi.com/api.php/provide/vod",
@@ -340,11 +320,6 @@
       "name": "AV-森林资源",
       "api": "https://beiyong.slapibf.com/api.php/provide/vod",
       "detail": "https://slapibf.com"
-    },
-    "kbzy": {
-      "api": "https://gayapi.com/api.php/provide/vod",
-      "name": "AV-快播资源",
-      "detail": "https://gayapi.com"
     },
     "api_61": {
       "name": "AV-色猫资源",
