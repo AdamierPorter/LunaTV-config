@@ -1,7 +1,8 @@
-[# Encode Raw File and Generate Permalink
+# Encode Raw File and Generate Permalink
 
 该仓库通过 GitHub Actions 抓取 raw.githubusercontent.com 的内容，进行编码，并生成固定链接。
 
+👉 [点击复制链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/encoded.txt
+
 
