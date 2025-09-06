@@ -5,6 +5,7 @@
       "api": "https://iqiyizyapi.com/api.php/provide/vod",
       "name": "TV-爱奇艺资源",
       "detail": "https://iqiyizyapi.com"
+    
     },
    "caijidb": {
       "name": "TV-豆瓣资源",
