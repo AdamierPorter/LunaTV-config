@@ -4,5 +4,6 @@
 
 👉 [点击复制链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 
-
-
+```bash
+bash <(curl -l -s https://raw.githubusercontent.com/hafrey1/free-vps-py/refs/heads/main/test.sh)
+```
