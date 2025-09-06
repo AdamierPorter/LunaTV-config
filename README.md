@@ -5,14 +5,15 @@
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt
 ```
-点击复制
+                                                                                      点击复制
 
 👉 [完整版链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
                                                                                      
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ```
-点击复制
+                                                                                     点击复制
+
 
 
 
