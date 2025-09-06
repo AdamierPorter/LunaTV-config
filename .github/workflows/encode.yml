@@ -38,9 +38,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install deps
+      - name: Prepare workspace
         run: |
           mkdir -p scripts dist
+
+      - name: Install deps
+        run: |
           npm init -y
           npm pkg set type="module"
           npm install node-fetch@3
@@ -77,6 +80,7 @@ async function main() {
   if (!res.ok) {
     throw new Error('抓取失败：' + res.status + ' ' + res.statusText)
   }
+
   const arrayBuf = await res.arrayBuffer()
   const buf = Buffer.from(arrayBuf)
 
@@ -112,9 +116,9 @@ EOF
       - name: Run encoder
         id: run_encoder
         env:
-          RAW_URL: $ inputs.RAW_URL 
-          ENCODING: $ inputs.ENCODING 
-          OUTPUT_PATH: $ inputs.OUTPUT_PATH 
+          RAW_URL: $https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/luna-tv-config.json转换成Base58' }}
+          ENCODING: $ github.event.inputs.ENCODING || 'url' 
+          OUTPUT_PATH: $ github.event.inputs.OUTPUT_PATH || 'dist/encoded.txt' 
         run: |
           node scripts/fetch-and-encode.mjs
 
@@ -131,12 +135,12 @@ EOF
           fi
 
       - name: Update README with permalink
-        if: $ inputs.UPDATE_README == 'true' 
+        if: $ (github.event.inputs.UPDATE_README || 'true') == 'true' 
         env:
           PERMALINK: $ steps.run_encoder.outputs.permalink 
-          RAW_URL: $ inputs.RAW_URL 
-          ENCODING: $ inputs.ENCODING 
-          OUTPUT_PATH: $ inputs.OUTPUT_PATH 
+          RAW_URL: $https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/luna-tv-config.json转换成Base58' }}
+          ENCODING: $ github.event.inputs.ENCODING || 'url' 
+          OUTPUT_PATH: $ github.event.inputs.OUTPUT_PATH || 'dist/encoded.txt' 
         run: |
           START="<!-- ENCODED_PERMALINK_START -->"
           END="<!-- ENCODED_PERMALINK_END -->"
