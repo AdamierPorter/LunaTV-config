@@ -6,6 +6,7 @@ on:
       RAW_URL:
         description: 'raw.githubusercontent.com 的原始文件 URL'
         required: true
+        default: 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/luna-tv-config.json转换成Base58'
       ENCODING:
         description: '编码方式: url 或 base64'
         required: false
@@ -43,7 +44,6 @@ jobs:
           npm init -y
           npm pkg set type="module"
           npm install node-fetch@3
-          # 如果仓库里已存在脚本/依赖，可根据需要调整
 
       - name: Ensure script exists
         run: |
@@ -54,12 +54,10 @@ import path from 'node:path'
 import fetch from 'node-fetch'
 
 function encodeUrlSafe(str) {
-  // 对原始内容做 URL 编码（适合生成可嵌入 URL 的参数）
   return encodeURIComponent(str)
 }
 
 function encodeBase64(buf) {
-  // 对原始内容做 Base64（适合二进制或不想转义的文本）
   return Buffer.from(buf).toString('base64')
 }
 
@@ -72,7 +70,7 @@ async function main() {
   const serverUrl = process.env.GITHUB_SERVER_URL || 'https://github.com'
 
   if (!rawUrl || !/^https:\/\/raw\.githubusercontent\.com\//.test(rawUrl)) {
-    throw new Error('RAW_URL 不能为空，且必须为 https://raw.githubusercontent.com/ 开头的链接')
+    throw new Error('RAW_URL 不能为空，且必须以 https://raw.githubusercontent.com/ 开头')
   }
 
   const res = await fetch(rawUrl)
@@ -95,10 +93,8 @@ async function main() {
   await fs.mkdir(path.dirname(outputPath), { recursive: true })
   await fs.writeFile(outputPath, encoded, 'utf8')
 
-  // 生成本次提交的固定链接（blob/sha）
   const permalink = `${serverUrl}/${repo}/blob/${sha}/${outputPath}`
 
-  // 把结果导出为 GITHUB_OUTPUT，供后续步骤使用
   const outputs = [
     `encoded_path=${outputPath}`,
     `permalink=${permalink}`,
@@ -116,12 +112,11 @@ EOF
       - name: Run encoder
         id: run_encoder
         env:
-          RAW_URL: $ github.event.inputs.RAW_URL || secrets.RAW_URL 
-          ENCODING: $ github.event.inputs.ENCODING || 'url' 
-          OUTPUT_PATH: $ github.event.inputs.OUTPUT_PATH || 'dist/encoded.txt' 
+          RAW_URL: $ inputs.RAW_URL 
+          ENCODING: $ inputs.ENCODING 
+          OUTPUT_PATH: $ inputs.OUTPUT_PATH 
         run: |
           node scripts/fetch-and-encode.mjs
-          echo "Encoded file: $ steps.run_encoder.outputs.encoded_path "
 
       - name: Commit encoded file
         run: |
@@ -136,14 +131,13 @@ EOF
           fi
 
       - name: Update README with permalink
-        if: $ github.event.inputs.UPDATE_README == 'true' || github.event.inputs.UPDATE_README == '' 
+        if: $ inputs.UPDATE_README == 'true' 
         env:
           PERMALINK: $ steps.run_encoder.outputs.permalink 
-          RAW_URL: $ github.event.inputs.RAW_URL || secrets.RAW_URL 
-          ENCODING: $ github.event.inputs.ENCODING || 'url' 
-          OUTPUT_PATH: $ github.event.inputs.OUTPUT_PATH || 'dist/encoded.txt' 
+          RAW_URL: $ inputs.RAW_URL 
+          ENCODING: $ inputs.ENCODING 
+          OUTPUT_PATH: $ inputs.OUTPUT_PATH 
         run: |
-          # 在 README 中写入一个固定链接区块（幂等更新）
           START="<!-- ENCODED_PERMALINK_START -->"
           END="<!-- ENCODED_PERMALINK_END -->"
           BLOCK="$START
