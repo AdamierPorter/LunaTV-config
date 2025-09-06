@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # 禁用默认凭证
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
