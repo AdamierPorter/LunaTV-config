@@ -32,4 +32,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add luna-tv-config.base58.txt
           git commit -m "Update Base58 encoded config" || echo "No changes to commit"
-          git push https://$GH_PAT@github.com/<你的用户名>/<你的仓库名>.git HEAD:main
+          git push https://$GH_PAT@github.com/hafrey1/LunaTV-config.git HEAD:main
