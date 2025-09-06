@@ -5,7 +5,8 @@
 👉 [点击转到链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 
 ```bash
-https://raw.githubusercontent.com/hafrey1/free-vps-py/refs/heads/main/test.sh
+https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ```
+
 
 
