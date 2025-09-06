@@ -3,7 +3,7 @@ const path = require('path');
 const bs58 = require('bs58');
 
 const inputFile = path.join(__dirname, 'luna-tv-config.json');
-const outputFile = path.join(__dirname, 'encoded.txt');
+const outputFile = path.join(__dirname, 'LunaTV-config.txt');
 
 // 读取 JSON 文件
 const jsonData = fs.readFileSync(inputFile);
