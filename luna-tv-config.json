@@ -261,6 +261,21 @@
       "api": "https://apilsbzy1.com/api.php/provide/vod",
       "detail": "https://apilsbzy1.com"
     },
+    "thzy": {
+      "name": "AV-桃花资源",
+      "api": "https://thzy1.me/api.php/provide/vod",
+      "detail": "https://thzy8.me"
+    },
+    "yyzy": {
+      "name": "AV-优优资源",
+      "api": "https://www.yyzywcj.com/api.php/provide/vod",
+      "detail": "https://www.yyzywcj.com"
+    },
+    "xjzy": {
+      "name": "AV-小鸡资源",
+      "api": "https://api.xiaojizy.live/provide/vod",
+      "detail": "https://xiaojizy.live"
+    },
     "api_65": {
       "name": "AV-黄AVZY",
       "api": "https://www.pgxdy.com/api/json.php",
