@@ -3,7 +3,7 @@
   "api_site": {
   "aqyzy": {
       "api": "https://iqiyizyapi.com/api.php/provide/vod",
-      "name": "TV-爱奇艺资源",
+      "name": "TV-爱奇艺",
       "detail": "https://iqiyizyapi.com"
     },
    "caijidb": {
@@ -13,7 +13,7 @@
     },
    "tyyszyapi": {
       "api": "https://tyyszy.com/api.php/provide/vod",
-      "name": "TV-天涯影视资源",
+      "name": "TV-天涯影视",
       "detail": "https://tyyszy.com"	
     },
     "ckzy.me": {
@@ -38,12 +38,12 @@
     },
     "lzi": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "TV-量子资源站",
+      "name": "TV-量子资源",
       "detail": "https://lzizy.net"
     },
     "dyttzy": {
       "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
-      "name": "TV-电影天堂资源",
+      "name": "TV-电影天堂",
       "detail": "http://caiji.dyttzyapi.com"
     },
     "1080y": {
@@ -53,7 +53,7 @@
     },
     "lz": {
       "api": "https://cj.lzcaiji.com/api.php/provide/vod",
-      "name": "TV-量子",	
+      "name": "TV-量子资源1",	
       "detail": "https://cj.lzcaiji.com"
     },
     "ruyi": {
@@ -68,4 +68,5 @@
     }
   }
 }
+
 
