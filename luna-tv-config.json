@@ -51,13 +51,18 @@
       "name": "TV-优质资源",
       "detail": "https://1080zyk4.com"
     },
+    "myzy": {
+      "api": "https://api.maoyanapi.top/api.php/provide/vod",
+      "name": "TV-猫眼资源",	
+      "detail": "https://www.maoyanzy.com"
+    },
     "lz": {
       "api": "https://cj.lzcaiji.com/api.php/provide/vod",
       "name": "TV-量子资源",	
       "detail": "https://cj.lzcaiji.com"
     },
     "ruyi": {
-      "api": "http://cj.rycjapi.com/api.php/provide/vod",
+        "api": "https://cj.rycjapi.com/api.php/provide/vod",
       "name": "TV-如意资源",	
       "detail": "https://www.ryzyw.com"
     },
@@ -114,7 +119,7 @@
     "yinghua": {
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "name": "TV-樱花资源",
-      "detail": "https://yhzy.cc"
+        "detail": "https://yhzy.cc"
     },
     "wujin": {
       "api": "https://api.wujinapi.me/api.php/provide/vod",
@@ -262,19 +267,14 @@
       "detail": "https://www.pgxdy.com"
     },
     "api_66": {
-      "name": "AV-黄色仓库1",
-      "api": "https://hsckzy888.com/api.php/provide/vod",
-      "detail": "https://hsckzy888.com"
+      "name": "AV-黄色仓库",
+      "api": "https://hsckzy.xyz/api.php/provide/vod",
+      "detail": "hsckzy.xyz"
     },
     "dnzzy": {
       "api": "https://apidanaizi.com/api.php/provide/vod",
       "name": "AV-大奶子",
       "detail": "https://apidanaizi.com"
-    },
-    "hsckzy": {
-      "api": "https://hsckzy.vip/api.php/provide/vod",
-      "name": "AV-黄色仓库",
-      "detail": "https://hsckzy.vip"
     },
     "xxbzy": {
       "api": "https://www.xxibaozyw.com/api.php/provide/vod",
