@@ -12,6 +12,9 @@ const rawData = fs.readFileSync(configPath);
 const config = JSON.parse(rawData);
 const apiEntries = Object.values(config.api_site).map(site => ({ name: site.name, api: site.api }));
 
+// 当前 UTC 时间
+const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
+
 // 读取历史记录
 let history = [];
 if (fs.existsSync(reportPath)) {
@@ -61,7 +64,7 @@ if (fs.existsSync(reportPath)) {
   }
 
   // 生成 Markdown 报告
-  let md = `# API Health Check Report\n\n`;
+  let md = `# API 健康检查报告\n\n最近更新：${now}\n\n`;
   md += `## 最近 ${MAX_DAYS} 天 API 健康统计\n\n`;
   md += "| 状态 | API 名称 | API 地址 | 成功次数 | 失败次数 | 可用率 | 连续失败天数 |\n";
   md += "|------|----------|----------|---------:|---------:|-------:|-------------:|\n";
