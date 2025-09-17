@@ -1,3 +1,4 @@
+// update_readme.js
 const fs = require('fs');
 const path = require('path');
 
@@ -31,20 +32,15 @@ const nameCounts = apiNames.reduce((acc, name) => {
 const duplicateApis = Object.values(nameCounts).filter(v => v > 1).length;
 
 // 获取当前 CST 时间
-const now = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().replace("T", " ").slice(0, 16) + " CST";
-
-// 生成带时间戳的区块
-const tableBlock = `## API 状态（最近更新：${now}）\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
+const now = new Date(Date.now() + 8 * 60 * 60 * 1000)
+  .toISOString()
+  .replace("T", " ")
+  .slice(0, 16) + " CST";
 
 // 生成带统计的区块
-const tableBlockWithStats = `## API 状态（最近更新：${now}）\n\n` +
-                            `**总 API 数量**：${totalApis}  |  **重复 API 数量**：${duplicateApis}\n\n` +
-                            `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
-
-readmeContent = readmeContent.replace(
-  /## API 状态（最近更新：[^\n]+）[\s\S]*?<!-- API_TABLE_END -->/,
-  tableBlockWithStats
-);
+const tableBlock = `## API 状态（最近更新：${now}）\n\n` +
+                   `**总 API 数量**：${totalApis}  |  **重复 API 数量**：${duplicateApis}\n\n` +
+                   `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
 
 // 读取 README.md（可能不存在）
 let readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf-8') : "";
@@ -56,7 +52,7 @@ if (readmeContent.includes("<!-- API_TABLE_START -->") && readmeContent.includes
     /## API 状态（最近更新：[^\n]+）[\s\S]*?<!-- API_TABLE_END -->/,
     tableBlock
   );
-  console.log("✅ README.md 已更新 API 状态表格（带时间戳）");
+  console.log("✅ README.md 已更新 API 状态表格（带统计和时间戳）");
 } else {
   // 如果没有标记，就在文件末尾追加
   readmeContent += `\n\n${tableBlock}\n`;
