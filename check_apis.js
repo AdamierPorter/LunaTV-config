@@ -77,9 +77,16 @@ for (const { api } of apiEntries) {
     // 如果 API 重复，加上重复标记
     if (stats[api].duplicate) stats[api].status = "🔁";
   }
+// 统计总 API 数量和重复数量
+const totalAPIs = apiEntries.length;
+const duplicateAPIs = Object.values(apiCountMap).filter(count => count > 1).length;
+
+console.log(`总 API 数量: ${totalAPIs}`);
+console.log(`重复 API 数量: ${duplicateAPIs}`);
 
   // 生成 Markdown 报告
   let md = `# API 健康检查报告\n\n最近更新：${now}\n\n`;
+  md += `**总 API 数量:** ${totalAPIs}  |  **重复 API 数量:** ${duplicateAPIs}\n\n`;
   md += `## 最近 ${MAX_DAYS} 天 API 健康统计\n\n`;
   md += "| 状态 | API 名称 | API 地址 | 成功次数 | 失败次数 | 可用率 | 连续失败天数 |\n";
   md += "|------|----------|----------|---------:|---------:|-------:|-------------:|\n";
