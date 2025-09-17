@@ -24,6 +24,12 @@ if (fs.existsSync(reportPath)) {
   if (match) history = JSON.parse(match[1]);
 }
 
+// 检查重复 API
+const apiCountMap = {};
+for (const { api } of apiEntries) {
+  apiCountMap[api] = (apiCountMap[api] || 0) + 1;
+}
+
 (async () => {
   const todayResults = [];
 
@@ -43,12 +49,12 @@ if (fs.existsSync(reportPath)) {
   // 统计每个 API 的成功/失败次数和连续失败天数
   const stats = {};
   for (const { name, api } of apiEntries) {
-    stats[api] = { name, ok: 0, fail: 0, fail_streak: 0, status: "❌" };
+    stats[api] = { name, ok: 0, fail: 0, fail_streak: 0, status: "❌", duplicate: apiCountMap[api] > 1 };
     let streak = 0;
-    let firstSeen = false; // 标记 API 是否在历史中出现过
+    let firstSeen = false;
 
     for (const day of history) {
-      const r = day.results.find(x => x.api === api);
+      let r = day.results.find(x => x.api === api);
       if (!r) continue; // 历史中不存在则跳过
       firstSeen = true;
 
@@ -68,8 +74,8 @@ if (fs.existsSync(reportPath)) {
     else if (latest?.success) stats[api].status = "✅";
     else stats[api].status = "❌";
 
-    // 新增 API 从今天开始统计
-    if (!firstSeen && latest?.success) stats[api].status = "✅";
+    // 如果 API 重复，加上重复标记
+    if (stats[api].duplicate) stats[api].status = "🔁";
   }
 
   // 生成 Markdown 报告
@@ -81,7 +87,7 @@ if (fs.existsSync(reportPath)) {
   for (const { name, api } of apiEntries) {
     const s = stats[api];
     const total = s.ok + s.fail;
-    const rate = total > 0 ? ((s.ok/total)*100).toFixed(1) + "%" : "-";
+    const rate = total > 0 ? ((s.ok / total) * 100).toFixed(1) + "%" : "-";
     md += `| ${s.status} | ${s.name} | ${api} | ${s.ok} | ${s.fail} | ${rate} | ${s.fail_streak} |\n`;
   }
 
@@ -89,4 +95,5 @@ if (fs.existsSync(reportPath)) {
   md += "```json\n" + JSON.stringify(history, null, 2) + "\n```\n";
 
   fs.writeFileSync(reportPath, md, 'utf-8');
+
 })();
