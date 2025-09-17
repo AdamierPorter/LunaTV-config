@@ -111,12 +111,12 @@
     },
     "ffzy1": {
       "name": "TV-非凡资源",
-      "api": "http://api.ffzyapi.com/api.php/provide/vod",
+      "api": "https://api.ffzyapi.com/api.php/provide/vod",
       "detail": "https://cj.ffzyapi.com",
       "is_adult": false
     },
     "ffzy": {
-      "name": "TV-非凡资源1",
+      "name": "TV-非凡影视",
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
       "detail": "https://cj.ffzyapi.com",
       "is_adult": false
@@ -155,12 +155,6 @@
       "api": "https://api.wujinapi.com/api.php/provide/vod",
       "name": "TV-无尽资源1",
       "detail": "https://wujinzy.com",
-      "is_adult": false
-    },
-    "ffzynew": {
-      "api": "https://api.ffzyapi.com/api.php/provide/vod",
-      "name": "TV-非凡影视",
-      "detail": "http://ffzy5.tv",
       "is_adult": false
     },
     "xsd_sdzyapi": {
