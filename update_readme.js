@@ -21,15 +21,15 @@ if (!tableMatch) {
 }
 const tableMd = tableMatch[0].trim();
 
-// 统计总 API 数量和重复 API 数量
-const apiLines = tableMd.split('\n').slice(2); // 去掉表头
-const totalApis = apiLines.length;
-const apiNames = apiLines.map(line => line.split('|')[2].trim()); // API 名称列
-const nameCounts = apiNames.reduce((acc, name) => {
-  acc[name] = (acc[name] || 0) + 1;
+// 统计总 API 数量和重复 API 数量（按 API 地址）
+const apiLines = tableMd.split('\n').slice(2); // 去掉表头两行
+const apiAddresses = apiLines.map(line => line.split('|')[3].trim()); // API 地址列
+const apiCounts = apiAddresses.reduce((acc, api) => {
+  acc[api] = (acc[api] || 0) + 1;
   return acc;
 }, {});
-const duplicateApis = Object.values(nameCounts).filter(v => v > 1).length;
+const totalApis = apiAddresses.length;
+const duplicateApis = Object.values(apiCounts).filter(v => v > 1).length;
 
 // 获取当前 CST 时间
 const now = new Date(Date.now() + 8 * 60 * 60 * 1000)
@@ -37,10 +37,8 @@ const now = new Date(Date.now() + 8 * 60 * 60 * 1000)
   .replace("T", " ")
   .slice(0, 16) + " CST";
 
-// 生成带统计的区块
-const tableBlock = `## API 状态（最近更新：${now}）\n\n` +
-                   `**总 API 数量**：${totalApis}  |  **重复 API 数量**：${duplicateApis}\n\n` +
-                   `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
+// 生成带统计和时间戳的区块
+const tableBlock = `## API 状态（最近更新：${now}）\n\n总 API 数量：${totalApis}  /  重复 API 数量：${duplicateApis}\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
 
 // 读取 README.md（可能不存在）
 let readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf-8') : "";
