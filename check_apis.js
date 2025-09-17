@@ -13,8 +13,8 @@ const rawData = fs.readFileSync(configPath);
 const config = JSON.parse(rawData);
 const apiEntries = Object.values(config.api_site).map(site => ({ name: site.name, api: site.api }));
 
-// 当前 UTC 时间
-const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
+// 当前 CST 时间
+const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " CST";
 
 // 读取历史记录
 let history = [];
