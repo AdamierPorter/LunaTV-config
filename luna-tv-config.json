@@ -450,7 +450,7 @@
     },
         "xzybb2": {
       "name": "AV-滴滴资源",
-      "api": "https://api.ddapi.cc/api.php/provide/vodd",
+      "api": "https://api.ddapi.cc/api.php/provide/vod",
       "detail": "https://didizy.com",
       "is_adult": true
     },
