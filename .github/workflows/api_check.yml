@@ -17,7 +17,10 @@ jobs:
         node-version: "20"
 
     - name: 安装依赖
-      run: npm install
+      run: |
+        npm install axios  # 安装 axios
+        # 如果后续有其他依赖，可以在这里继续安装
+        # npm install <package_name>
 
     - name: 运行 API 检查脚本
       run: node check_apis.js
