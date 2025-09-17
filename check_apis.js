@@ -10,7 +10,7 @@ const WARN_STREAK = 3; // 连续失败天数阈值
 // 读取 API 配置
 const rawData = fs.readFileSync(configPath);
 const config = JSON.parse(rawData);
-const apis = Object.values(config.api_site).map(site => site.api);
+const apiEntries = Object.values(config.api_site).map(site => ({ name: site.name, api: site.api }));
 
 // 读取历史记录
 let history = [];
@@ -23,12 +23,12 @@ if (fs.existsSync(reportPath)) {
 (async () => {
   const todayResults = [];
 
-  for (const api of apis) {
+  for (const { name, api } of apiEntries) {
     try {
       const res = await axios.get(api, { timeout: 10000 });
-      todayResults.push({ api, success: res.status === 200 });
+      todayResults.push({ name, api, success: res.status === 200 });
     } catch (e) {
-      todayResults.push({ api, success: false });
+      todayResults.push({ name, api, success: false });
     }
   }
 
@@ -38,9 +38,8 @@ if (fs.existsSync(reportPath)) {
 
   // 统计每个 API 的成功/失败次数和连续失败天数
   const stats = {};
-  const apiList = apis;
-  for (const api of apiList) {
-    stats[api] = { ok: 0, fail: 0, fail_streak: 0 };
+  for (const { name, api } of apiEntries) {
+    stats[api] = { name, ok: 0, fail: 0, fail_streak: 0 };
     let streak = 0;
     for (const day of history) {
       const r = day.results.find(x => x.api === api);
@@ -58,15 +57,15 @@ if (fs.existsSync(reportPath)) {
   // 生成 Markdown 报告
   let md = `# API Health Check Report\n\n`;
   md += `## 最近 ${MAX_DAYS} 天 API 健康统计\n\n`;
-  md += "| API | 成功次数 | 失败次数 | 可用率 | 连续失败天数 |\n";
-  md += "|-----|---------:|---------:|-------:|-------------:|\n";
+  md += "| API 名称 | API 地址 | 成功次数 | 失败次数 | 可用率 | 连续失败天数 |\n";
+  md += "|----------|----------|---------:|---------:|-------:|-------------:|\n";
 
-  for (const api of apiList) {
+  for (const { name, api } of apiEntries) {
     const s = stats[api];
     const total = s.ok + s.fail;
     const rate = total > 0 ? ((s.ok/total)*100).toFixed(1) + "%" : "-";
     const warn = s.fail_streak >= WARN_STREAK ? "🚨 " : "";
-    md += `| ${warn}${api} | ${s.ok} | ${s.fail} | ${rate} | ${s.fail_streak} |\n`;
+    md += `| ${warn}${s.name} | ${api} | ${s.ok} | ${s.fail} | ${rate} | ${s.fail_streak} |\n`;
   }
 
   md += `\n## 详细历史数据 (JSON)\n`;
