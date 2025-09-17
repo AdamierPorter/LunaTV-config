@@ -71,6 +71,7 @@ const tableBlock =
   `- 成功 API 数量：${successApis}\n` +
   `- 失败 API 数量：${failApis}\n` +
   `- 重复 API 数量：${duplicateApis}\n\n` +
+  `<div style="font-size: 13px;">\n\n` +   // ⬅️ 设置小号字体
   `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
 
 // 读取 README.md（可能不存在）
