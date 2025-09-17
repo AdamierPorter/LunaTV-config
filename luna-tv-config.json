@@ -459,16 +459,6 @@
       "name": "AV-丝袜资源",
       "detail": "https://siwazyw.tv",
       "is_adult": true
-    },
-       "xingba111": {
-      "api": "https://xingba111.com/api.php/provide/vod",
-      "name": "AV-性吧资源",
-      "is_adult": true
-    },
-    "xxibaozyw": {
-      "api": "https://www.xxibaozyw.com/api.php/provide/vod",
-      "name": "AV-细胞资源",
-      "is_adult": true
     }
   }
 }
