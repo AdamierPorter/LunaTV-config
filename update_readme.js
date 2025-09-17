@@ -1,3 +1,4 @@
+//  update_readme.js
 const fs = require('fs');
 const path = require('path');
 
@@ -48,12 +49,7 @@ const updatedRows = rows.map(line => {
     successApis++;
   } else {
     failApis++;
-    // 高亮失败行：使用背景颜色标记失败行
-    return `<tr style="background-color:red; color:white;">| ${cols.slice(1).join(' | ')} |</tr>`;
-  }
-  return `| ${cols.slice(1).join(' | ')} |`;
-});
-
+    
 // 更新表格
 tableMd = [...header, ...updatedRows].join('\n');
 
