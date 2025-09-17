@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ```
 ## 更新内容
 
-1. 添加is_adult参数，用以标记成人内容源，KatelyaTV可用点击链接，然后选择“另存为...”来下载文件：[链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/luna-tv-config.json)
+- 📄 **添加is_adult参数，用以标记成人内容源，KatelyaTV可用点击链接，然后选择“另存为...”来下载文件：[链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/luna-tv-config.json)
 
 
 ## API 健康报告
@@ -95,6 +95,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | AV-鲨鱼资源 | https://shayuapi.com/api.php/provide/vod | 5 | 5 | 50.0% | 0 |
 | ✅ | AV-丝袜资源 | https://siwazyw.tv/api.php/provide/vod | 10 | 0 | 100.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
