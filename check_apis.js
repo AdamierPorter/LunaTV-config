@@ -1,4 +1,4 @@
-//  check_apis.js
+// check_apis.js
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
@@ -21,13 +21,7 @@ let history = [];
 if (fs.existsSync(reportPath)) {
   const oldReport = fs.readFileSync(reportPath, 'utf-8');
   const match = oldReport.match(/```json\n([\s\S]+?)\n```/);
-  if (match) {
-    try {
-      history = JSON.parse(match[1]);
-    } catch (e) {
-      history = [];
-    }
-  }
+  if (match) history = JSON.parse(match[1]);
 }
 
 (async () => {
@@ -51,11 +45,12 @@ if (fs.existsSync(reportPath)) {
   for (const { name, api } of apiEntries) {
     stats[api] = { name, ok: 0, fail: 0, fail_streak: 0, status: "❌" };
     let streak = 0;
+    let firstSeen = false; // 标记 API 是否在历史中出现过
 
     for (const day of history) {
-      // 如果历史中没有这个 API，默认成功为 false
-      let r = day.results.find(x => x.api === api);
-      if (!r) r = { success: false };
+      const r = day.results.find(x => x.api === api);
+      if (!r) continue; // 历史中不存在则跳过
+      firstSeen = true;
 
       if (r.success) {
         stats[api].ok++;
@@ -72,6 +67,9 @@ if (fs.existsSync(reportPath)) {
     if (stats[api].fail_streak >= WARN_STREAK) stats[api].status = "🚨";
     else if (latest?.success) stats[api].status = "✅";
     else stats[api].status = "❌";
+
+    // 新增 API 从今天开始统计
+    if (!firstSeen && latest?.success) stats[api].status = "✅";
   }
 
   // 生成 Markdown 报告
@@ -91,5 +89,4 @@ if (fs.existsSync(reportPath)) {
   md += "```json\n" + JSON.stringify(history, null, 2) + "\n```\n";
 
   fs.writeFileSync(reportPath, md, 'utf-8');
-
 })();
