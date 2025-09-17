@@ -11,6 +11,10 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ```
+更新内容
+添加is_adult参数，KatelyaTV可用点击即可下载[点击下载](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/luna-tv-config.json)
+
+
 ## API 健康报告
 
 ## API 状态（最近更新：2025-09-17 09:10 UTC）
@@ -90,6 +94,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | AV-鲨鱼资源 | https://shayuapi.com/api.php/provide/vod | 5 | 5 | 50.0% | 0 |
 | ✅ | AV-丝袜资源 | https://siwazyw.tv/api.php/provide/vod | 10 | 0 | 100.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
