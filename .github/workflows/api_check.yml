@@ -35,5 +35,3 @@ jobs:
         git add report.md
         git commit -m "更新 API 健康报告 ($(date -u +'%Y-%m-%d %H:%M:%S UTC'))" || echo "No changes to commit"
         git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
-    - name: 运行 API 检查脚本
-      run: node update_readme.js
