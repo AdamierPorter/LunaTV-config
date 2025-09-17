@@ -21,7 +21,13 @@ let history = [];
 if (fs.existsSync(reportPath)) {
   const oldReport = fs.readFileSync(reportPath, 'utf-8');
   const match = oldReport.match(/```json\n([\s\S]+?)\n```/);
-  if (match) history = JSON.parse(match[1]);
+  if (match) {
+    try {
+      history = JSON.parse(match[1]);
+    } catch (e) {
+      history = [];
+    }
+  }
 }
 
 (async () => {
@@ -45,9 +51,13 @@ if (fs.existsSync(reportPath)) {
   for (const { name, api } of apiEntries) {
     stats[api] = { name, ok: 0, fail: 0, fail_streak: 0, status: "❌" };
     let streak = 0;
+
     for (const day of history) {
-      const r = day.results.find(x => x.api === api);
-      if (r?.success) {
+      // 如果历史中没有这个 API，默认成功为 false
+      let r = day.results.find(x => x.api === api);
+      if (!r) r = { success: false };
+
+      if (r.success) {
         stats[api].ok++;
         streak = 0;
       } else {
