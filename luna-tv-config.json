@@ -268,12 +268,6 @@
       "detail": "http://lbapiby.com",
       "is_adult": true
     },
-    "AIvin1": {
-      "name": "AV-AIvin1",
-      "api": "https://lbapiby.com/api.php/provide/vod",
-      "detail": "http://lbapiby.com",
-      "is_adult": true
-    },
     "bwzy2": {
       "api": "https://api.bwzyz.com/api.php/provide/vod",
       "name": "AV-百万资源",
@@ -301,12 +295,6 @@
     "api_55": {
       "name": "AV-番号资源",
       "api": "http://fhapi9.com/api.php/provide/vod",
-      "detail": "http://fhapi9.com",
-      "is_adult": true
-    },
-    "fhzy11": {
-      "name": "AV-番号资源1",
-      "api": "https://fhapi9.com/api.php/provide/vod",
       "detail": "http://fhapi9.com",
       "is_adult": true
     },
