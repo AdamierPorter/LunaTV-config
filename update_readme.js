@@ -20,6 +20,12 @@ if (!tableMatch) {
 }
 const tableMd = tableMatch[0].trim();
 
+// 获取当前 UTC 时间
+const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
+
+// 生成带时间戳的区块
+const tableBlock = `## API 状态（最近更新：${now}）\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
+
 // 读取 README.md（可能不存在）
 let readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf-8') : "";
 
@@ -27,13 +33,13 @@ let readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf
 if (readmeContent.includes("<!-- API_TABLE_START -->") && readmeContent.includes("<!-- API_TABLE_END -->")) {
   // 替换已有内容
   readmeContent = readmeContent.replace(
-    /<!-- API_TABLE_START -->[\s\S]*?<!-- API_TABLE_END -->/,
-    `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`
+    /## API 状态（最近更新：[^\n]+）[\s\S]*?<!-- API_TABLE_END -->/,
+    tableBlock
   );
-  console.log("✅ README.md 已更新 API 状态表格");
+  console.log("✅ README.md 已更新 API 状态表格（带时间戳）");
 } else {
   // 如果没有标记，就在文件末尾追加
-  readmeContent += `\n\n## API 状态\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->\n`;
+  readmeContent += `\n\n${tableBlock}\n`;
   console.log("⚠️ README.md 未找到标记，已自动追加 API 状态表格到末尾");
 }
 
