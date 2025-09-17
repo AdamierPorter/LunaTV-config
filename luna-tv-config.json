@@ -135,7 +135,7 @@
     },
     "zuidazy": {
       "name": "TV-最大点播",
-      "api": "http://zuidazy.me/api.php/provide/vod",
+      "api": "https://zuidazy.me/api.php/provide/vod",
       "detail": "https://zuidazy.co",
       "is_adult": false
     },
@@ -302,7 +302,7 @@
       "name": "AV-白嫖资源",
       "api": "https://www.kxgav.com/api/json.php",
       "detail": "https://www.kxgav.com",
-      "is_adult": false
+      "is_adult": true
     },
     "api_57": {
       "name": "AV-精品资源",
@@ -386,7 +386,7 @@
       "name": "AV-美少女",
       "api": "https://www.msnii.com/api/json.php",
       "detail": "https://www.msnii.com",
-      "is_adult": false
+      "is_adult": true
     },
     "api_50": {
       "name": "AV-奥斯卡",
