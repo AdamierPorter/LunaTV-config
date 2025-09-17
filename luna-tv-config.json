@@ -421,7 +421,7 @@
     "api_50": {
       "name": "AV-奥斯卡",
       "api": "https://aosikazy.com/api.php/provide/vod",
-      "detail": "https://aosikazy.com"
+      "detail": "https://aosikazy.com",
       "is_adult": true
     },
     "api_51": {
