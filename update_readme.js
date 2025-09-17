@@ -49,8 +49,8 @@ const updatedRows = rows.map(line => {
     successApis++;
   } else {
     failApis++;
-    // 高亮失败行：在状态后加 🚩 标记
-    cols[1] = `${status} 🚩`;
+    // 高亮失败行：在状态后加 ❌ 标记
+    cols[1] = `${status} ❌`;
   }
   return `| ${cols.slice(1).join(' | ')} |`;
 });
