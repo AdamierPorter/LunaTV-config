@@ -172,6 +172,7 @@
     "hongniuzy3": {
       "api": "https://www.hongniuzy3.com/api.php/provide/vod",
       "name": "TV-红牛资源3",
+      "detail": "https://www.hongniuzy.com",
       "is_adult": false
     },
     "xsd_sdzyapi": {
