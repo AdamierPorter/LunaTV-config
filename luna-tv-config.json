@@ -163,18 +163,6 @@
       "detail": "http://ffzy5.tv",
       "is_adult": false
     },
-    "jszyapi": {
-      "api": "https://jszyapi.com/api.php/provide/vod",
-      "name": "TV-极速资源",
-      "detail": "https://jszyapi.com",
-      "is_adult": false
-    },
-    "hongniuzy3": {
-      "api": "https://www.hongniuzy3.com/api.php/provide/vod",
-      "name": "TV-红牛资源3",
-      "detail": "https://www.hongniuzy.com",
-      "is_adult": false
-    },
     "xsd_sdzyapi": {
       "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
       "name": "TV-索尼资源",
@@ -260,18 +248,6 @@
       "api": "https://api.guangsuapi.com/api.php/provide/vod",
       "name": "TV-光速资源",
       "detail": "https://api.guangsuapi.com",
-      "is_adult": false
-    },
-    "xinlang": {
-      "name": "TV-新浪点播",
-      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
-      "detail": "https://api.xinlangapi.com",
-      "is_adult": false
-    },
-    "niuniuzy": {
-      "name": "TV-牛牛点播",
-      "api": "https://www.hongniuzy3.com/api.php/provide/vod",
-      "detail": "https://www.hongniuzy.com",
       "is_adult": false
     },
     "hongniuzy": {
