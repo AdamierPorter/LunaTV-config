@@ -268,7 +268,7 @@
       "detail": "http://lbapiby.com",
       "is_adult": true
     },
-    "api_48": {
+    "AIvin1": {
       "name": "AV-AIvin1",
       "api": "https://lbapiby.com/api.php/provide/vod",
       "detail": "http://lbapiby.com",
@@ -304,7 +304,7 @@
       "detail": "http://fhapi9.com",
       "is_adult": true
     },
-    "api_55": {
+    "fhzy11": {
       "name": "AV-番号资源1",
       "api": "https://fhapi9.com/api.php/provide/vod",
       "detail": "http://fhapi9.com",
