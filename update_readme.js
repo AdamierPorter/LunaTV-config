@@ -21,7 +21,7 @@ if (!tableMatch) {
 const tableMd = tableMatch[0].trim();
 
 // 获取当前 CST 时间
-const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " CST";
+const now = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().replace("T", " ").slice(0, 16) + " CST";
 
 // 生成带时间戳的区块
 const tableBlock = `## API 状态（最近更新：${now}）\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
