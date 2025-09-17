@@ -424,6 +424,36 @@
       "detail": "https://shayuapi.com",
       "is_adult": true
     },
+    "xzybb2": {
+      "name": "AV-幸资源",
+      "api": "https://xzybb2.com/api.php/provide/vod",
+      "detail": "https://xzytv.com",
+      "is_adult": true
+    },
+    "dadiapi": {
+      "name": "AV-大地资源",
+      "api": "https://dadiapi.com/feifei2",
+      "detail": "https://dadizy11.com",
+      "is_adult": true
+    },
+        "zuiseapi": {
+      "name": "AV-最色资源",
+      "api": "https://api.zuiseapi.com/api.php/provide/vod",
+      "detail": "https://zuisezy.com",
+      "is_adult": true
+    },
+        "douapi": {
+      "name": "AV-豆豆资源",
+      "api": "https://api.douapi.cc/api.php/provide/vod",
+      "detail": "https://doudouzy.com",
+      "is_adult": true
+    },
+        "xzybb2": {
+      "name": "AV-滴滴资源",
+      "api": "https://api.ddapi.cc/api.php/provide/vodd",
+      "detail": "https://didizy.com",
+      "is_adult": true
+    },
     "swzy": {
       "api": "https://siwazyw.tv/api.php/provide/vod",
       "name": "AV-丝袜资源",
