@@ -1,19 +1,19 @@
 {
   "cache_time": 7200,
   "api_site": {
-  "aqyzy": {
-    "api": "https://iqiyizyapi.com/api.php/provide/vod",
-    "name": "TV-爱奇艺",
-    "detail": "https://iqiyizyapi.com",
-    "is_adult": false
+    "aqyzy": {
+      "api": "https://iqiyizyapi.com/api.php/provide/vod",
+      "name": "TV-爱奇艺",
+      "detail": "https://iqiyizyapi.com",
+      "is_adult": false
     },
-   "caijidb": {
-     "name": "TV-豆瓣资源",
-     "api": "https://caiji.dbzy5.com/api.php/provide/vod",
-     "detail": "dbzy.tv",
-     "is_adult": false
+    "caijidb": {
+      "name": "TV-豆瓣资源",
+      "api": "https://caiji.dbzy5.com/api.php/provide/vod",
+      "detail": "dbzy.tv",
+      "is_adult": false
     },
-   "tyyszyapi": {
+    "tyyszyapi": {
       "api": "https://tyyszy.com/api.php/provide/vod",
       "name": "TV-天涯影视",
       "detail": "https://tyyszy.com",
@@ -63,19 +63,19 @@
     },
     "myzy": {
       "api": "https://api.maoyanapi.top/api.php/provide/vod",
-      "name": "TV-猫眼资源",	
+      "name": "TV-猫眼资源",
       "detail": "https://www.maoyanzy.com",
       "is_adult": false
     },
     "lz": {
       "api": "https://cj.lzcaiji.com/api.php/provide/vod",
-      "name": "TV-量子资源",	
+      "name": "TV-量子资源",
       "detail": "https://cj.lzcaiji.com",
       "is_adult": false
     },
     "ruyi": {
       "api": "https://cj.rycjapi.com/api.php/provide/vod",
-      "name": "TV-如意资源",	
+      "name": "TV-如意资源",
       "detail": "https://www.ryzyw.com",
       "is_adult": false
     },
@@ -123,7 +123,7 @@
     },
     "bfzy": {
       "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "TV-暴风资源",	
+      "name": "TV-暴风资源",
       "detail": "https://bfzy.tv",
       "is_adult": false
     },
@@ -198,7 +198,7 @@
     },
     "xiaomaomi": {
       "api": "https://zy.xmm.hk/api.php/provide/vod",
-      "name": "TV-小猫咪",	
+      "name": "TV-小猫咪",
       "detail": "http://zy.xmm.hk",
       "is_adult": false
     },
