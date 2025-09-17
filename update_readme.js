@@ -20,8 +20,8 @@ if (!tableMatch) {
 }
 const tableMd = tableMatch[0].trim();
 
-// 获取当前 UTC 时间
-const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
+// 获取当前 CST 时间
+const now = new Date().toISOString().replace("T", " ").slice(0, 16) + " CST";
 
 // 生成带时间戳的区块
 const tableBlock = `## API 状态（最近更新：${now}）\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
