@@ -37,9 +37,14 @@ const now = new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString().replace("T",
 const tableBlock = `## API 状态（最近更新：${now}）\n\n<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
 
 // 生成带统计的区块
-const tableBlock = `## API 状态（最近更新：${now}）\n\n` +
-                   `**总 API 数量**：${totalApis}  |  **重复 API 数量**：${duplicateApis}\n\n` +
-                   `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
+const tableBlockWithStats = `## API 状态（最近更新：${now}）\n\n` +
+                            `**总 API 数量**：${totalApis}  |  **重复 API 数量**：${duplicateApis}\n\n` +
+                            `<!-- API_TABLE_START -->\n${tableMd}\n<!-- API_TABLE_END -->`;
+
+readmeContent = readmeContent.replace(
+  /## API 状态（最近更新：[^\n]+）[\s\S]*?<!-- API_TABLE_END -->/,
+  tableBlockWithStats
+);
 
 // 读取 README.md（可能不存在）
 let readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf-8') : "";
