@@ -1,8 +1,6 @@
-// GitHub OAuth 配置
+// GitHub OAuth 配置 - Device Flow
 const GITHUB_CONFIG = {
     clientId: 'Ov23ligWR1OA4D8xEHN4',
-    clientSecret: '85babf4aed3d705c7aa51ec65fbc6a5989d91f92', // 注意：在生产环境中应该在后端处理
-    redirectUri: 'https://hafrey1.github.io/LunaTV-config/web-editor/callback.html',
     scope: 'repo'
 };
 
@@ -16,13 +14,6 @@ let fileSha = null;
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     bindEvents();
-    
-    // 检查是否有授权码（从 localStorage）
-    const code = localStorage.getItem('github_oauth_code');
-    if (code) {
-        localStorage.removeItem('github_oauth_code');
-        exchangeCodeForToken(code);
-    }
 });
 
 // 初始化应用
@@ -34,7 +25,6 @@ function initializeApp() {
                 showUserInfo();
                 showRepoSection();
             } else {
-                // Token 无效，清除
                 sessionStorage.removeItem('github_access_token');
                 accessToken = null;
             }
@@ -44,55 +34,21 @@ function initializeApp() {
 
 // 绑定事件
 function bindEvents() {
-    document.getElementById('login-btn').addEventListener('click', startOAuthFlow);
+    document.getElementById('login-btn').addEventListener('click', startDeviceFlow);
     document.getElementById('logout-btn').addEventListener('click', logout);
     document.getElementById('load-file-btn').addEventListener('click', loadFile);
     document.getElementById('format-btn').addEventListener('click', formatJSON);
     document.getElementById('validate-btn').addEventListener('click', validateJSON);
     document.getElementById('save-btn').addEventListener('click', saveFile);
-    
-    // 监听来自弹出窗口的消息
-    window.addEventListener('message', handleOAuthCallback);
 }
 
-// 开始 OAuth 授权流程
-function startOAuthFlow() {
-    const state = generateRandomString(32);
-    localStorage.setItem('github_oauth_state', state);
-    
-    const params = new URLSearchParams({
-        client_id: GITHUB_CONFIG.clientId,
-        redirect_uri: GITHUB_CONFIG.redirectUri,
-        scope: GITHUB_CONFIG.scope,
-        state: state
-    });
-    
-    const authUrl = `https://github.com/login/oauth/authorize?${params.toString()}`;
-    
-    // 使用弹出窗口进行授权
-    const popup = window.open(authUrl, 'github-oauth', 'width=600,height=700');
-    
-    // 检查弹出窗口是否被阻止
-    if (!popup) {
-        showStatus('弹出窗口被阻止，请允许弹出窗口或直接跳转', 'error');
-        window.location.href = authUrl;
-    }
-}
-
-// 处理 OAuth 回调
-function handleOAuthCallback(event) {
-    if (event.data.type === 'github_oauth_callback') {
-        exchangeCodeForToken(event.data.code);
-    }
-}
-
-// 交换授权码为访问令牌
-async function exchangeCodeForToken(code) {
-    showStatus('正在获取访问令牌...', 'loading');
+// 开始 Device Flow 授权
+async function startDeviceFlow() {
+    showStatus('正在获取设备代码...', 'loading');
     
     try {
-        // 注意：在实际生产环境中，这应该在后端完成以保护 client_secret
-        const response = await fetch('https://github.com/login/oauth/access_token', {
+        // 步骤1：获取设备代码
+        const deviceResponse = await fetch('https://github.com/login/device/code', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -100,30 +56,128 @@ async function exchangeCodeForToken(code) {
             },
             body: JSON.stringify({
                 client_id: GITHUB_CONFIG.clientId,
-                client_secret: GITHUB_CONFIG.clientSecret,
-                code: code
+                scope: GITHUB_CONFIG.scope
             })
         });
         
-        const data = await response.json();
+        const deviceData = await deviceResponse.json();
         
-        if (data.access_token) {
-            accessToken = data.access_token;
-            sessionStorage.setItem('github_access_token', accessToken);
-            
-            const user = await verifyToken();
-            if (user) {
-                currentUser = user;
-                showUserInfo();
-                showRepoSection();
-                showStatus('登录成功！', 'success');
-            }
-        } else {
-            throw new Error(data.error_description || '获取访问令牌失败');
+        if (deviceData.error) {
+            throw new Error(deviceData.error_description || '获取设备代码失败');
         }
+        
+        // 显示用户代码和验证链接
+        showDeviceCodeModal(deviceData);
+        
+        // 步骤2：轮询获取访问令牌
+        pollForAccessToken(deviceData.device_code, deviceData.interval || 5);
+        
     } catch (error) {
-        console.error('OAuth error:', error);
+        console.error('Device Flow error:', error);
         showStatus(`授权失败: ${error.message}`, 'error');
+    }
+}
+
+// 显示设备代码模态框
+function showDeviceCodeModal(deviceData) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h2>🔐 GitHub 设备授权</h2>
+            <p>请按照以下步骤完成授权：</p>
+            <ol>
+                <li>打开链接：<a href="${deviceData.verification_uri}" target="_blank">${deviceData.verification_uri}</a></li>
+                <li>输入用户代码：<strong class="user-code">${deviceData.user_code}</strong></li>
+                <li>完成授权后，此窗口会自动关闭</li>
+            </ol>
+            <div class="code-display">
+                <span>用户代码：</span>
+                <code class="user-code-large">${deviceData.user_code}</code>
+                <button onclick="copyToClipboard('${deviceData.user_code}')">复制代码</button>
+            </div>
+            <button onclick="closeModal()" class="secondary-btn">取消</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // 自动打开GitHub授权页面
+    window.open(deviceData.verification_uri, '_blank');
+}
+
+// 轮询获取访问令牌
+async function pollForAccessToken(deviceCode, interval) {
+    const pollInterval = setInterval(async () => {
+        try {
+            const response = await fetch('https://github.com/login/oauth/access_token', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    client_id: GITHUB_CONFIG.clientId,
+                    device_code: deviceCode,
+                    grant_type: 'urn:ietf:params:oauth:grant-type:device_code'
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.access_token) {
+                clearInterval(pollInterval);
+                closeModal();
+                
+                accessToken = data.access_token;
+                sessionStorage.setItem('github_access_token', accessToken);
+                
+                const user = await verifyToken();
+                if (user) {
+                    currentUser = user;
+                    showUserInfo();
+                    showRepoSection();
+                    showStatus('登录成功！', 'success');
+                }
+            } else if (data.error === 'authorization_pending') {
+                // 继续轮询
+                showStatus('等待用户授权...', 'loading');
+            } else if (data.error === 'slow_down') {
+                // 减慢轮询速度
+                clearInterval(pollInterval);
+                setTimeout(() => pollForAccessToken(deviceCode, interval + 5), (interval + 5) * 1000);
+            } else if (data.error) {
+                clearInterval(pollInterval);
+                closeModal();
+                throw new Error(data.error_description || '获取访问令牌失败');
+            }
+        } catch (error) {
+            clearInterval(pollInterval);
+            closeModal();
+            console.error('Polling error:', error);
+            showStatus(`授权失败: ${error.message}`, 'error');
+        }
+    }, interval * 1000);
+    
+    // 5分钟后超时
+    setTimeout(() => {
+        clearInterval(pollInterval);
+        closeModal();
+        showStatus('授权超时，请重试', 'error');
+    }, 300000);
+}
+
+// 复制到剪贴板
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showStatus('用户代码已复制到剪贴板', 'success');
+    });
+}
+
+// 关闭模态框
+function closeModal() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.remove();
     }
 }
 
@@ -173,7 +227,6 @@ function logout() {
     accessToken = null;
     currentUser = null;
     sessionStorage.removeItem('github_access_token');
-    localStorage.removeItem('github_oauth_state');
     
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('user-info').style.display = 'none';
@@ -315,14 +368,4 @@ function showStatus(message, type = 'info') {
             statusEl.style.display = 'none';
         }, 5000);
     }
-}
-
-// 生成随机字符串
-function generateRandomString(length) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
 }
