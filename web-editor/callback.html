@@ -1,69 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub OAuth 回调</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-        }
-        #status {
-            color: green;
-            font-size: 18px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub OAuth 回调</title>
 </head>
 <body>
-    <div class="container">
-        <h1>GitHub 授权成功</h1>
-        <p id="status">正在处理授权信息...</p>
-    </div>
+<p>正在处理 GitHub 授权...</p>
+<script>
+const CLIENT_ID = 'Ov23ligWR1OA4D8xEHN4';
+const CLIENT_SECRET = '85babf4aed3d705c7aa51ec65fbc6a5989d91f92';
+const REDIRECT_BACK = '/LunaTV-config/web-editor/'; // 回跳到主编辑页面
 
-    <script>
-        // 获取 URL 中的授权码
-        function getAuthCodeFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('code');
+const code = new URLSearchParams(window.location.search).get('code');
+if (!code) {
+    alert('未获取到授权码');
+} else {
+    console.log('获取到授权码:', code);
+    // 通过 CORS 代理请求 GitHub Access Token
+    fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code })
+    })
+    .then(r => r.json())
+    .then(data => {
+        console.log('Access Token 返回:', data);
+        if (data.access_token) {
+            localStorage.setItem('access_token', data.access_token);
+            window.location.href = REDIRECT_BACK;
+        } else {
+            alert('获取 Access Token 失败: ' + JSON.stringify(data));
         }
-
-        // 处理 OAuth 回调
-        function handleAuth() {
-            const code = getAuthCodeFromUrl();
-            console.log('授权码:', code);  // 打印授权码以确认是否获取成功
-
-            if (code) {
-                // 如果获取到了授权码，将其存储在本地
-                localStorage.setItem('github_auth_code', code); 
-                document.getElementById('status').textContent = '授权成功，正在跳转...';
-                document.getElementById('status').style.color = 'green';
-
-                // 打印日志，确认是否进入了授权成功流程
-                console.log('授权码存储成功，跳转到主页面。');
-
-                // 延迟 2 秒后跳转到主页面
-                setTimeout(() => {
-                    console.log('跳转到主页面...');
-                    window.location.href = '/LunaTV-config/web-editor/index.html'; // 跳回主编辑页面
-                }, 2000); // 延迟 2 秒跳转
-            } else {
-                // 如果没有获取到授权码，显示失败信息
-                console.log('未获取到授权码！');
-                document.getElementById('status').textContent = '授权失败，请重试。';
-                document.getElementById('status').style.color = 'red';
-            }
-        }
-
-        // 调用授权回调处理函数
-        handleAuth();
-    </script>
+    })
+    .catch(err => alert('获取 Access Token 失败: ' + err));
+}
+</script>
 </body>
-</htm
+</html>
