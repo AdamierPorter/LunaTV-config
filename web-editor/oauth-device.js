@@ -13,7 +13,6 @@ let token = localStorage.getItem('access_token');
 
 async function startDeviceFlow() {
     try {
-        // 获取 device code
         const res = await axios.post('https://github.com/login/device/code', 
             `client_id=${CLIENT_ID}&scope=repo`, 
             { headers: { 'Content-Type':'application/x-www-form-urlencoded' } }
@@ -24,7 +23,6 @@ async function startDeviceFlow() {
         infoElement.innerHTML = `请在 <a href="${data.verification_uri}" target="_blank">GitHub 验证页面</a> 输入验证码: <b>${data.user_code}</b>`;
         statusElement.textContent = '等待用户授权...';
 
-        // 轮询获取 token
         const interval = data.interval * 1000;
         let polling = setInterval(async () => {
             try {
@@ -41,7 +39,7 @@ async function startDeviceFlow() {
                     loadBtn.style.display = 'inline-block';
                     console.log('Access Token:', token);
                 }
-            } catch(e) { /* 等待授权 */ }
+            } catch(e) {}
         }, interval);
 
     } catch(e) {
@@ -52,7 +50,6 @@ async function startDeviceFlow() {
 
 loginBtn.addEventListener('click', startDeviceFlow);
 
-// 加载配置
 loadBtn.addEventListener('click', async () => {
     if (!token) { alert('未获取 token'); return; }
     try {
@@ -71,7 +68,6 @@ loadBtn.addEventListener('click', async () => {
     }
 });
 
-// 保存配置
 saveBtn.addEventListener('click', async () => {
     if (!token) { alert('未获取 token'); return; }
     try {
@@ -92,7 +88,6 @@ saveBtn.addEventListener('click', async () => {
     }
 });
 
-// 页面刷新自动显示 load 按钮
 if (token) {
     loginBtn.style.display = 'none';
     loadBtn.style.display = 'inline-block';
