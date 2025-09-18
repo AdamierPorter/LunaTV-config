@@ -6,8 +6,7 @@
     <title>🌙 Luna TV 配置编辑器</title>
     <meta name="description" content="专业的JSON配置编辑器，支持GitHub同步">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
-    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='{{http://www.w3.org/2000/svg}}' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
 </head>
 <body>
     <div class="app-container">
@@ -23,20 +22,41 @@
             </div>
             
             <div class="toolbar-right">
-                <div class="auth-section">
-                    <input type="password" id="github-token" 
-                           placeholder="请输入 GitHub Personal Access Token" 
-                           class="token-input">
-                    <button id="load-btn" class="btn btn-primary" title="从GitHub加载配置">
-                        📥 加载配置
-                    </button>
-                    <button id="save-btn" class="btn btn-success" disabled title="保存到GitHub">
-                        💾 保存配置
-                    </button>
-                    <button id="clear-token-btn" class="btn btn-secondary" title="清除Token">
-                        🗑️ 清除Token
-                    </button>
-                </div>
+                <!-- 使用form包装以支持浏览器密码管理 -->
+                <form class="auth-form" autocomplete="on" id="login-form">
+                    <div class="auth-section">
+                        <!-- 隐藏的用户名字段，帮助浏览器识别这是登录表单 -->
+                        <input type="text" 
+                               id="username" 
+                               name="username"
+                               value="Luna-TV-GitHub"
+                               autocomplete="username"
+                               style="display: none;" 
+                               readonly>
+                        
+                        <!-- Token输入框，设置为密码类型 -->
+                        <input type="password" 
+                               id="github-token" 
+                               name="password"
+                               placeholder="请输入 GitHub Personal Access Token" 
+                               class="token-input"
+                               autocomplete="current-password"
+                               data-lpignore="false">
+                        
+                        <button type="button" id="load-btn" class="btn btn-primary" title="从GitHub加载配置">
+                            📥 加载配置
+                        </button>
+                        <button type="button" id="save-btn" class="btn btn-success" disabled title="保存到GitHub">
+                            💾 保存配置
+                        </button>
+                        <button type="button" id="clear-token-btn" class="btn btn-secondary" title="清除Token">
+                            🗑️ 清除Token
+                        </button>
+                        <button type="button" id="toggle-token-btn" class="btn btn-outline" title="显示/隐藏Token">
+                            👁️ 显示
+                        </button>
+                    </div>
+                </form>
             </div>
         </header>
 
@@ -80,14 +100,10 @@
                     </div>
                 </div>
 
-                <!-- 视图控制 -->
+                <!-- 编辑器选项 -->
                 <div class="tool-section">
-                    <h4>👁️ 视图控制</h4>
+                    <h4>👁️ 编辑器选项</h4>
                     <div class="view-controls">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="tree-view-toggle" checked>
-                            树状视图
-                        </label>
                         <label class="checkbox-label">
                             <input type="checkbox" id="word-wrap-toggle" checked>
                             自动换行
@@ -107,7 +123,7 @@
                         <select id="theme-select" class="select-input">
                             <option value="vs-dark">🌙 深色主题</option>
                             <option value="vs">☀️ 浅色主题</option>
-                            <option value="hc-black">🔆 高对比度</option>
+                            <option value="hc-black">🔦 高对比度</option>
                         </select>
                     </div>
                     
@@ -115,22 +131,6 @@
                         <label for="font-size-slider">字体大小:</label>
                         <input type="range" id="font-size-slider" min="10" max="24" value="14" class="slider">
                         <span id="font-size-value">14px</span>
-                    </div>
-                </div>
-
-                <!-- 历史记录 -->
-                <div class="tool-section">
-                    <h4>📚 历史记录</h4>
-                    <div class="history-controls">
-                        <button id="save-history-btn" class="btn btn-outline" title="保存到历史">
-                            💾 保存版本
-                        </button>
-                        <select id="history-select" class="select-input">
-                            <option value="">选择历史版本</option>
-                        </select>
-                        <button id="clear-history-btn" class="btn btn-outline" title="清空历史">
-                            🗑️ 清空历史
-                        </button>
                     </div>
                 </div>
             </aside>
@@ -179,7 +179,6 @@
         <footer class="status-bar">
             <div class="status-left">
                 <span id="cursor-position">行: 1, 列: 1</span>
-                <span id="selection-info"></span>
                 <span id="encoding-info">UTF-8</span>
             </div>
             
@@ -210,6 +209,7 @@
         </div>
     </div>
 
+    <script src="{{166}}"></script>
     <script src="script.js"></script>
 </body>
 </html>
