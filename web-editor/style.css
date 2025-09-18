@@ -1,233 +1,123 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    : ;
+    : ;
+    : ;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    color: #333;
+    : , , , , ;
+    : (, #667eea %, #764ba2 %);
+    : ;
+    : #333;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    : ;
+    :  ;
+    : ;
+    : ;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    : ;
+    : ;
+    : ;
+    :    (, , , );
+    : ;
 }
 
 h1 {
-    color: #4a5568;
-    font-size: 1.8rem;
+    : #4a5568;
+    : ;
+    : ;
 }
 
 .auth-section {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    : ;
+    : ;
+    : ;
+    : ;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+#github-token {
+    : ;
+    : ;
+    : ;
+    :   #e2e8f0;
+    : ;
+    : ;
+    :  ;
 }
 
-.avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+#github-token: {
+    : ;
+    : #667eea;
 }
 
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+button {
+    :  ;
+    : #667eea;
+    : ;
+    : ;
+    : ;
+    : ;
+    : ;
+    :  ;
 }
 
-.btn.primary {
-    background: #3182ce;
-    color: white;
+button: {
+    : #5a67d8;
 }
 
-.btn.success {
-    background: #38a169;
-    color: white;
-}
-
-.btn.secondary {
-    background: #718096;
-    color: white;
-}
-
-.btn.info {
-    background: #3182ce;
-    color: white;
-}
-
-.btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
-
-.btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-main {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.editor-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+button: {
+    : #a0aec0;
+    : ;
 }
 
 .editor-container {
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 20px;
+    : ;
+    : ;
+    :    (, , , );
+    : ;
+    : ;
 }
 
-.editor-header {
-    background: #f7fafc;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e2e8f0;
+#json-editor {
+    : ;
+    : %;
 }
 
-.status {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
+.status-bar {
+    : ;
+    :  ;
+    : ;
+    :    (, , , );
+    : ;
 }
 
-.status.connected {
-    background: #c6f6d5;
-    color: #22543d;
+.error {
+    : #e53e3e;
 }
 
-.status.loading {
-    background: #fef5e7;
-    color: #744210;
+.success {
+    : #38a169;
 }
 
-.status.error {
-    background: #fed7d7;
-    color: #742a2a;
+.loading {
+    : #3182ce;
 }
 
-#jsonEditor {
-    width: 100%;
-    height: 500px;
-    border: none;
-    padding: 15px;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    resize: vertical;
-    outline: none;
-}
-
-.info-panel {
-    background: #f7fafc;
-    padding: 15px;
-    border-radius: 6px;
-    border-left: 4px solid #3182ce;
-}
-
-.info-panel h3 {
-    margin-bottom: 10px;
-    color: #2d3748;
-}
-
-.file-info p {
-    margin: 5px 0;
-    color: #4a5568;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.modal {
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-}
-
-.close {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #999;
-}
-
-.close:hover {
-    color: #333;
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
+ (: ) {
+    .auth-section {
+        : ;
+        : ;
     }
     
-    header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
+    #github-token {
+        : ;
     }
     
-    .editor-controls {
-        justify-content: center;
+    #json-editor {
+        : ;
     }
-    
-    #jsonEditor {
-        height: 400px;
     }
-}
