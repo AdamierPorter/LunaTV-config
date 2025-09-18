@@ -1,6 +1,6 @@
 ## 自用LunaTV-config视频源随缘更新
 
-Luna TV 配置编辑器
+Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config
 
 👉 [减少卡顿版链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt)
@@ -110,6 +110,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | AV-豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 9 | 0 | 100.0% | 0 |  |
 | ✅ | AV-丝袜资源 | https://siwazyw.tv/api.php/provide/vod | 32 | 0 | 100.0% | 0 |  |
 <!-- API_TABLE_END -->
+
 
 
 
