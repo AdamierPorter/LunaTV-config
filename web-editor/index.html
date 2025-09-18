@@ -28,18 +28,35 @@
 
         function saveConfig() {
             const configData = document.getElementById('jsonEditor').value;
-            fetch('/save-config', {
-                method: 'POST',
+            const accessToken = localStorage.getItem('github_access_token');
+            if (!accessToken) {
+                alert('没有有效的 token，无法保存配置。');
+                return;
+            }
+            fetch('https://api.github.com/repos/hafrey1/LunaTV-config/contents/luna-tv-config.json', {
+                method: 'PUT',
                 headers: {
+                    'Authorization': `token ${accessToken}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ config: configData })
-            }).then(response => response.json())
-              .then(data => {
-                  alert('配置保存成功！');
-              }).catch(error => {
-                  alert('保存失败，请重试！');
-              });
+                body: JSON.stringify({
+                    message: '更新配置',
+                    content: btoa(configData),
+                    sha: "" // GitHub API 会根据路径和名称自动计算 sha
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.commit) {
+                    alert('配置保存成功！');
+                } else {
+                    alert('保存失败，请重试！');
+                }
+            })
+            .catch(error => {
+                console.error('保存配置时出现错误:', error);
+                alert('保存失败，请重试！');
+            });
         }
     </script>
 </body>
