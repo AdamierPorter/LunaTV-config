@@ -11,9 +11,41 @@ const GITHUB_CONFIG = {
     branch: 'main'
 };
 
+// Token 存储配置（加密存储）
+const TOKEN_STORAGE_KEY = 'lunatv_editor_token_encrypted';
+const TOKEN_HINT_KEY = 'lunatv_editor_token_hint';
+
+// 简单的加密/解密函数（基于浏览器指纹）
+function getFingerprint() {
+    return btoa(navigator.userAgent + navigator.language + screen.width + screen.height).slice(0, 16);
+}
+
+function encryptToken(token) {
+    const key = getFingerprint();
+    let encrypted = '';
+    for (let i = 0; i < token.length; i++) {
+        encrypted += String.fromCharCode(token.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    return btoa(encrypted);
+}
+
+function decryptToken(encrypted) {
+    try {
+        const decoded = atob(encrypted);
+        const key = getFingerprint();
+        let decrypted = '';
+        for (let i = 0; i < decoded.length; i++) {
+            decrypted += String.fromCharCode(decoded.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        }
+        return decrypted;
+    } catch {
+        return null;
+    }
+}
+
 // 初始化Monaco编辑器
 require.config({ 
-    paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' } 
+    paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } 
 });
 
 require(['vs/editor/editor.main'], function () {
@@ -43,33 +75,164 @@ require(['vs/editor/editor.main'], function () {
     // 设置编辑器选项监听
     setupEditorOptions();
     
-    updateStatus('🌙 欢迎使用 Luna TV 配置编辑器！请输入 GitHub Token 开始使用', 'normal');
+    // 尝试恢复保存的Token
+    loadSavedToken();
+    
+    updateStatus('🌙 欢迎使用 Luna TV 配置编辑器！', 'normal');
 });
 
-// 修复UTF-8编码的关键函数
+// 🔧 修复UTF-8编码的关键函数
 function decodeBase64Unicode(str) {
     try {
-        // 使用TextDecoder确保UTF-8正确解码
         const bytes = Uint8Array.from(atob(str), c => c.charCodeAt(0));
         return new TextDecoder('utf-8').decode(bytes);
     } catch (error) {
         console.error('UTF-8解码失败:', error);
-        // 降级方案
         return decodeURIComponent(escape(atob(str)));
     }
 }
 
-// 编码UTF-8的函数
 function encodeBase64Unicode(str) {
     try {
-        // 使用TextEncoder确保UTF-8正确编码
         const encoder = new TextEncoder();
         const bytes = encoder.encode(str);
         return btoa(String.fromCharCode(...bytes));
     } catch (error) {
         console.error('UTF-8编码失败:', error);
-        // 降级方案
         return btoa(unescape(encodeURIComponent(str)));
+    }
+}
+
+// 💾 Token本地保存和恢复
+function saveToken(token) {
+    try {
+        if (token && token.length > 10) {
+            const encrypted = encryptToken(token);
+            localStorage.setItem(TOKEN_STORAGE_KEY, encrypted);
+            localStorage.setItem(TOKEN_HINT_KEY, `已保存Token (${token.slice(0, 4)}...${token.slice(-4)})`);
+            
+            // 设置过期时间（7天）
+            const expiry = Date.now() + (7 * 24 * 60 * 60 * 1000);
+            localStorage.setItem(TOKEN_STORAGE_KEY + '_expiry', expiry.toString());
+            
+            updateStatus('💾 Token已安全保存到本地（7天有效期）', 'success');
+        }
+    } catch (error) {
+        console.error('Token保存失败:', error);
+    }
+}
+
+function loadSavedToken() {
+    try {
+        const expiry = localStorage.getItem(TOKEN_STORAGE_KEY + '_expiry');
+        
+        // 检查是否过期
+        if (expiry && Date.now() > parseInt(expiry)) {
+            clearSavedToken();
+            return;
+        }
+        
+        const encrypted = localStorage.getItem(TOKEN_STORAGE_KEY);
+        const hint = localStorage.getItem(TOKEN_HINT_KEY);
+        
+        if (encrypted) {
+            const token = decryptToken(encrypted);
+            if (token) {
+                const tokenInput = document.getElementById('github-token');
+                tokenInput.value = token;
+                tokenInput.placeholder = hint || '已恢复保存的Token';
+                githubToken = token;
+                
+                // 添加自动加载选项
+                const loadBtn = document.getElementById('load-btn');
+                loadBtn.innerHTML = '🔄 重新加载配置';
+                
+                updateStatus('🔓 已恢复保存的Token，点击重新加载配置', 'success');
+            }
+        }
+    } catch (error) {
+        console.error('Token恢复失败:', error);
+        clearSavedToken();
+    }
+}
+
+function clearSavedToken() {
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(TOKEN_HINT_KEY);
+    localStorage.removeItem(TOKEN_STORAGE_KEY + '_expiry');
+    
+    const tokenInput = document.getElementById('github-token');
+    tokenInput.value = '';
+    tokenInput.placeholder = '请输入 GitHub Personal Access Token (classic)';
+    githubToken = '';
+    
+    updateStatus('🗑️ 已清除保存的Token', 'normal');
+}
+
+// 🌐 中文化的JSON错误信息
+function translateJsonError(error) {
+    const message = error.message.toLowerCase();
+    
+    // 常见JSON错误的中文翻译映射
+    const translations = {
+        'unexpected token': '意外的字符',
+        'unexpected end of json input': 'JSON输入意外结束',
+        'expected property name': '期望属性名称',
+        'expected':'期望',
+        'unexpected string': '意外的字符串',
+        'unexpected number': '意外的数字',
+        'invalid character': '无效字符',
+        'malformed': '格式错误',
+        'duplicate': '重复',
+        'trailing comma': '多余的逗号',
+        'at position': '位置',
+        'in json at position': 'JSON中位置',
+        'line': '行',
+        'column': '列'
+    };
+    
+    let translatedMessage = error.message;
+    
+    // 替换常见错误术语
+    Object.entries(translations).forEach(([en, zh]) => {
+        const regex = new RegExp(en, 'gi');
+        translatedMessage = translatedMessage.replace(regex, zh);
+    });
+    
+    // 处理位置信息
+    translatedMessage = translatedMessage.replace(/at position (\d+)/gi, '在位置 $1');
+    translatedMessage = translatedMessage.replace(/line (\d+)/gi, '第 $1 行');
+    translatedMessage = translatedMessage.replace(/column (\d+)/gi, '第 $1 列');
+    
+    // 如果没有匹配到翻译，提供通用的中文说明
+    if (translatedMessage === error.message) {
+        return `JSON格式错误: ${error.message}`;
+    }
+    
+    return translatedMessage;
+}
+
+// 验证JSON格式（中文化错误提示）
+function validateJson() {
+    if (!editor) return;
+    
+    const validationStatus = document.getElementById('validation-status');
+    const content = editor.getValue();
+    
+    if (!content.trim()) {
+        validationStatus.textContent = '';
+        validationStatus.className = '';
+        return;
+    }
+    
+    try {
+        JSON.parse(content);
+        validationStatus.textContent = '✅ JSON格式正确';
+        validationStatus.className = 'json-valid';
+    } catch (error) {
+        const chineseError = translateJsonError(error);
+        validationStatus.textContent = `❌ ${chineseError}`;
+        validationStatus.className = 'json-invalid';
     }
 }
 
@@ -86,6 +249,9 @@ async function loadConfig() {
     if (!githubToken.startsWith('ghp_') && !githubToken.startsWith('github_pat_')) {
         updateStatus('⚠️ Token格式可能不正确，请确认使用的是 Personal Access Token (classic)', 'warning');
     }
+    
+    // 保存Token到本地
+    saveToken(githubToken);
     
     updateStatus('📥 正在加载配置文件...', 'loading');
     setButtonsLoading(true);
@@ -134,7 +300,8 @@ async function loadConfig() {
             document.getElementById('format-btn').disabled = false;
             
         } catch (jsonError) {
-            updateStatus(`❌ JSON格式错误: ${jsonError.message}`, 'error');
+            const chineseError = translateJsonError(jsonError);
+            updateStatus(`❌ JSON格式错误: ${chineseError}`, 'error');
             editor.setValue(content); // 仍然显示内容以便修复
         }
         
@@ -159,7 +326,8 @@ async function saveConfig() {
     try {
         JSON.parse(newContent);
     } catch (error) {
-        updateStatus(`❌ 保存失败：JSON格式无效 - ${error.message}`, 'error');
+        const chineseError = translateJsonError(error);
+        updateStatus(`❌ 保存失败：${chineseError}`, 'error');
         return;
     }
     
@@ -233,30 +401,8 @@ function formatJson() {
         editor.setValue(formatted);
         updateStatus('🎨 JSON格式化完成', 'success');
     } catch (error) {
-        updateStatus(`❌ 格式化失败: ${error.message}`, 'error');
-    }
-}
-
-// 验证JSON格式
-function validateJson() {
-    if (!editor) return;
-    
-    const validationStatus = document.getElementById('validation-status');
-    const content = editor.getValue();
-    
-    if (!content.trim()) {
-        validationStatus.textContent = '';
-        validationStatus.className = '';
-        return;
-    }
-    
-    try {
-        JSON.parse(content);
-        validationStatus.textContent = '✅ JSON格式正确';
-        validationStatus.className = 'json-valid';
-    } catch (error) {
-        validationStatus.textContent = `❌ JSON错误: ${error.message}`;
-        validationStatus.className = 'json-invalid';
+        const chineseError = translateJsonError(error);
+        updateStatus(`❌ 格式化失败: ${chineseError}`, 'error');
     }
 }
 
@@ -350,16 +496,20 @@ document.addEventListener('keydown', (e) => {
             formatJson();
         }
     }
+    
+    // Ctrl+Alt+C 清除Token
+    if (e.ctrlKey && e.altKey && e.key === 'c') {
+        e.preventDefault();
+        if (confirm('确认要清除本地保存的Token吗？')) {
+            clearSavedToken();
+        }
+    }
 });
 
 // 页面加载完成后的初始化
 document.addEventListener('DOMContentLoaded', () => {
-    // 检查是否有保存的Token（可选功能，注意安全性）
-    const savedToken = localStorage.getItem('github-token-hint');
-    if (savedToken) {
-        document.getElementById('github-token').placeholder = '已保存Token，直接点击加载即可';
-    }
-    
     console.log('🌙 Luna TV 配置编辑器已启动');
     console.log('🔧 已修复中文UTF-8编码问题');
+    console.log('💾 已添加Token本地安全保存功能');
+    console.log('🌐 已中文化JSON错误提示');
 });
