@@ -3,9 +3,8 @@ let editor;
 let currentConfig = '';
 let githubToken = '';
 let currentSha = '';
-let history = [];
-let isFullscreen = false;
-let editorLoaded = false; // 添加编辑器加载状态标记
+let editorLoaded = false;
+let isTokenVisible = false;
 
 // GitHub配置
 const GITHUB_CONFIG = {
@@ -140,73 +139,79 @@ class MessageManager {
     }
 }
 
-// Token管理类
+// Token管理类 - 支持浏览器密码保存
 class TokenManager {
-    static saveToken(token) {
-        try {
-            if (token && token.length > 10) {
-                const hint = token.substring(0, 8) + '...' + token.substring(token.length - 4);
-                localStorage.setItem('lunatv-token-hint', hint);
-                localStorage.setItem('lunatv-token-timestamp', Date.now().toString());
-                sessionStorage.setItem('lunatv-session-token', token);
-                MessageManager.show('Token已安全保存', 'success');
-                return true;
-            }
-        } catch (error) {
-            console.error('Token保存失败:', error);
-            return false;
+    static init() {
+        // 监听表单提交事件，触发浏览器密码保存
+        const form = document.getElementById('login-form');
+        const tokenInput = document.getElementById('github-token');
+        
+        if (form && tokenInput) {
+            // 当Token输入后自动提交表单（但阻止实际提交）
+            tokenInput.addEventListener('input', (e) => {
+                githubToken = e.target.value.trim();
+                
+                // 延迟触发，确保浏览器检测到表单"提交"
+                setTimeout(() => {
+                    if (githubToken && githubToken.length > 10) {
+                        this.triggerPasswordSave();
+                    }
+                }, 500);
+            });
+            
+            // 监听表单提交
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.triggerPasswordSave();
+            });
         }
     }
     
-    static getToken() {
-        return sessionStorage.getItem('lunatv-session-token') || '';
-    }
-    
-    static getTokenHint() {
-        const hint = localStorage.getItem('lunatv-token-hint');
-        const timestamp = localStorage.getItem('lunatv-token-timestamp');
-        
-        if (timestamp && Date.now() - parseInt(timestamp) > 7 * 24 * 60 * 60 * 1000) {
-            this.clearToken();
-            return null;
+    // 触发浏览器密码保存提示
+    static triggerPasswordSave() {
+        const form = document.getElementById('login-form');
+        if (form && githubToken) {
+            // 创建一个隐藏的提交事件来触发浏览器密码保存
+            const event = new Event('submit', { bubbles: true, cancelable: true });
+            form.dispatchEvent(event);
+            
+            MessageManager.show('Token已输入，浏览器应该会提示保存密码', 'success');
         }
-        
-        return hint;
     }
     
-    static hasToken() {
-        return !!this.getToken();
+    // 切换Token显示/隐藏
+    static toggleTokenVisibility() {
+        const tokenInput = document.getElementById('github-token');
+        const toggleBtn = document.getElementById('toggle-token-btn');
+        
+        if (tokenInput && toggleBtn) {
+            isTokenVisible = !isTokenVisible;
+            
+            tokenInput.type = isTokenVisible ? 'text' : 'password';
+            toggleBtn.textContent = isTokenVisible ? '🙈 隐藏' : '👁️ 显示';
+            toggleBtn.title = isTokenVisible ? '隐藏Token' : '显示Token';
+        }
     }
     
     static clearToken() {
-        localStorage.removeItem('lunatv-token-hint');
-        localStorage.removeItem('lunatv-token-timestamp');
-        sessionStorage.removeItem('lunatv-session-token');
-        
         const tokenInput = document.getElementById('github-token');
         if (tokenInput) {
             tokenInput.value = '';
-            tokenInput.placeholder = '请输入 GitHub Personal Access Token';
         }
-        
         githubToken = '';
         MessageManager.show('Token已清除', 'info');
     }
     
-    static restoreToken() {
-        const token = this.getToken();
-        const hint = this.getTokenHint();
-        
-        if (token) {
-            const tokenInput = document.getElementById('github-token');
-            if (tokenInput) {
-                tokenInput.value = token;
-                tokenInput.placeholder = hint || '已恢复Token';
+    // 从浏览器密码管理器恢复Token
+    static restoreFromBrowser() {
+        const tokenInput = document.getElementById('github-token');
+        if (tokenInput && tokenInput.value) {
+            githubToken = tokenInput.value.trim();
+            if (githubToken) {
+                MessageManager.show('已从浏览器恢复Token', 'success');
+                return true;
             }
-            githubToken = token;
-            return true;
         }
-        
         return false;
     }
 }
@@ -256,6 +261,23 @@ class StatusManager {
                 statusEl.className = 'validation-status invalid';
             }
         }
+    }
+    
+    static updateStats() {
+        if (!editorLoaded || !editor) return;
+        
+        const content = editor.getValue();
+        const lines = content.split('\n').length;
+        const chars = content.length;
+        
+        const charEl = document.getElementById('character-count');
+        const lineEl = document.getElementById('line-count');
+        
+        if (charEl) charEl.textContent = `字符: ${chars}`;
+        if (lineEl) lineEl.textContent = `行数: ${lines}`;
+        
+        const blob = new Blob([content]);
+        StatusManager.updateFileInfo({ size: blob.size });
     }
 }
 
@@ -490,21 +512,81 @@ class JSONOperations {
     }
 }
 
+// 文件操作类
+class FileOperations {
+    static upload() {
+        const input = document.getElementById('file-input');
+        input.click();
+    }
+    
+    static handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        if (!file.name.endsWith('.json')) {
+            MessageManager.show('请选择JSON文件', 'error');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const content = e.target.result;
+                JSON.parse(content);
+                editor.setValue(content);
+                MessageManager.show(`文件 "${file.name}" 上传成功`, 'success');
+            } catch (error) {
+                const translatedError = Utils.translateJsonError(error);
+                MessageManager.show(`文件格式错误: ${translatedError}`, 'error');
+            }
+        };
+        
+        reader.readAsText(file);
+        event.target.value = '';
+    }
+    
+    static download() {
+        if (!editorLoaded || !editor) {
+            MessageManager.show('编辑器尚未加载完成', 'error');
+            return;
+        }
+        
+        try {
+            const content = editor.getValue();
+            JSON.parse(content);
+            
+            const blob = new Blob([content], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `luna-tv-config-${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            MessageManager.show('文件下载成功', 'success');
+        } catch (error) {
+            const translatedError = Utils.translateJsonError(error);
+            MessageManager.show(`下载失败: ${translatedError}`, 'error');
+        }
+    }
+}
+
 // 初始化Monaco编辑器
 function initializeEditor() {
-    // 检查Monaco是否已经加载
     if (typeof monaco !== 'undefined') {
         createEditor();
         return;
     }
     
-    // 加载Monaco Editor
     const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js';
     script.onload = () => {
         require.config({ 
             paths: { 
-                'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' 
+                'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs' 
             } 
         });
         
@@ -535,7 +617,7 @@ function createEditor() {
   "features": [
     "JSON格式化和验证",
     "GitHub同步",
-    "历史记录管理",
+    "浏览器密码管理",
     "树状视图",
     "全屏编辑"
   ]
@@ -557,10 +639,10 @@ function createEditor() {
             bracketPairColorization: { enabled: true }
         });
         
-        // 编辑器事件监听
         editor.onDidChangeModelContent(() => {
             if (editorLoaded) {
                 JSONOperations.validate();
+                StatusManager.updateStats();
                 updateSaveButton();
             }
         });
@@ -568,19 +650,12 @@ function createEditor() {
         editorLoaded = true;
         MessageManager.show('编辑器初始化完成', 'success');
         
-        // 如果有Token则启用加载按钮
-        if (githubToken) {
-            const loadBtn = document.getElementById('load-btn');
-            if (loadBtn) loadBtn.disabled = false;
-        }
-        
     } catch (error) {
         MessageManager.show(`编辑器创建失败: ${error.message}`, 'error');
         console.error('编辑器创建失败:', error);
     }
 }
 
-// 更新保存按钮状态
 function updateSaveButton() {
     const saveBtn = document.getElementById('save-btn');
     if (!saveBtn || !editor || !githubToken) {
@@ -593,30 +668,70 @@ function updateSaveButton() {
     saveBtn.textContent = hasChanges ? '💾 保存配置 *' : '💾 保存配置';
 }
 
-// 事件监听器设置
-function setupEventListeners() {
-    // Token输入框
-    const tokenInput = document.getElementById('github-token');
-    if (tokenInput) {
-        tokenInput.addEventListener('input', (e) => {
-            githubToken = e.target.value.trim();
-            if (githubToken) {
-                TokenManager.saveToken(githubToken);
-            }
-            
-            // 启用/禁用加载按钮
-            const loadBtn = document.getElementById('load-btn');
-            if (loadBtn) {
-                loadBtn.disabled = !githubToken || !editorLoaded;
-            }
-        });
+// 标签页切换
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    document.getElementById(`${tabName}-tab`).classList.add('active');
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    
+    if (tabName === 'editor' && editor) {
+        setTimeout(() => editor.layout(), 100);
     }
     
+    if (tabName === 'tree') {
+        updateTreeView();
+    }
+    
+    if (tabName === 'preview') {
+        updatePreview();
+    }
+}
+
+// 更新树状视图
+function updateTreeView() {
+    const treeContainer = document.getElementById('json-tree');
+    if (!treeContainer || !editor) return;
+    
+    try {
+        const content = editor.getValue();
+        const parsed = JSON.parse(content);
+        treeContainer.innerHTML = '<pre>' + JSON.stringify(parsed, null, 2) + '</pre>';
+    } catch (error) {
+        treeContainer.innerHTML = '<div class="error-message">JSON格式错误，无法生成树状视图</div>';
+    }
+}
+
+// 更新预览内容
+function updatePreview() {
+    const previewContent = document.getElementById('json-preview-content');
+    if (!previewContent || !editor) return;
+    
+    try {
+        const content = editor.getValue();
+        const parsed = JSON.parse(content);
+        previewContent.textContent = JSON.stringify(parsed, null, 2);
+    } catch (error) {
+        previewContent.textContent = `JSON格式错误，无法生成预览:\n${error.message}`;
+    }
+}
+
+// 事件监听器设置
+function setupEventListeners() {
     // 按钮事件
     const buttons = [
         { id: 'load-btn', handler: GitHubAPI.loadConfig },
         { id: 'save-btn', handler: GitHubAPI.saveConfig },
         { id: 'clear-token-btn', handler: TokenManager.clearToken },
+        { id: 'toggle-token-btn', handler: TokenManager.toggleTokenVisibility },
+        { id: 'upload-btn', handler: FileOperations.upload },
+        { id: 'download-btn', handler: FileOperations.download },
         { id: 'format-btn', handler: JSONOperations.format },
         { id: 'minify-btn', handler: JSONOperations.minify },
         { id: 'validate-btn', handler: JSONOperations.validate },
@@ -630,6 +745,90 @@ function setupEventListeners() {
         }
     });
     
+    // 文件上传
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+        fileInput.addEventListener('change', FileOperations.handleFileUpload);
+    }
+    
+    // Token输入框事件
+    const tokenInput = document.getElementById('github-token');
+    if (tokenInput) {
+        tokenInput.addEventListener('input', (e) => {
+            githubToken = e.target.value.trim();
+        });
+        
+        // 监听浏览器自动填充
+        tokenInput.addEventListener('change', () => {
+            setTimeout(() => {
+                if (tokenInput.value && !githubToken) {
+                    githubToken = tokenInput.value.trim();
+                    if (githubToken) {
+                        MessageManager.show('已从浏览器恢复Token', 'success');
+                    }
+                }
+            }, 100);
+        });
+    }
+    
+    // 标签页切换
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchTab(btn.dataset.tab);
+        });
+    });
+    
+    // 编辑器选项
+    const wordWrapToggle = document.getElementById('word-wrap-toggle');
+    if (wordWrapToggle) {
+        wordWrapToggle.addEventListener('change', (e) => {
+            if (editor) {
+                editor.updateOptions({ wordWrap: e.target.checked ? 'on' : 'off' });
+            }
+        });
+    }
+    
+    const minimapToggle = document.getElementById('minimap-toggle');
+    if (minimapToggle) {
+        minimapToggle.addEventListener('change', (e) => {
+            if (editor) {
+                editor.updateOptions({ minimap: { enabled: e.target.checked } });
+            }
+        });
+    }
+    
+    const lineNumbersToggle = document.getElementById('line-numbers-toggle');
+    if (lineNumbersToggle) {
+        lineNumbersToggle.addEventListener('change', (e) => {
+            if (editor) {
+                editor.updateOptions({ lineNumbers: e.target.checked ? 'on' : 'off' });
+            }
+        });
+    }
+    
+    const themeSelect = document.getElementById('theme-select');
+    if (themeSelect) {
+        themeSelect.addEventListener('change', (e) => {
+            if (typeof monaco !== 'undefined') {
+                monaco.editor.setTheme(e.target.value);
+            }
+        });
+    }
+    
+    const fontSizeSlider = document.getElementById('font-size-slider');
+    if (fontSizeSlider) {
+        fontSizeSlider.addEventListener('input', (e) => {
+            const fontSize = parseInt(e.target.value);
+            if (editor) {
+                editor.updateOptions({ fontSize });
+            }
+            const valueSpan = document.getElementById('font-size-value');
+            if (valueSpan) {
+                valueSpan.textContent = `${fontSize}px`;
+            }
+        });
+    }
+    
     // 键盘快捷键
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey) {
@@ -642,6 +841,14 @@ function setupEventListeners() {
                     e.preventDefault();
                     if (editorLoaded) GitHubAPI.loadConfig();
                     break;
+                case 'u':
+                    e.preventDefault();
+                    FileOperations.upload();
+                    break;
+                case 'd':
+                    e.preventDefault();
+                    FileOperations.download();
+                    break;
             }
         }
     });
@@ -651,8 +858,8 @@ function setupEventListeners() {
 function initializeApp() {
     console.log('🌙 Luna TV配置编辑器启动中...');
     
-    // 恢复Token
-    TokenManager.restoreToken();
+    // 初始化Token管理
+    TokenManager.init();
     
     // 初始化编辑器
     initializeEditor();
@@ -660,11 +867,24 @@ function initializeApp() {
     // 设置事件监听器
     setupEventListeners();
     
+    // 尝试从浏览器恢复Token
+    setTimeout(() => {
+        TokenManager.restoreFromBrowser();
+    }, 1000);
+    
     // 显示欢迎消息
     setTimeout(() => {
-        MessageManager.show('🌙 欢迎使用Luna TV配置编辑器！', 'info');
-    }, 1000);
+        MessageManager.show('🌙 欢迎使用Luna TV配置编辑器！支持浏览器密码管理', 'info');
+    }, 1500);
 }
+
+// 页面卸载前保存状态
+window.addEventListener('beforeunload', (e) => {
+    if (editor && editor.getValue() !== currentConfig && editor.getValue().trim() !== '') {
+        e.preventDefault();
+        e.returnValue = '您有未保存的更改，确定要离开吗？';
+    }
+});
 
 // 页面加载完成后初始化
 if (document.readyState === 'loading') {
@@ -673,5 +893,4 @@ if (document.readyState === 'loading') {
     initializeApp();
 }
 
-console.log('🌙 Luna TV配置编辑器已启动');
-console.log('✨ 功能包括: JSON编辑、GitHub同步、历史记录、树状视图等');
+console.log('🔐 Luna TV配置编辑器已启动，支持浏览器密码保存功能');
