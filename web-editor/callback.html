@@ -1,41 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub OAuth Callback</title>
+    <title>GitHub OAuth 授权回调</title>
 </head>
 <body>
-    <h1>GitHub OAuth Authorization</h1>
+    <h1>GitHub 授权回调</h1>
+    <p>正在处理您的授权请求，请稍等...</p>
+
     <script>
         const params = new URLSearchParams(window.location.search);
         const code = params.get('code');
+        const state = params.get('state');
 
         if (code) {
-            fetch(`https://github.com/login/oauth/access_token`, {
+            // 用 code 请求 access_token
+            fetch('https://github.com/login/oauth/access_token', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    client_id: 'Ov23ligWR1OA4D8xEHN4',
-                    client_secret: '85babf4aed3d705c7aa51ec65fbc6a5989d91f92',
+                    client_id: 'Ov23ligWR1OA4D8xEHN4',  // 你的 Client ID
+                    client_secret: '85babf4aed3d705c7aa51ec65fbc6a5989d91f92',  // 你的 Client Secret
                     code: code,
+                    redirect_uri: 'https://hafrey1.github.io/LunaTV-config/web-editor/callback.html',  // 回调 URL
+                    state: state
                 })
             })
             .then(response => response.json())
             .then(data => {
                 const token = data.access_token;
-                localStorage.setItem('github_token', token);
-                window.location.href = 'https://hafrey1.github.io/LunaTV-config/web-editor';
+                if (token) {
+                    localStorage.setItem('github_token', token);  // 存储访问令牌
+                    window.location.href = 'https://hafrey1.github.io/LunaTV-config/web-editor';  // 重定向到编辑页面
+                } else {
+                    alert('授权失败！');
+                }
             })
             .catch(error => {
-                console.error('OAuth error:', error);
-                alert('Authorization failed!');
+                console.error('OAuth 错误:', error);
+                alert('授权失败！');
             });
         } else {
-            alert('No code found in URL.');
+            alert('未找到授权码。');
         }
     </script>
 </body>
