@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'luna-tv-config.json'
-      - 'bukadun.json'
+      - 'jinhuang.json'
   workflow_dispatch:
 
 jobs:
