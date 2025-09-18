@@ -5,7 +5,7 @@ const path = require('path');
 
 const configPath = path.join(__dirname, 'luna-tv-config.json');
 const reportPath = path.join(__dirname, 'report.md');
-const MAX_DAYS = 30;
+const MAX_DAYS = 100;
 const WARN_STREAK = 3; // 连续失败天数阈值
 
 // 读取 API 配置
@@ -87,7 +87,7 @@ console.log(`重复 API 数量: ${duplicateAPIs}`);
   // 生成 Markdown 报告
   let md = `# API 健康检查报告\n\n最近更新：${now}\n\n`;
   md += `**总 API 数量:** ${totalAPIs}  |  **重复 API 数量:** ${duplicateAPIs}\n\n`;
-  md += `## 最近 ${MAX_DAYS} 天 API 健康统计\n\n`;
+  md += `## 最近 ${MAX_DAYS} 次 API 健康统计\n\n`;
   md += "| 状态 | API 名称 | API 地址 | 成功次数 | 失败次数 | 可用率 | 连续失败天数 |\n";
   md += "|------|----------|----------|---------:|---------:|-------:|-------------:|\n";
 
