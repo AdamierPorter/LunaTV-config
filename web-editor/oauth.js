@@ -25,52 +25,76 @@ function getAuthCodeFromUrl() {
 
 // 获取 OAuth Access Token
 async function getAccessToken(code) {
-  const response = await axios.post('https://github.com/login/oauth/access_token', {
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
-    code: code,
-    redirect_uri: REDIRECT_URI
-  }, {
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
-  return response.data.access_token;
+  try {
+    const response = await axios.post('https://github.com/login/oauth/access_token', {
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code: code,
+      redirect_uri: REDIRECT_URI
+    }, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    return response.data.access_token;
+  } catch (error) {
+    console.error('Error getting access token:', error);
+    statusElement.textContent = '获取访问令牌失败，请重试。';
+    statusElement.style.color = 'red';
+  }
 }
 
 // 获取 luna-tv-config.json 文件内容
 async function getConfigFile(token) {
-  const response = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  const configData = atob(response.data.content); // 解码 base64 内容
-  return configData;
+  try {
+    const response = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const configData = atob(response.data.content); // 解码 base64 内容
+    return configData;
+  } catch (error) {
+    console.error('Error getting config file:', error);
+    statusElement.textContent = '加载配置文件失败，请稍后重试。';
+    statusElement.style.color = 'red';
+  }
 }
 
 // 更新 luna-tv-config.json 文件内容
 async function updateConfigFile(token, newConfig, sha) {
-  const response = await axios.put(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
-    message: 'Update luna-tv-config.json via Web editor',
-    content: btoa(newConfig), // 将内容编码为 base64
-    sha: sha // 传递文件的 sha 值来更新文件
-  }, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  return response.data;
+  try {
+    const response = await axios.put(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      message: 'Update luna-tv-config.json via Web editor',
+      content: btoa(newConfig), // 将内容编码为 base64
+      sha: sha // 传递文件的 sha 值来更新文件
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating config file:', error);
+    statusElement.textContent = '更新配置文件失败，请稍后重试。';
+    statusElement.style.color = 'red';
+  }
 }
 
 // 获取文件的 SHA 值
 async function getFileSha(token) {
-  const response = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  return response.data.sha;
+  try {
+    const response = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data.sha;
+  } catch (error) {
+    console.error('Error getting file SHA:', error);
+    statusElement.textContent = '获取文件 SHA 失败。';
+    statusElement.style.color = 'red';
+  }
 }
 
 // 处理 OAuth 回调
