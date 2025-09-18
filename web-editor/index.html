@@ -4,82 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌙 Luna TV 配置编辑器</title>
+    <meta name="description" content="专业的JSON配置编辑器，支持GitHub同步">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🌙 Luna TV 配置编辑器</h1>
-            <div class="auth-section">
-                <input type="password" id="github-token" placeholder="请输入 GitHub Personal Access Token (classic)" />
-                <button onclick="loadConfig()" id="load-btn">📥 加载配置</button>
-                <button onclick="saveConfig()" id="save-btn" disabled>💾 保存配置</button>
-                <button onclick="formatJson()" id="format-btn" disabled>🎨 格式化JSON</button>
+    <div class="app-container">
+        <!-- 顶部工具栏 -->
+        <header class="top-toolbar">
+            <div class="toolbar-left">
+                <h1 class="app-title">🌙 Luna TV 配置编辑器</h1>
+                <div class="file-info">
+                    <span id="file-name">luna-tv-config.json</span>
+                    <span id="file-size" class="file-size"></span>
+                    <span id="file-status" class="file-status"></span>
+                </div>
+            </div>
+            
+            <div class="toolbar-right">
+                <div class="auth-section">
+                    <input type="password" id="github-token" 
+                           placeholder="请输入 GitHub Personal Access Token" 
+                           class="token-input">
+                    <button id="load-btn" class="btn btn-primary" title="从GitHub加载配置">
+                        📥 加载配置
+                    </button>
+                    <button id="save-btn" class="btn btn-success" disabled title="保存到GitHub">
+                        💾 保存配置
+                    </button>
+                    <button id="clear-token-btn" class="btn btn-secondary" title="清除Token">
+                        🗑️ 清除Token
+                    </button>
+                </div>
             </div>
         </header>
-        
-        <main>
-            <div class="toolbar">
-                <div class="file-info">
-                    <span>📄 文件：<strong>luna-tv-config.json</strong></span>
-                    <span id="file-size"></span>
-                    <span id="encoding-info">🔤 编码：UTF-8</span>
+
+        <div class="main-container">
+            <!-- 左侧工具面板 -->
+            <aside class="left-panel">
+                <div class="panel-header">
+                    <h3>🛠️ 工具面板</h3>
                 </div>
-                <div class="editor-options">
-                    <label>
-                        <input type="checkbox" id="word-wrap" checked> 自动换行
-                    </label>
-                    <label>
-                        <input type="checkbox" id="minimap"> 显示缩略图
-                    </label>
-                    <select id="theme-select">
-                        <option value="vs-dark">🌙 深色主题</option>
-                        <option value="vs">☀️ 浅色主题</option>
-                        <option value="hc-black">🔆 高对比度</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="editor-container">
-                <div id="json-editor"></div>
-            </div>
-            
-            <div class="status-bar">
-                <span id="status">💡 请输入 GitHub Token 并点击加载配置</span>
-                <span id="validation-status"></span>
-            </div>
-        </main>
-        
-        <footer>
-            <div class="help-section">
-                <h3>📋 使用说明</h3>
-                <div class="help-content">
-                    <div class="help-steps">
-                        <h4>🚀 快速开始</h4>
-                        <ol>
-                            <li><strong>获取Token：</strong>访问 GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)</li>
-                            <li><strong>创建Token：</strong>点击 "Generate new token"，选择 <code>repo</code> 权限</li>
-                            <li><strong>输入Token：</strong>复制Token并粘贴到上方输入框</li>
-                            <li><strong>开始编辑：</strong>点击"加载配置"开始编辑您的JSON文件</li>
-                        </ol>
+                
+                <!-- 文件操作 -->
+                <div class="tool-section">
+                    <h4>📁 文件操作</h4>
+                    <div class="tool-buttons">
+                        <button id="upload-btn" class="btn btn-outline" title="上传JSON文件">
+                            📤 上传文件
+                        </button>
+                        <button id="download-btn" class="btn btn-outline" title="下载JSON文件">
+                            📥 下载文件
+                        </button>
+                        <input type="file" id="file-input" accept=".json" style="display: none;">
                     </div>
-                    <div class="help-shortcuts">
-                        <h4>⌨️ 快捷键</h4>
-                        <div class="shortcuts-grid">
-                            <span><kbd>Ctrl</kbd> + <kbd>S</kbd> 保存文件</span>
-                            <span><kbd>Ctrl</kbd> + <kbd>F</kbd> 查找内容</span>
-                            <span><kbd>Ctrl</kbd> + <kbd>H</kbd> 查找替换</span>
-                            <span><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> 格式化JSON</span>
-                            <span><kbd>Ctrl</kbd> + <kbd>Z</kbd> 撤销操作</span>
-                            <span><kbd>Ctrl</kbd> + <kbd>Y</kbd> 重做操作</span>
+                </div>
+
+                <!-- JSON操作 -->
+                <div class="tool-section">
+                    <h4>🎨 JSON操作</h4>
+                    <div class="tool-buttons">
+                        <button id="format-btn" class="btn btn-outline" title="格式化JSON">
+                            🎨 格式化
+                        </button>
+                        <button id="minify-btn" class="btn btn-outline" title="压缩JSON">
+                            🗜️ 压缩
+                        </button>
+                        <button id="validate-btn" class="btn btn-outline" title="验证JSON">
+                            ✅ 验证
+                        </button>
+                        <button id="clear-btn" class="btn btn-outline" title="清空编辑器">
+                            🗑️ 清空
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 视图控制 -->
+                <div class="tool-section">
+                    <h4>👁️ 视图控制</h4>
+                    <div class="view-controls">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="tree-view-toggle" checked>
+                            树状视图
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="word-wrap-toggle" checked>
+                            自动换行
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="minimap-toggle">
+                            显示缩略图
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="line-numbers-toggle" checked>
+                            显示行号
+                        </label>
+                    </div>
+                    
+                    <div class="theme-selector">
+                        <label for="theme-select">主题:</label>
+                        <select id="theme-select" class="select-input">
+                            <option value="vs-dark">🌙 深色主题</option>
+                            <option value="vs">☀️ 浅色主题</option>
+                            <option value="hc-black">🔆 高对比度</option>
+                        </select>
+                    </div>
+                    
+                    <div class="font-size-control">
+                        <label for="font-size-slider">字体大小:</label>
+                        <input type="range" id="font-size-slider" min="10" max="24" value="14" class="slider">
+                        <span id="font-size-value">14px</span>
+                    </div>
+                </div>
+
+                <!-- 历史记录 -->
+                <div class="tool-section">
+                    <h4>📚 历史记录</h4>
+                    <div class="history-controls">
+                        <button id="save-history-btn" class="btn btn-outline" title="保存到历史">
+                            💾 保存版本
+                        </button>
+                        <select id="history-select" class="select-input">
+                            <option value="">选择历史版本</option>
+                        </select>
+                        <button id="clear-history-btn" class="btn btn-outline" title="清空历史">
+                            🗑️ 清空历史
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 主编辑区域 -->
+            <main class="main-content">
+                <div class="editor-header">
+                    <div class="editor-tabs">
+                        <button class="tab-btn active" data-tab="editor">📝 编辑器</button>
+                        <button class="tab-btn" data-tab="tree">🌳 树状视图</button>
+                        <button class="tab-btn" data-tab="preview">👁️ 预览</button>
+                    </div>
+                    
+                    <div class="editor-controls">
+                        <button id="fullscreen-btn" class="btn btn-icon" title="全屏模式">
+                            🔍 全屏
+                        </button>
+                        <button id="copy-btn" class="btn btn-icon" title="复制内容">
+                            📋 复制
+                        </button>
+                        <button id="search-btn" class="btn btn-icon" title="查找替换">
+                            🔍 查找
+                        </button>
+                    </div>
+                </div>
+
+                <div class="editor-content">
+                    <div id="editor-tab" class="tab-content active">
+                        <div id="json-editor" class="editor-container"></div>
+                    </div>
+                    
+                    <div id="tree-tab" class="tab-content">
+                        <div id="json-tree" class="tree-container"></div>
+                    </div>
+                    
+                    <div id="preview-tab" class="tab-content">
+                        <div id="json-preview" class="preview-container">
+                            <pre id="json-preview-content"></pre>
                         </div>
                     </div>
                 </div>
+            </main>
+        </div>
+
+        <!-- 底部状态栏 -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span id="cursor-position">行: 1, 列: 1</span>
+                <span id="selection-info"></span>
+                <span id="encoding-info">UTF-8</span>
+            </div>
+            
+            <div class="status-center">
+                <span id="validation-status" class="validation-status"></span>
+            </div>
+            
+            <div class="status-right">
+                <span id="character-count">字符: 0</span>
+                <span id="line-count">行数: 0</span>
+                <span id="last-saved"></span>
             </div>
         </footer>
+
+        <!-- 消息提示 -->
+        <div id="message-toast" class="message-toast"></div>
+
+        <!-- 确认对话框 -->
+        <div id="confirm-dialog" class="modal">
+            <div class="modal-content">
+                <h3>确认操作</h3>
+                <p id="confirm-message"></p>
+                <div class="modal-buttons">
+                    <button id="confirm-yes" class="btn btn-primary">确认</button>
+                    <button id="confirm-no" class="btn btn-secondary">取消</button>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
