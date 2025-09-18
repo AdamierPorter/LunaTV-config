@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub OAuth 回调</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        #status {
+            color: green;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub 授权成功</h1>
+        <p id="status">正在处理授权信息...</p>
+    </div>
+
+    <script>
+        // 获取 URL 中的授权码
+        function getAuthCodeFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('code');
+        }
+
+        // 将授权码存储到本地并跳转回主页面
+        function handleAuth() {
+            const code = getAuthCodeFromUrl();
+            if (code) {
+                localStorage.setItem('github_auth_code', code); // 将授权码存储到本地
+                document.getElementById('status').textContent = '授权成功，正在跳转...';
+                document.getElementById('status').style.color = 'green';
+
+                // 可选：你可以在这里实现更多的跳转逻辑，处理授权码
+                // 例如，发起后台请求获取 access token
+                setTimeout(() => {
+                    window.location.href = '/web-editor'; // 跳回主编辑页面
+                }, 2000); // 延迟 2 秒跳转
+            } else {
+                document.getElementById('status').textContent = '授权失败，请重试。';
+                document.getElementById('status').style.color = 'red';
+            }
+        }
+
+        // 处理 OAuth 回调
+        handleAuth();
+    </script>
+</body>
+</html>
