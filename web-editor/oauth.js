@@ -27,10 +27,14 @@ function getAccessToken() {
     })
     .then(response => response.json())
     .then(data => {
-        localStorage.setItem('github_access_token', data.access_token);
-        document.getElementById('loginBtn').style.display = 'none';
-        document.getElementById('editorContainer').classList.remove('hidden');
-        loadConfig();
+        if (data.access_token) {
+            localStorage.setItem('github_access_token', data.access_token);
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('editorContainer').classList.remove('hidden');
+            loadConfig();
+        } else {
+            alert('获取 access token 失败，请重试！');
+        }
     })
     .catch(error => {
         console.error('OAuth 认证失败:', error);
@@ -39,6 +43,11 @@ function getAccessToken() {
 
 function loadConfig() {
     const accessToken = localStorage.getItem('github_access_token');
+    if (!accessToken) {
+        alert('没有有效的 access token，无法加载配置。');
+        return;
+    }
+
     fetch('https://api.github.com/repos/hafrey1/LunaTV-config/contents/luna-tv-config.json', {
         headers: {
             'Authorization': `token ${accessToken}`
@@ -49,6 +58,8 @@ function loadConfig() {
         if (data.content) {
             const decodedContent = atob(data.content);
             document.getElementById('jsonEditor').value = decodedContent;
+        } else {
+            alert('无法加载配置文件，请检查权限设置。');
         }
     })
     .catch(error => {
