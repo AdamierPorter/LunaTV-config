@@ -6,11 +6,14 @@ const REPO_OWNER = 'hafrey1';  // 替换为你的 GitHub 用户名
 const REPO_NAME = 'LunaTV-config';
 const FILE_PATH = 'luna-tv-config.json';  // 配置文件路径
 
-// 登录按钮点击事件
-document.getElementById('loginBtn').addEventListener('click', () => {
+// 定义 oauthLogin 函数
+function oauthLogin() {
   const authUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=repo`;
-  window.location.href = authUrl;
-});
+  window.location.href = authUrl;  // 跳转到 GitHub OAuth 授权页面
+}
+
+// 登录按钮点击事件
+document.getElementById('loginBtn').addEventListener('click', oauthLogin);
 
 // 获取授权码后处理
 const urlParams = new URLSearchParams(window.location.search);
