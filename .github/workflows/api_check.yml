@@ -3,6 +3,9 @@ name: API Health Check
 on:
   schedule:
     - cron: "0 */4 * * *"  # 每 4 小时运行一次 (UTC)
+  push:
+    paths:
+      - luna-tv-config.json  # 监听 luna-tv-config.json 文件变更
   workflow_dispatch:
 
 jobs:
@@ -19,8 +22,6 @@ jobs:
     - name: 安装依赖
       run: |
         npm install axios  # 安装 axios
-        # 如果后续有其他依赖，可以在这里继续安装
-        # npm install <package_name>
 
     - name: 运行 API 检查脚本
       run: node check_apis.js
