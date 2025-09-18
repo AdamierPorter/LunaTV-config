@@ -3,58 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LunaTV Config Editor</title>
+    <title>Luna TV Config Editor</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.40.0/min/vs/loader.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🌙 LunaTV Config Editor</h1>
+            <h1>Luna TV 配置编辑器</h1>
             <div class="auth-section">
-                <button id="loginBtn" class="btn primary">GitHub 登录</button>
-                <div id="userInfo" class="user-info hidden">
-                    <img id="userAvatar" class="avatar" alt="头像">
-                    <span id="username"></span>
-                    <button id="logoutBtn" class="btn secondary">退出</button>
-                </div>
+                <input type="text" id="github-token" placeholder="输入GitHub Personal Access Token" />
+                <button onclick="loadConfig()">加载配置</button>
+                <button onclick="saveConfig()" id="save-btn" disabled>保存配置</button>
             </div>
         </header>
-
+        
         <main>
-            <div class="editor-controls">
-                <button id="loadBtn" class="btn primary">加载配置</button>
-                <button id="saveBtn" class="btn success" disabled>保存配置</button>
-                <button id="formatBtn" class="btn secondary">格式化</button>
-                <button id="validateBtn" class="btn info">验证JSON</button>
-            </div>
-
             <div class="editor-container">
-                <div class="editor-header">
-                    <span>luna-tv-config.json</span>
-                    <div class="status" id="status">未连接</div>
-                </div>
-                <textarea id="jsonEditor" placeholder="请先登录GitHub并加载配置文件..."></textarea>
+                <div id="json-editor"></div>
             </div>
-
-            <div class="info-panel">
-                <h3>配置文件信息</h3>
-                <div id="fileInfo" class="file-info">
-                    <p>文件大小: <span id="fileSize">-</span></p>
-                    <p>最后修改: <span id="lastModified">-</span></p>
-                    <p>API数量: <span id="apiCount">-</span></p>
-                </div>
+            
+            <div class="status-bar">
+                <span id="status">请输入Token并加载配置</span>
             </div>
         </main>
-
-        <div id="modal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="modalBody"></div>
-            </div>
-        </div>
     </div>
-
-    <script src="github-api.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html>
