@@ -5,109 +5,336 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     color: #333;
+    line-height: 1.6;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
     min-height: 100vh;
 }
 
 header {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 h1 {
-    color: #4a5568;
+    color: #2d3748;
     margin-bottom: 20px;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .auth-section {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 #github-token {
     flex: 1;
-    min-width: 300px;
-    padding: 12px;
+    min-width: 350px;
+    max-width: 500px;
+    padding: 14px 16px;
     border: 2px solid #e2e8f0;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
-    transition: border-color 0.3s;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
 #github-token:focus {
     outline: none;
     border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 button {
-    padding: 12px 24px;
-    background: #667eea;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
-button:hover {
-    background: #5a67d8;
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 button:disabled {
     background: #a0aec0;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+.toolbar {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px 20px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    backdrop-filter: blur(10px);
+}
+
+.file-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 14px;
+    color: #4a5568;
+    flex-wrap: wrap;
+}
+
+.file-info strong {
+    color: #2d3748;
+}
+
+.editor-options {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.editor-options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #4a5568;
+    user-select: none;
+}
+
+.editor-options input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #667eea;
+}
+
+.editor-options select {
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    color: #4a5568;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.editor-options select:focus {
+    outline: none;
+    border-color: #667eea;
 }
 
 .editor-container {
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #json-editor {
-    height: 600px;
+    height: 650px;
     width: 100%;
 }
 
 .status-bar {
-    background: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#status {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#validation-status {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .error {
-    color: #e53e3e;
+    color: #e53e3e !important;
 }
 
 .success {
-    color: #38a169;
+    color: #38a169 !important;
 }
 
 .loading {
-    color: #3182ce;
+    color: #3182ce !important;
+}
+
+.warning {
+    color: #d69e2e !important;
+}
+
+.json-valid {
+    background: linear-gradient(135deg, #f0fff4, #e6fffa);
+    color: #38a169;
+    border: 1px solid #68d391;
+}
+
+.json-invalid {
+    background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    color: #e53e3e;
+    border: 1px solid #f56565;
+}
+
+footer {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.help-section h3 {
+    color: #2d3748;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.help-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.help-steps h4,
+.help-shortcuts h4 {
+    color: #4a5568;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.help-steps ol {
+    margin-left: 20px;
+    color: #4a5568;
+    line-height: 1.8;
+}
+
+.help-steps li {
+    margin-bottom: 8px;
+}
+
+.help-steps code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Monaco', monospace;
+    font-size: 13px;
+    color: #e53e3e;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    color: #4a5568;
+}
+
+.shortcuts-grid span {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    background: #f7fafc;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+kbd {
+    background: #e2e8f0;
+    color: #2d3748;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: monospace;
+    border: 1px solid #cbd5e0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .help-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .shortcuts-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
     .auth-section {
         flex-direction: column;
         align-items: stretch;
@@ -115,9 +342,58 @@ button:disabled {
     
     #github-token {
         min-width: auto;
+        max-width: none;
+    }
+    
+    button {
+        min-width: auto;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .file-info,
+    .editor-options {
+        justify-content: center;
     }
     
     #json-editor {
-        height: 400px;
+        height: 500px;
     }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* 加载动画 */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading-animation {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
 }
