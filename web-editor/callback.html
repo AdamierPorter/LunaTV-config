@@ -2,39 +2,40 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GitHub OAuth 回调</title>
 </head>
 <body>
-<p>正在处理 GitHub 授权...</p>
+<p>授权成功，正在跳转...</p>
 <script>
-const CLIENT_ID = 'Ov23ligWR1OA4D8xEHN4';
-const CLIENT_SECRET = '85babf4aed3d705c7aa51ec65fbc6a5989d91f92';
-const REDIRECT_BACK = '/LunaTV-config/web-editor/'; // 回跳到主编辑页面
+    const CLIENT_ID = 'Ov23ligWR1OA4D8xEHN4';  // 你的 GitHub 客户端 ID
+    const CLIENT_SECRET = '85babf4aed3d705c7aa51ec65fbc6a5989d91f92';  // 你的 GitHub 客户端密钥
+    const REDIRECT_BACK = 'https://hafrey1.github.io/LunaTV-config/web-editor/';  // 回跳到主页面
 
-const code = new URLSearchParams(window.location.search).get('code');
-if (!code) {
-    alert('未获取到授权码');
-} else {
-    console.log('获取到授权码:', code);
-    // 通过 CORS 代理请求 GitHub Access Token
-    fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code })
-    })
-    .then(r => r.json())
-    .then(data => {
-        console.log('Access Token 返回:', data);
-        if (data.access_token) {
-            localStorage.setItem('access_token', data.access_token);
-            window.location.href = REDIRECT_BACK;
-        } else {
-            alert('获取 Access Token 失败: ' + JSON.stringify(data));
-        }
-    })
-    .catch(err => alert('获取 Access Token 失败: ' + err));
-}
+    const code = new URLSearchParams(window.location.search).get('code');
+    if (!code) {
+        alert('未获取到授权码');
+    } else {
+        // 获取 access_token
+        fetch('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.access_token) {
+                console.log('获取 Access Token 成功:', data.access_token);
+                localStorage.setItem('access_token', data.access_token);  // 存储 access_token 到 localStorage
+                window.location.href = REDIRECT_BACK;  // 跳回主页面
+            } else {
+                alert('获取 Access Token 失败');
+            }
+        })
+        .catch(err => {
+            console.error('获取 Access Token 失败:', err);
+            alert('授权失败，请稍后重试');
+        });
+    }
 </script>
 </body>
 </html>
