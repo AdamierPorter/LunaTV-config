@@ -16,45 +16,57 @@
     </div>
 
     <script>
-        // 处理 OAuth 回调
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        const error = urlParams.get('error');
-        const state = urlParams.get('state');
+        (function() {
+            try {
+                // 处理 OAuth 回调
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+                const error = urlParams.get('error');
+                const state = urlParams.get('state');
 
-        const messageEl = document.getElementById('callback-message');
+                const messageEl = document.getElementById('callback-message');
 
-        if (error) {
-            messageEl.innerHTML = `❌ 授权失败: ${error}<br><a href="index.html">返回主页</a>`;
-        } else if (code) {
-            // 验证 state 参数
-            const storedState = localStorage.getItem('github_oauth_state');
-            if (state !== storedState) {
-                messageEl.innerHTML = '❌ 安全验证失败，请重新授权<br><a href="index.html">返回主页</a>';
-                return;
+                if (error) {
+                    messageEl.innerHTML = `❌ 授权失败: ${error}<br><a href="index.html">返回主页</a>`;
+                } else if (code) {
+                    // 验证 state 参数
+                    const storedState = localStorage.getItem('github_oauth_state');
+                    if (state && storedState && state !== storedState) {
+                        messageEl.innerHTML = '❌ 安全验证失败，请重新授权<br><a href="index.html">返回主页</a>';
+                    } else {
+                        // 将授权码传递给主窗口
+                        if (window.opener && !window.opener.closed) {
+                            try {
+                                window.opener.postMessage({
+                                    type: 'github_oauth_callback',
+                                    code: code
+                                }, '*');
+                                messageEl.innerHTML = '✅ 授权成功！正在关闭窗口...';
+                                setTimeout(() => {
+                                    window.close();
+                                }, 2000);
+                            } catch (e) {
+                                // 如果无法发送消息到父窗口，回退到存储方式
+                                localStorage.setItem('github_oauth_code', code);
+                                messageEl.innerHTML = '✅ 授权成功！请关闭此窗口并返回主页面';
+                            }
+                        } else {
+                            // 如果不是弹出窗口，存储code并跳转
+                            localStorage.setItem('github_oauth_code', code);
+                            messageEl.innerHTML = '✅ 授权成功！正在跳转...';
+                            setTimeout(() => {
+                                window.location.href = 'index.html';
+                            }, 2000);
+                        }
+                    }
+                } else {
+                    messageEl.innerHTML = '❌ 未收到授权信息<br><a href="index.html">返回主页</a>';
+                }
+            } catch (err) {
+                console.error('回调处理错误:', err);
+                document.getElementById('callback-message').innerHTML = '❌ 处理授权回调时发生错误<br><a href="index.html">返回主页</a>';
             }
-
-            // 将授权码传递给主窗口
-            if (window.opener) {
-                window.opener.postMessage({
-                    type: 'github_oauth_callback',
-                    code: code
-                }, '*');
-                messageEl.innerHTML = '✅ 授权成功！正在关闭窗口...';
-                setTimeout(() => {
-                    window.close();
-                }, 2000);
-            } else {
-                // 如果不是弹出窗口，存储code并跳转
-                localStorage.setItem('github_oauth_code', code);
-                messageEl.innerHTML = '✅ 授权成功！正在跳转...';
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            }
-        } else {
-            messageEl.innerHTML = '❌ 未收到授权信息<br><a href="index.html">返回主页</a>';
-        }
+        })();
     </script>
 </body>
 </html>
