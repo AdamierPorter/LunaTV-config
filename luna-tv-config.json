@@ -19,7 +19,6 @@
       "detail": "https://tyyszy.com",
       "is_adult": false
     },
-    
     "ckzy.me": {
       "name": "TV-CK资源",
       "api": "https://ckzy.me/api.php/provide/vod",
@@ -425,7 +424,7 @@
       "detail": "https://shayuapi.com",
       "is_adult": true
     },
-    "xzybb2": {
+    "xzybb21": {
       "name": "AV-幸资源",
       "api": "https://xzybb2.com/api.php/provide/vod",
       "detail": "https://xzytv.com",
