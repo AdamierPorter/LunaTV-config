@@ -1,11 +1,12 @@
-// GitHub OAuth 配置 - Device Flow
+// 完全无CORS的解决方案 - oauth.js
 const GITHUB_CONFIG = {
-    clientId: 'Ov23ligWR1OA4D8xEHN4',
-    scope: 'repo'
+    owner: 'hafrey1',
+    repo: 'LunaTV-config',
+    requiredScopes: ['repo']
 };
 
 // 全局变量
-let accessToken = sessionStorage.getItem('github_access_token');
+let accessToken = localStorage.getItem('github_access_token');
 let currentUser = null;
 let fileContent = null;
 let fileSha = null;
@@ -25,7 +26,7 @@ function initializeApp() {
                 showUserInfo();
                 showRepoSection();
             } else {
-                sessionStorage.removeItem('github_access_token');
+                localStorage.removeItem('github_access_token');
                 accessToken = null;
             }
         });
@@ -34,7 +35,8 @@ function initializeApp() {
 
 // 绑定事件
 function bindEvents() {
-    document.getElementById('login-btn').addEventListener('click', startDeviceFlow);
+    document.getElementById('login-btn').addEventListener('click', showTokenInstructions);
+    document.getElementById('token-submit-btn').addEventListener('click', submitToken);
     document.getElementById('logout-btn').addEventListener('click', logout);
     document.getElementById('load-file-btn').addEventListener('click', loadFile);
     document.getElementById('format-btn').addEventListener('click', formatJSON);
@@ -42,142 +44,121 @@ function bindEvents() {
     document.getElementById('save-btn').addEventListener('click', saveFile);
 }
 
-// 开始 Device Flow 授权
-async function startDeviceFlow() {
-    showStatus('正在获取设备代码...', 'loading');
-    
-    try {
-        // 步骤1：获取设备代码
-        const deviceResponse = await fetch('https://github.com/login/device/code', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                client_id: GITHUB_CONFIG.clientId,
-                scope: GITHUB_CONFIG.scope
-            })
-        });
-        
-        const deviceData = await deviceResponse.json();
-        
-        if (deviceData.error) {
-            throw new Error(deviceData.error_description || '获取设备代码失败');
-        }
-        
-        // 显示用户代码和验证链接
-        showDeviceCodeModal(deviceData);
-        
-        // 步骤2：轮询获取访问令牌
-        pollForAccessToken(deviceData.device_code, deviceData.interval || 5);
-        
-    } catch (error) {
-        console.error('Device Flow error:', error);
-        showStatus(`授权失败: ${error.message}`, 'error');
-    }
-}
-
-// 显示设备代码模态框
-function showDeviceCodeModal(deviceData) {
+// 显示Token获取说明
+function showTokenInstructions() {
     const modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.innerHTML = `
         <div class="modal-content">
-            <h2>🔐 GitHub 设备授权</h2>
-            <p>请按照以下步骤完成授权：</p>
-            <ol>
-                <li>打开链接：<a href="${deviceData.verification_uri}" target="_blank">${deviceData.verification_uri}</a></li>
-                <li>输入用户代码：<strong class="user-code">${deviceData.user_code}</strong></li>
-                <li>完成授权后，此窗口会自动关闭</li>
-            </ol>
-            <div class="code-display">
-                <span>用户代码：</span>
-                <code class="user-code-large">${deviceData.user_code}</code>
-                <button onclick="copyToClipboard('${deviceData.user_code}')">复制代码</button>
+            <h2>🔑 获取GitHub访问令牌</h2>
+            <p>由于浏览器CORS限制，请手动创建GitHub Personal Access Token：</p>
+            
+            <div class="instruction-steps">
+                <h3>📋 操作步骤：</h3>
+                <ol>
+                    <li>点击下方链接打开GitHub设置页面：<br>
+                        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" class="link-button">
+                            🔗 创建Personal Access Token
+                        </a>
+                    </li>
+                    <li>填写Token信息：
+                        <ul>
+                            <li><strong>Token name</strong>: LunaTV Config Editor</li>
+                            <li><strong>Expiration</strong>: 选择合适的过期时间</li>
+                            <li><strong>Repository access</strong>: 选择 "Selected repositories" 并选择 "hafrey1/LunaTV-config"</li>
+                        </ul>
+                    </li>
+                    <li>在 <strong>Permissions</strong> 部分，勾选：
+                        <ul>
+                            <li>✅ <strong>Contents</strong> (Read and Write) - 读取和修改文件</li>
+                            <li>✅ <strong>Metadata</strong> (Read) - 读取仓库信息</li>
+                        </ul>
+                    </li>
+                    <li>点击 <strong>"Generate token"</strong></li>
+                    <li>复制生成的token（以 'ghp_' 开头）</li>
+                    <li>将token粘贴到下方输入框中</li>
+                </ol>
             </div>
-            <button onclick="closeModal()" class="secondary-btn">取消</button>
+            
+            <div class="token-input-section">
+                <label for="token-input">🔐 请输入您的GitHub Personal Access Token：</label>
+                <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="token-input">
+                <div class="token-buttons">
+                    <button id="token-submit-btn" class="primary-btn">验证并保存Token</button>
+                    <button onclick="closeModal()" class="secondary-btn">取消</button>
+                </div>
+            </div>
+            
+            <div class="security-note">
+                <h4>🔒 安全说明：</h4>
+                <p>• Token仅保存在您的浏览器本地存储中</p>
+                <p>• 建议设置适当的过期时间</p>
+                <p>• 如需撤销，可在GitHub设置中删除此Token</p>
+            </div>
         </div>
     `;
     document.body.appendChild(modal);
-    
-    // 自动打开GitHub授权页面
-    window.open(deviceData.verification_uri, '_blank');
 }
 
-// 轮询获取访问令牌
-async function pollForAccessToken(deviceCode, interval) {
-    const pollInterval = setInterval(async () => {
-        try {
-            const response = await fetch('https://github.com/login/oauth/access_token', {
-                method: 'POST',
+// 提交并验证Token
+async function submitToken() {
+    const tokenInput = document.getElementById('token-input');
+    const token = tokenInput.value.trim();
+    
+    if (!token) {
+        showStatus('请输入访问令牌', 'error');
+        return;
+    }
+    
+    if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+        showStatus('Token格式不正确，应该以 ghp_ 或 github_pat_ 开头', 'error');
+        return;
+    }
+    
+    showStatus('正在验证访问令牌...', 'loading');
+    
+    try {
+        // 验证token并获取用户信息
+        const response = await fetch('https://api.github.com/user', {
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        if (response.ok) {
+            const user = await response.json();
+            
+            // 验证是否有仓库访问权限
+            const repoResponse = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`, {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    client_id: GITHUB_CONFIG.clientId,
-                    device_code: deviceCode,
-                    grant_type: 'urn:ietf:params:oauth:grant-type:device_code'
-                })
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
             });
             
-            const data = await response.json();
-            
-            if (data.access_token) {
-                clearInterval(pollInterval);
-                closeModal();
+            if (repoResponse.ok || repoResponse.status === 404) {
+                // 保存token和用户信息
+                accessToken = token;
+                currentUser = user;
+                localStorage.setItem('github_access_token', token);
                 
-                accessToken = data.access_token;
-                sessionStorage.setItem('github_access_token', accessToken);
-                
-                const user = await verifyToken();
-                if (user) {
-                    currentUser = user;
-                    showUserInfo();
-                    showRepoSection();
-                    showStatus('登录成功！', 'success');
-                }
-            } else if (data.error === 'authorization_pending') {
-                // 继续轮询
-                showStatus('等待用户授权...', 'loading');
-            } else if (data.error === 'slow_down') {
-                // 减慢轮询速度
-                clearInterval(pollInterval);
-                setTimeout(() => pollForAccessToken(deviceCode, interval + 5), (interval + 5) * 1000);
-            } else if (data.error) {
-                clearInterval(pollInterval);
+                // 更新界面
                 closeModal();
-                throw new Error(data.error_description || '获取访问令牌失败');
+                showUserInfo();
+                showRepoSection();
+                showStatus('Token验证成功，已成功登录！', 'success');
+            } else {
+                throw new Error('Token没有访问指定仓库的权限');
             }
-        } catch (error) {
-            clearInterval(pollInterval);
-            closeModal();
-            console.error('Polling error:', error);
-            showStatus(`授权失败: ${error.message}`, 'error');
+        } else if (response.status === 401) {
+            throw new Error('Token无效或已过期');
+        } else {
+            throw new Error(`验证失败: HTTP ${response.status}`);
         }
-    }, interval * 1000);
-    
-    // 5分钟后超时
-    setTimeout(() => {
-        clearInterval(pollInterval);
-        closeModal();
-        showStatus('授权超时，请重试', 'error');
-    }, 300000);
-}
-
-// 复制到剪贴板
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        showStatus('用户代码已复制到剪贴板', 'success');
-    });
-}
-
-// 关闭模态框
-function closeModal() {
-    const modal = document.querySelector('.modal-overlay');
-    if (modal) {
-        modal.remove();
+    } catch (error) {
+        console.error('Token verification error:', error);
+        showStatus(`验证失败: ${error.message}`, 'error');
     }
 }
 
@@ -212,6 +193,7 @@ function showUserInfo() {
             <div class="user-details">
                 <h3>${currentUser.name || currentUser.login}</h3>
                 <p>@${currentUser.login}</p>
+                <p class="token-status">✅ Token已验证</p>
             </div>
         </div>
     `;
@@ -226,7 +208,7 @@ function showRepoSection() {
 function logout() {
     accessToken = null;
     currentUser = null;
-    sessionStorage.removeItem('github_access_token');
+    localStorage.removeItem('github_access_token');
     
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('user-info').style.display = 'none';
@@ -367,5 +349,13 @@ function showStatus(message, type = 'info') {
         setTimeout(() => {
             statusEl.style.display = 'none';
         }, 5000);
+    }
+}
+
+// 关闭模态框
+function closeModal() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.remove();
     }
 }
