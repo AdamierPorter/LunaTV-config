@@ -15,7 +15,6 @@
         const state = params.get('state');
 
         if (code) {
-            // 用 code 请求 access_token
             fetch('https://github.com/login/oauth/access_token', {
                 method: 'POST',
                 headers: {
@@ -23,10 +22,10 @@
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    client_id: 'Ov23ligWR1OA4D8xEHN4',  // 你的 Client ID
-                    client_secret: '85babf4aed3d705c7aa51ec65fbc6a5989d91f92',  // 你的 Client Secret
+                    client_id: 'Ov23ligWR1OA4D8xEHN4',  
+                    client_secret: '85babf4aed3d705c7aa51ec65fbc6a5989d91f92',
                     code: code,
-                    redirect_uri: 'https://hafrey1.github.io/LunaTV-config/web-editor/callback.html',  // 回调 URL
+                    redirect_uri: 'https://hafrey1.github.io/LunaTV-config/web-editor/callback.html',
                     state: state
                 })
             })
@@ -34,8 +33,8 @@
             .then(data => {
                 const token = data.access_token;
                 if (token) {
-                    localStorage.setItem('github_token', token);  // 存储访问令牌
-                    window.location.href = 'https://hafrey1.github.io/LunaTV-config/web-editor';  // 重定向到编辑页面
+                    localStorage.setItem('github_token', token);
+                    window.location.href = 'https://hafrey1.github.io/LunaTV-config/web-editor';
                 } else {
                     alert('授权失败！');
                 }
