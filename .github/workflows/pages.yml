@@ -3,8 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'web-editor/**'   # 仅在 web-editor 目录下有变更时触发
   pull_request:
     branches: [ main ]
+    paths:
+      - 'web-editor/**'   # 仅在 pull request 涉及 web-editor 目录时触发
 
 jobs:
   deploy:
@@ -16,7 +20,7 @@ jobs:
     
     environment:
       name: github-pages
-      url: $ steps.deployment.outputs.page_url 
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
     - name: Checkout
@@ -24,7 +28,7 @@ jobs:
     
     - name: Setup Pages
       uses: actions/configure-pages@v4
-      
+     
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
