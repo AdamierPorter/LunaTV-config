@@ -14,7 +14,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ## 更新内容
 
 - 📄 **添加is_adult参数**： 标记成人内容源，KatelyaTV可用点击链接，然后选择“另存为...”来下载文件：[链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/luna-tv-config.json)
-- 📄 **自动检测API状态**： 每隔4小时自动检测API状态，并生成最近30天检测报告！可根据API测试结果自行禁用可用率不高的源！
+- 📄 **自动检测API状态**： 每隔4小时自动检测API状态，并生成最近100次检测报告！可根据API测试结果自行禁用可用率不高的源！
 
 ## API 健康报告（每日自动检测API状态）
 
@@ -107,6 +107,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | AV-豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 7 | 0 | 100.0% | 0 |  |
 | ✅ | AV-丝袜资源 | https://siwazyw.tv/api.php/provide/vod | 30 | 0 | 100.0% | 0 |  |
 <!-- API_TABLE_END -->
+
 
 
 
