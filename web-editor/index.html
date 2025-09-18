@@ -1,87 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LunaTV Config Editor</title>
+    <title>GitHub OAuth 登录</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="auth-container">
-        <button id="login-btn">Login with GitHub</button>
-    </div>
-    <div id="editor-container" style="display:none;">
-        <h2>Edit luna-tv-config.json</h2>
-        <textarea id="json-editor" rows="20" cols="50"></textarea>
-        <br />
-        <button id="save-btn">Save Changes</button>
+    <div class="container">
+        <h1>欢迎使用 LunaTV 配置编辑器</h1>
+        <p>请点击下面的按钮，使用 GitHub 登录并授权访问您的配置文件。</p>
+        <button onclick="oauthLogin()">点击登录并授权</button>
     </div>
 
-    <script src="oauth.js"></script>
     <script>
-        document.getElementById('login-btn').addEventListener('click', function() {
-            oauthLogin();
-        });
+        function oauthLogin() {
+            const clientID = 'Ov23ligWR1OA4D8xEHN4';  // 你的 Client ID
+            const redirectURI = 'https://hafrey1.github.io/LunaTV-config/web-editor/callback.html';  // 授权回调 URL
+            const scope = 'repo';  // 请求访问仓库的权限
+            const state = 'random_string_for_security';  // 用于防止 CSRF 攻击
 
-        document.getElementById('save-btn').addEventListener('click', function() {
-            saveConfig();
-        });
-
-        function saveConfig() {
-            const editedJson = document.getElementById('json-editor').value;
-            const jsonData = JSON.parse(editedJson);
-            const token = localStorage.getItem('github_token');
-            fetch('https://api.github.com/repos/hafrey1/LunaTV-config/contents/luna-tv-config.json', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: 'Updated luna-tv-config.json via web editor',
-                    content: btoa(unescape(encodeURIComponent(JSON.stringify(jsonData)))),
-                    sha: localStorage.getItem('file_sha')
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Config saved successfully!');
-            })
-            .catch(error => {
-                console.error('Error saving config:', error);
-                alert('Failed to save config.');
-            });
+            const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=${scope}&state=${state}`;
+            window.location.href = url;  // 重定向到 GitHub 授权页面
         }
-
-        function loadConfig() {
-            const token = localStorage.getItem('github_token');
-            fetch('https://api.github.com/repos/hafrey1/LunaTV-config/contents/luna-tv-config.json', {
-                headers: {
-                    'Authorization': `token ${token}`,
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.content) {
-                    const jsonContent = decodeURIComponent(escape(atob(data.content)));
-                    document.getElementById('json-editor').value = jsonContent;
-                    localStorage.setItem('file_sha', data.sha);
-                    document.getElementById('editor-container').style.display = 'block';
-                    document.getElementById('auth-container').style.display = 'none';
-                }
-            })
-            .catch(error => {
-                console.error('Error loading config:', error);
-                alert('Failed to load config.');
-            });
-        }
-
-        window.onload = function() {
-            const token = localStorage.getItem('github_token');
-            if (token) {
-                loadConfig();
-            }
-        };
     </script>
 </body>
 </html>
