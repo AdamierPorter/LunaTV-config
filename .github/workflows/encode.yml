@@ -35,6 +35,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add LunaTV-config.txt bukadun.txt
+          git add LunaTV-config.txt jinhuang.txt
           git commit -m "Update Base58 encoding" || echo "No changes"
           git push
