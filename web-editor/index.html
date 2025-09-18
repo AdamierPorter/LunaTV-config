@@ -1,63 +1,89 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LunaTV 配置编辑器</title>
-    <link rel="stylesheet" href="style.css">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>luna-tv-config.json 在线编辑器</title>
+	<link rel="stylesheet" href="./style.css" />
+	<script>
+		// 你提供的 OAuth Client ID（只放 Client ID，切勿放 Secret）
+		window.GITHUB_CLIENT_ID = "Ov23ligWR1OA4D8xEHN4";
+	</script>
 </head>
 <body>
-    <div class="container">
-        <h1>LunaTV 配置编辑器</h1>
-        <button id="loginBtn">使用 GitHub 登录</button>
-        <div id="editorContainer" class="hidden">
-            <textarea id="jsonEditor" rows="20" cols="80"></textarea><br>
-            <button id="saveBtn">保存配置</button>
-        </div>
-    </div>
+	<header>
+		<h1>luna-tv-config.json 在线编辑器</h1>
+		<p>使用 GitHub 设备授权登录，在浏览器中编辑并保存仓库根目录的 luna-tv-config.json。</p>
+	</header>
 
-    <script src="oauth.js"></script>
-    <script>
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            startOAuthFlow();
-        });
+	<section class="card">
+		<h3>仓库信息</h3>
+		<div class="row">
+			<label for="owner">Owner</label>
+			<input id="owner" type="text" placeholder="例如：hafrey1" />
+		</div>
+		<div class="row">
+			<label for="repo">Repo</label>
+			<input id="repo" type="text" placeholder="例如：your-repo-name" />
+		</div>
+		<div class="row">
+			<button id="btn-parse-url">从仓库URL解析</button>
+			<input id="repoUrl" type="url" placeholder="例如： https://github.com/owner/repo" />
+		</div>
+	</section>
 
-        document.getElementById('saveBtn').addEventListener('click', function() {
-            saveConfig();
-        });
+	<section class="card">
+		<h3>登录与授权</h3>
+		<div class="row">
+			<button id="btn-login">GitHub 登录授权</button>
+			<button id="btn-logout" class="secondary">退出并清除令牌</button>
+		</div>
+		<p id="auth-status">未登录</p>
+	</section>
 
-        function saveConfig() {
-            const configData = document.getElementById('jsonEditor').value;
-            const accessToken = localStorage.getItem('github_access_token');
-            if (!accessToken) {
-                alert('没有有效的 token，无法保存配置。');
-                return;
-            }
-            fetch('https://api.github.com/repos/hafrey1/LunaTV-config/contents/luna-tv-config.json', {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${accessToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: '更新配置',
-                    content: btoa(configData),
-                    sha: "" // GitHub API 会根据路径和名称自动计算 sha
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.commit) {
-                    alert('配置保存成功！');
-                } else {
-                    alert('保存失败，请重试！');
-                }
-            })
-            .catch(error => {
-                console.error('保存配置时出现错误:', error);
-                alert('保存失败，请重试！');
-            });
-        }
-    </script>
+	<section class="card">
+		<h3>文件操作</h3>
+		<div class="row">
+			<button id="btn-load">加载 luna-tv-config.json</button>
+			<button id="btn-pretty" class="secondary">格式化JSON</button>
+			<button id="btn-validate" class="secondary">校验JSON</button>
+		</div>
+		<textarea id="editor" placeholder="{\n  // 这里将显示或编辑 JSON 内容\n}"></textarea>
+		<div class="row">
+			<input id="commitMessage" type="text" placeholder="提交说明：更新 luna-tv-config.json" />
+			<button id="btn-save" class="primary">保存到仓库</button>
+		</div>
+		<p id="file-status">文件未加载</p>
+	</section>
+
+	<section class="card">
+		<h3>说明</h3>
+		<ul>
+			<li>本页采用 GitHub 设备授权（Device Flow），只用到 Client ID，不会在前端使用或存储 Client Secret。</li>
+			<li>授权成功后，将获得访问令牌，仅保存在本机浏览器的 sessionStorage 中。</li>
+			<li>保存时通过 GitHub Contents API 创建一次提交。</li>
+		</ul>
+		<p class="muted">项目仓库：[查看仓库][^https://github.com/hafrey1/LunaTV-config] ・ Pages 站点：[访问主页][^https://hafrey1.github.io/LunaTV-config/web-editor]</p>
+	</section>
+
+	<!-- 设备授权弹窗 -->
+	<div id="device-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="device-title">
+		<div class="modal-content">
+			<h3 id="device-title">在 GitHub 页面完成授权</h3>
+			<ol>
+				<li>访问下方链接打开 GitHub 授权页面。</li>
+				<li>输入授权代码并确认授权。</li>
+				<li>回到此页面等待自动完成登录。</li>
+			</ol>
+			<p>授权页面：<a id="verify-link" href="#" target="_blank" rel="noopener noreferrer">打开 GitHub 授权</a></p>
+			<p>授权代码：<code id="user-code">——</code></p>
+			<p id="modal-tips" class="muted">授权完成后，此弹窗会自动关闭。</p>
+			<div class="row end">
+				<button id="btn-cancel-device" class="secondary">取消</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="./oauth.js"></script>
 </body>
 </html>
