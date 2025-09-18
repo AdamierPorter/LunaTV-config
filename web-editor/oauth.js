@@ -1,6 +1,6 @@
 const CLIENT_ID = 'Ov23ligWR1OA4D8xEHN4'; // 你的 GitHub OAuth 客户端 ID
 const CLIENT_SECRET = '85babf4aed3d705c7aa51ec65fbc6a5989d91f92'; // 你的 GitHub OAuth 客户端密钥
-const REDIRECT_URI = 'https://hafery1.github.io/luna-tv-config-editor/callback.html'; // GitHub OAuth 回调 URL
+const REDIRECT_URI = 'https://hafrey1.github.io/LunaTV-config/web-editor/callback.html'; // GitHub OAuth 回调 URL
 const REPO = 'hafrey1/LunaTV-config'; // 你的 GitHub 仓库名
 const FILE_PATH = 'luna-tv-config.json'; // 需要编辑的文件路径
 
