@@ -19,6 +19,7 @@
       "detail": "https://tyyszy.com",
       "is_adult": false
     },
+    
     "ckzy.me": {
       "name": "TV-CK资源",
       "api": "https://ckzy.me/api.php/provide/vod",
@@ -436,19 +437,19 @@
       "detail": "https://dadizy11.com",
       "is_adult": true
     },
-        "zuiseapi": {
+    "zuiseapi": {
       "name": "AV-最色资源",
       "api": "https://api.zuiseapi.com/api.php/provide/vod",
       "detail": "https://zuisezy.com",
       "is_adult": true
     },
-        "douapi": {
+    "douapi": {
       "name": "AV-豆豆资源",
       "api": "https://api.douapi.cc/api.php/provide/vod",
       "detail": "https://doudouzy.com",
       "is_adult": true
     },
-        "xzybb2": {
+    "xzybb2": {
       "name": "AV-滴滴资源",
       "api": "https://api.ddapi.cc/api.php/provide/vod",
       "detail": "https://didizy.com",
