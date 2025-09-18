@@ -104,7 +104,7 @@
       "is_adult": false
     },
     "mozhuazy": {
-      "api": "https://mozhuazy.com/api.php/provide/vod",
+      "api": "http://mozhuazy.com/api.php/provide/vod",
       "name": "TV-魔爪资源",
       "detail": "https://mozhuazy.com",
       "is_adult": false
