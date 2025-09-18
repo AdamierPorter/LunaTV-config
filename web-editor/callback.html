@@ -1,57 +1,42 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GitHub OAuth 回调</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub OAuth Callback</title>
 </head>
 <body>
-    <p>授权成功，正在跳转...</p>
+    <h1>GitHub OAuth Authorization</h1>
     <script>
-        // GitHub OAuth 配置信息
-        const CLIENT_ID = 'Ov23ligWR1OA4D8xEHN4'; // 你的 GitHub 客户端 ID
-        const CLIENT_SECRET = '85babf4aed3d705c7aa51ec65fbc6a5989d91f92'; // 你的 GitHub 客户端密钥
-        const REDIRECT_BACK = 'https://hafrey1.github.io/LunaTV-config/web-editor/'; // 授权后回跳的页面
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
 
-        // 从 URL 中获取授权码（code）
-        const code = new URLSearchParams(window.location.search).get('code');
-        
-        if (!code) {
-            alert('未获取到授权码');
-            return;
+        if (code) {
+            fetch(`https://github.com/login/oauth/access_token`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    client_id: 'Ov23ligWR1OA4D8xEHN4',
+                    client_secret: '85babf4aed3d705c7aa51ec65fbc6a5989d91f92',
+                    code: code,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const token = data.access_token;
+                localStorage.setItem('github_token', token);
+                window.location.href = 'https://hafrey1.github.io/LunaTV-config/web-editor';
+            })
+            .catch(error => {
+                console.error('OAuth error:', error);
+                alert('Authorization failed!');
+            });
+        } else {
+            alert('No code found in URL.');
         }
-
-        console.log('GitHub授权码:', code);  // 打印授权码，用于调试
-
-        // 发送 POST 请求到 GitHub 获取 Access Token
-        fetch('https://github.com/login/oauth/access_token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
-                code: code
-            }),
-        })
-        .then(response => response.text())  // 处理响应为文本
-        .then(data => {
-            // 解析 GitHub 返回的查询字符串
-            const params = new URLSearchParams(data);
-            const accessToken = params.get('access_token');
-            
-            if (accessToken) {
-                console.log('GitHub Access Token:', accessToken);  // 打印 Access Token，用于调试
-                localStorage.setItem('access_token', accessToken);  // 将 Access Token 存储到本地
-                window.location.href = REDIRECT_BACK;  // 跳转回主页面
-            } else {
-                alert('获取 Access Token 失败，请重试！');
-            }
-        })
-        .catch(err => {
-            console.error('获取 Access Token 失败:', err);
-            alert('发生错误，请重试！');
-        });
     </script>
 </body>
 </html>
