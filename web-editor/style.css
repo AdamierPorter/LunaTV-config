@@ -1,43 +1,50 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  text-align: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
 }
 
-header {
-  background-color: #333;
-  color: white;
-  padding: 20px;
+.container {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+h1 {
+    color: #333;
 }
 
-button:hover {
-  background-color: #0056b3;
+#loginBtn {
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#loginBtn:hover {
+    background-color: #005bb5;
+}
+
+.hidden {
+    display: none;
 }
 
 textarea {
-  width: 90%;
-  max-width: 800px;
-  margin: 20px 0;
-  padding: 10px;
-  font-size: 16px;
-  line-height: 1.5;
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 10px;
 }
 
-footer {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #333;
-  color: white;
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
 }
