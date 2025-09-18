@@ -1,94 +1,51 @@
-const CLIENT_ID = 'Ov23ligWR1OA4D8xEHN4';
-const REPO = 'hafrey1/LunaTV-config';
-const FILE_PATH = 'luna-tv-config.json';
+// GitHub API 相关常量
+const REPO = 'hafrey1/LunaTV-config'; // 你的仓库名
+const FILE_PATH = 'luna-tv-config.json'; // 配置文件路径
 
-const loginBtn = document.getElementById('loginBtn');
-const loadBtn = document.getElementById('loadBtn');
-const configContent = document.getElementById('configContent');
-const saveBtn = document.getElementById('saveBtn');
-const statusElement = document.getElementById('status');
-const infoElement = document.getElementById('info');
-
-let token = localStorage.getItem('access_token');
-
-async function startDeviceFlow() {
+// 获取配置文件内容
+async function getConfigFile(token) {
     try {
-        const res = await axios.post('https://github.com/login/device/code', 
-            `client_id=${CLIENT_ID}&scope=repo`, 
-            { headers: { 'Content-Type':'application/x-www-form-urlencoded' } }
-        );
-        const data = res.data;
-        console.log('Device Flow Info:', data);
-
-        infoElement.innerHTML = `请在 <a href="${data.verification_uri}" target="_blank">GitHub 验证页面</a> 输入验证码: <b>${data.user_code}</b>`;
-        statusElement.textContent = '等待用户授权...';
-
-        const interval = data.interval * 1000;
-        let polling = setInterval(async () => {
-            try {
-                const tokenRes = await axios.post('https://github.com/login/oauth/access_token',
-                    `client_id=${CLIENT_ID}&device_code=${data.device_code}&grant_type=urn:ietf:params:oauth:grant-type:device_code`,
-                    { headers: { 'Content-Type':'application/x-www-form-urlencoded', 'Accept':'application/json' } }
-                );
-                if (tokenRes.data.access_token) {
-                    clearInterval(polling);
-                    token = tokenRes.data.access_token;
-                    localStorage.setItem('access_token', token);
-                    statusElement.textContent = '授权成功！';
-                    loginBtn.style.display = 'none';
-                    loadBtn.style.display = 'inline-block';
-                    console.log('Access Token:', token);
-                }
-            } catch(e) {}
-        }, interval);
-
-    } catch(e) {
-        console.error('Device Flow 错误:', e);
-        statusElement.textContent = '启动授权失败';
+        const response = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        const configData = atob(response.data.content); // 解码 base64 内容
+        console.log('Config File:', configData); // 打印配置文件内容
+        return configData;
+    } catch (error) {
+        console.error('加载配置文件失败:', error);
+        statusElement.textContent = '加载配置文件失败，请稍后重试。';
+        statusElement.style.color = 'red';
     }
 }
 
-loginBtn.addEventListener('click', startDeviceFlow);
-
-loadBtn.addEventListener('click', async () => {
-    if (!token) { alert('未获取 token'); return; }
+// 获取文件的 SHA 值
+async function getFileSha(token) {
     try {
-        const res = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+        const response = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        const data = atob(res.data.content);
-        configContent.style.display = 'block';
-        configContent.value = data;
-        saveBtn.style.display = 'inline-block';
-        statusElement.textContent = '配置文件加载成功';
-        console.log('文件内容:', data);
-    } catch(e) {
-        console.error('加载失败', e);
-        statusElement.textContent = '加载配置失败';
+        return response.data.sha;
+    } catch (error) {
+        console.error('获取文件 SHA 值失败:', error);
+        statusElement.textContent = '获取文件 SHA 值失败，请重试。';
+        statusElement.style.color = 'red';
     }
-});
+}
 
-saveBtn.addEventListener('click', async () => {
-    if (!token) { alert('未获取 token'); return; }
+// 更新配置文件内容
+async function updateConfigFile(token, newConfig, sha) {
     try {
-        const shaRes = await axios.get(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+        const response = await axios.put(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+            message: 'Update luna-tv-config.json via Web editor',
+            content: btoa(newConfig), // 将内容编码为 base64
+            sha: sha // 传递文件的 sha 值来更新文件
+        }, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        const sha = shaRes.data.sha;
-        const newConfig = configContent.value;
-        await axios.put(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
-            message: 'Update via Web Editor',
-            content: btoa(newConfig),
-            sha: sha
-        }, { headers: { Authorization: `Bearer ${token}` }});
-        statusElement.textContent = '更新成功！';
-    } catch(e) {
-        console.error('更新失败', e);
-        statusElement.textContent = '更新失败';
+        console.log('更新配置文件:', response.data);
+    } catch (error) {
+        console.error('更新配置文件失败:', error);
+        statusElement.textContent = '更新配置文件失败，请稍后重试。';
+        statusElement.style.color = 'red';
     }
-});
-
-if (token) {
-    loginBtn.style.display = 'none';
-    loadBtn.style.display = 'inline-block';
 }
