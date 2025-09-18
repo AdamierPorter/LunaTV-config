@@ -3,7 +3,7 @@
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config
 
-👉 [减少卡顿版链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt)
+👉 [禁黄版链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jinhuang.txt)
                                                                                       
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/bukadun.txt
@@ -111,6 +111,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | AV-滴滴资源 | https://api.ddapi.cc/api.php/provide/vod | 12 | 0 | 100.0% | 0 |  |
 | ✅ | AV-丝袜资源 | https://siwazyw.tv/api.php/provide/vod | 36 | 0 | 100.0% | 0 |  |
 <!-- API_TABLE_END -->
+
 
 
 
