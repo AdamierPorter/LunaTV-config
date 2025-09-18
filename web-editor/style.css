@@ -1,143 +1,233 @@
-/* 增强的模态框样式 */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    animation: fadeIn 0.3s ease;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.modal-content {
-    background: white;
-    border-radius: 16px;
-    padding: 30px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    animation: slideUp 0.3s ease;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
 }
 
-.instruction-steps {
-    background: #f8fafc;
-    border-radius: 12px;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    margin: 20px 0;
-    border-left: 4px solid #667eea;
 }
 
-.instruction-steps h3 {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
     color: #4a5568;
-    margin-bottom: 15px;
+    font-size: 1.8rem;
 }
 
-.instruction-steps ol {
-    padding-left: 20px;
+.auth-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.instruction-steps li {
-    margin: 15px 0;
-    line-height: 1.6;
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.instruction-steps ul {
-    margin: 10px 0;
-    padding-left: 20px;
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }
 
-.link-button {
-    display: inline-block;
-    background: #667eea;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 8px;
-    text-decoration: none;
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
     font-weight: 500;
-    margin: 10px 0;
     transition: all 0.3s ease;
 }
 
-.link-button:hover {
-    background: #5a6fd8;
+.btn.primary {
+    background: #3182ce;
+    color: white;
+}
+
+.btn.success {
+    background: #38a169;
+    color: white;
+}
+
+.btn.secondary {
+    background: #718096;
+    color: white;
+}
+
+.btn.info {
+    background: #3182ce;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-.token-input-section {
-    background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+main {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
     padding: 20px;
-    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.token-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    margin: 10px 0;
-    transition: border-color 0.3s ease;
-}
-
-.token-input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.token-buttons {
+.editor-controls {
     display: flex;
     gap: 10px;
-    margin-top: 15px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
-.security-note {
-    background: #f0fff4;
-    border: 1px solid #9ae6b4;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 20px 0;
+.editor-container {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-.security-note h4 {
-    color: #276749;
-    margin-bottom: 10px;
+.editor-header {
+    background: #f7fafc;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-.security-note p {
-    color: #2d3748;
-    margin: 5px 0;
-    font-size: 0.9em;
-}
-
-.token-status {
-    color: #38a169;
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
     font-weight: 500;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.status.connected {
+    background: #c6f6d5;
+    color: #22543d;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
+.status.loading {
+    background: #fef5e7;
+    color: #744210;
+}
+
+.status.error {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+#jsonEditor {
+    width: 100%;
+    height: 500px;
+    border: none;
+    padding: 15px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+}
+
+.info-panel {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #3182ce;
+}
+
+.info-panel h3 {
+    margin-bottom: 10px;
+    color: #2d3748;
+}
+
+.file-info p {
+    margin: 5px 0;
+    color: #4a5568;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+.close:hover {
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .editor-controls {
+        justify-content: center;
+    }
+    
+    #jsonEditor {
+        height: 400px;
     }
 }
