@@ -1,29 +1,60 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>GitHub OAuth 回调</title>
-	<link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 授权回调</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<header>
-		<h1>GitHub OAuth 回调</h1>
-	</header>
+    <div class="container">
+        <div class="callback-section">
+            <h1>🔄 正在处理 GitHub 授权...</h1>
+            <div class="loading-spinner"></div>
+            <p id="callback-message">请稍等，正在完成授权流程...</p>
+        </div>
+    </div>
 
-	<section class="card">
-		<p>当前实现使用 GitHub 设备授权（Device Flow），因此本页面仅作为占位与兼容。</p>
-		<p>如果你后续切换为“标准 Web 应用授权流”，请将本页面用于接收 code 参数，并把 code 发到你的后端服务交换 access_token（切勿在前端使用 Client Secret）。</p>
-		<p id="info" class="muted"></p>
-	</section>
+    <script>
+        // 处理 OAuth 回调
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const error = urlParams.get('error');
+        const state = urlParams.get('state');
 
-	<script>
-		// 如果未来切换为标准 OAuth 授权流，可在此读取 code 并发送给你的后端
-		const params = new URLSearchParams(location.search);
-		const code = params.get("code");
-		document.getElementById("info").textContent = code
-			? `收到 code=${code}（请发送给后端交换令牌）`
-			: "未检测到 code 参数。";
-	</script>
+        const messageEl = document.getElementById('callback-message');
+
+        if (error) {
+            messageEl.innerHTML = `❌ 授权失败: ${error}<br><a href="index.html">返回主页</a>`;
+        } else if (code) {
+            // 验证 state 参数
+            const storedState = localStorage.getItem('github_oauth_state');
+            if (state !== storedState) {
+                messageEl.innerHTML = '❌ 安全验证失败，请重新授权<br><a href="index.html">返回主页</a>';
+                return;
+            }
+
+            // 将授权码传递给主窗口
+            if (window.opener) {
+                window.opener.postMessage({
+                    type: 'github_oauth_callback',
+                    code: code
+                }, '*');
+                messageEl.innerHTML = '✅ 授权成功！正在关闭窗口...';
+                setTimeout(() => {
+                    window.close();
+                }, 2000);
+            } else {
+                // 如果不是弹出窗口，存储code并跳转
+                localStorage.setItem('github_oauth_code', code);
+                messageEl.innerHTML = '✅ 授权成功！正在跳转...';
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        } else {
+            messageEl.innerHTML = '❌ 未收到授权信息<br><a href="index.html">返回主页</a>';
+        }
+    </script>
 </body>
 </html>
