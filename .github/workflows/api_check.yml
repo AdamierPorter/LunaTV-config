@@ -6,11 +6,12 @@ on:
   push:
     paths:
       - luna-tv-config.json  # 监听 luna-tv-config.json 文件变更
-  workflow_dispatch:
+  workflow_dispatch:  # 手动触发工作流
 
 jobs:
   check_apis:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v3
 
@@ -22,6 +23,11 @@ jobs:
     - name: 安装依赖
       run: |
         npm install axios  # 安装 axios
+
+    - name: 延时 30 秒
+      run: |
+        echo "等待 30 秒后开始执行 API 检查..."
+        sleep 30  # 延时 30 秒
 
     - name: 运行 API 检查脚本
       run: node check_apis.js
