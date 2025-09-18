@@ -1,4 +1,4 @@
-/* 模态框样式 */
+/* 增强的模态框样式 */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -10,61 +10,134 @@
     justify-content: center;
     align-items: center;
     z-index: 2000;
+    animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 30px;
-    max-width: 500px;
+    max-width: 600px;
     width: 90%;
-    max-height: 80vh;
+    max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideUp 0.3s ease;
 }
 
-.modal-content h2 {
-    color: #4a5568;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.modal-content ol {
+.instruction-steps {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
     margin: 20px 0;
-    padding-left: 25px;
+    border-left: 4px solid #667eea;
 }
 
-.modal-content ol li {
-    margin: 10px 0;
+.instruction-steps h3 {
+    color: #4a5568;
+    margin-bottom: 15px;
+}
+
+.instruction-steps ol {
+    padding-left: 20px;
+}
+
+.instruction-steps li {
+    margin: 15px 0;
     line-height: 1.6;
 }
 
-.code-display {
-    background: #f7fafc;
-    border: 2px solid #e2e8f0;
+.instruction-steps ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.link-button {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 10px 16px;
     border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.link-button:hover {
+    background: #5a6fd8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.token-input-section {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     padding: 20px;
     margin: 20px 0;
-    text-align: center;
 }
 
-.user-code {
+.token-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
     font-family: 'Courier New', monospace;
-    font-weight: bold;
-    color: #667eea;
-    font-size: 1.1em;
+    font-size: 14px;
+    margin: 10px 0;
+    transition: border-color 0.3s ease;
 }
 
-.user-code-large {
-    font-family: 'Courier New', monospace;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #667eea;
-    background: white;
-    padding: 10px 15px;
-    border-radius: 6px;
-    border: 1px solid #cbd5e0;
-    margin: 10px;
-    display: inline-block;
-    letter-spacing: 2px;
+.token-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.token-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.security-note {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.security-note h4 {
+    color: #276749;
+    margin-bottom: 10px;
+}
+
+.security-note p {
+    color: #2d3748;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.token-status {
+    color: #38a169;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
