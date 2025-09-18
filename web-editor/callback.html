@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>授权回调</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>GitHub OAuth 回调</title>
+	<link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <h1>授权成功！正在重定向...</h1>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        
-        if (code) {
-            localStorage.setItem('github_oauth_code', code);
-            // 跳转到主页面，确保页面加载并显示编辑器
-            window.location.href = 'index.html';
-        } else {
-            alert('授权失败，请重试！');
-            window.location.href = 'index.html'; // 跳回主页面
-        }
-    </script>
+	<header>
+		<h1>GitHub OAuth 回调</h1>
+	</header>
+
+	<section class="card">
+		<p>当前实现使用 GitHub 设备授权（Device Flow），因此本页面仅作为占位与兼容。</p>
+		<p>如果你后续切换为“标准 Web 应用授权流”，请将本页面用于接收 code 参数，并把 code 发到你的后端服务交换 access_token（切勿在前端使用 Client Secret）。</p>
+		<p id="info" class="muted"></p>
+	</section>
+
+	<script>
+		// 如果未来切换为标准 OAuth 授权流，可在此读取 code 并发送给你的后端
+		const params = new URLSearchParams(location.search);
+		const code = params.get("code");
+		document.getElementById("info").textContent = code
+			? `收到 code=${code}（请发送给后端交换令牌）`
+			: "未检测到 code 参数。";
+	</script>
 </body>
 </html>
