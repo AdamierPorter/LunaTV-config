@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna TV Config Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Luna TV Config 编辑器</h1>
+        <p>请登录 GitHub 后编辑配置文件。</p>
+        
+        <!-- 登录按钮 -->
+        <button id="loginBtn">登录 GitHub</button>
+
+        <!-- 加载配置按钮 -->
+        <button id="loadBtn" style="display:none;">加载配置文件</button>
+
+        <!-- 配置文件编辑区域 -->
+        <textarea id="configContent" rows="20" cols="80" style="display:none;"></textarea>
+
+        <!-- 保存按钮 -->
+        <button id="saveBtn" style="display:none;">保存配置</button>
+
+        <p id="status" style="color: green;"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="oauth.js"></script>
+</body>
+</html>
