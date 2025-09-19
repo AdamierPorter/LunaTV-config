@@ -61,7 +61,7 @@ const parsedRows = Object.entries(apiStats).map(([api, { success, total }]) => {
   };
 });
 
-// 🔥 按可用率排序（成功的排前面，失败的排后面）
+// 🔥 按可用率排序（成功率降序排列）
 parsedRows.sort((a, b) => b.successRate - a.successRate);
 
 // 拼接排序后的表格行
@@ -69,7 +69,7 @@ const updatedRows = parsedRows.map(({ api, success, total }) => {
   // 查找对应的行
   const line = rows.find(row => row.includes(api));
   const cols = line.split('|').map(c => c.trim());
-  return `| ${cols.slice(1).join(' | ')} |`;
+  return `| ${cols.slice(1).join(' | ')} |`;  // 更新表格格式
 });
 
 // 更新表格
