@@ -11,7 +11,7 @@ let isTokenVisible = false;
 const GITHUB_CONFIG = {
     owner: 'hafrey1',
     repo: 'LunaTV-config',
-    path: 'luna-tv-config.json',
+    path: 'LunaTV-config.json',
     branch: 'main'
 };
 
