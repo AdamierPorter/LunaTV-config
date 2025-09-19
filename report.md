@@ -665,7 +665,7 @@
       {
         "name": "AV-91麻豆",
         "api": "https://91md.me/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-AIvin",
@@ -3135,12 +3135,12 @@
       {
         "name": "TV-电影天堂",
         "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-优质资源",
         "api": "https://api.yzzy-api.com/inc/apijson.php",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-猫眼资源",
@@ -3185,12 +3185,12 @@
       {
         "name": "TV-非凡资源",
         "api": "http://api.ffzyapi.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-非凡资源1",
         "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-暴风资源",
@@ -3365,7 +3365,7 @@
       {
         "name": "AV-番号资源",
         "api": "http://fhapi9.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-白嫖资源",
@@ -3415,7 +3415,7 @@
       {
         "name": "AV-细胞资源",
         "api": "https://www.xxibaozyw.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-jkun资源",
@@ -3430,12 +3430,12 @@
       {
         "name": "AV-色南国",
         "api": "https://api.sexnguon.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-乐播资源",
         "api": "https://lbapi9.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-美少女",
@@ -3455,7 +3455,7 @@
       {
         "name": "AV-森林资源",
         "api": "https://beiyong.slapibf.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-色猫资源",
@@ -3465,7 +3465,7 @@
       {
         "name": "AV-辣椒资源",
         "api": "https://apilj.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-鲨鱼资源",
@@ -7035,7 +7035,7 @@
       {
         "name": "AV-AIvin1",
         "api": "https://lbapiby.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-百万资源",
@@ -7060,7 +7060,7 @@
       {
         "name": "AV-番号资源1",
         "api": "https://fhapi9.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-白嫖资源",
@@ -7560,7 +7560,7 @@
       {
         "name": "TV-豆瓣资源",
         "api": "https://caiji.dbzy5.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-天涯影视",
@@ -7935,7 +7935,7 @@
       {
         "name": "TV-豆瓣资源",
         "api": "https://caiji.dbzy5.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-天涯影视",
@@ -8225,7 +8225,7 @@
       {
         "name": "AV-黄色仓库",
         "api": "https://hsckzy.xyz/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-大奶子",
@@ -9025,7 +9025,7 @@
       {
         "name": "AV-滴滴资源",
         "api": "https://api.ddapi.cc/api.php/provide/vodd",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-大地资源",
@@ -9855,7 +9855,7 @@
       {
         "name": "TV-iKun资源",
         "api": "https://ikunzyapi.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-量子资源",
@@ -9905,7 +9905,7 @@
       {
         "name": "TV-魔都资源",
         "api": "https://www.mdzyapi.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-魔爪资源",
@@ -10035,7 +10035,7 @@
       {
         "name": "TV-魔都动漫",
         "api": "https://caiji.moduapi.cc/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "AV-91麻豆",
@@ -13470,7 +13470,7 @@
       {
         "name": "TV-小猫咪",
         "api": "https://zy.xmm.hk/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "TV-虎牙资源",
