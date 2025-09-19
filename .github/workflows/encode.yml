@@ -1,6 +1,5 @@
 name: Encode JSON to Base58
 
-
 on:
   push:
     paths:
