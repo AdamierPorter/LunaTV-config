@@ -26,22 +26,23 @@ const header = lines.slice(0, 2); // 表头部分
 let rows = lines.slice(2); // 数据部分
 
 // 提取 API 地址列并统计
-const apiAddresses = rows.map(line => line.split('|')[3].trim());
+const apiStats = {};
 
-// 创建一个对象，聚合每个 API 的成功和失败次数
-const apiStats = apiAddresses.reduce((acc, api) => {
-  if (!acc[api]) {
-    acc[api] = { success: 0, total: 0 };
+rows.forEach(line => {
+  const cols = line.split('|').map(c => c.trim());
+  const status = cols[1]; // 获取状态列
+  const api = cols[3];    // 获取 API 地址列
+
+  // 初始化 API 统计
+  if (!apiStats[api]) {
+    apiStats[api] = { success: 0, total: 0 };
   }
-  
-  const status = line.split('|')[1].trim();
-  acc[api].total += 1;
+
+  apiStats[api].total += 1;
   if (status.includes('✅')) {
-    acc[api].success += 1;
+    apiStats[api].success += 1;
   }
-
-  return acc;
-}, {});
+});
 
 // 计算每个 API 的成功率
 let successApis = 0;
@@ -83,7 +84,7 @@ const now = new Date(Date.now() + 8 * 60 * 60 * 1000)
 // 生成带统计和时间戳的区块
 const tableBlock =
   `## API 状态（最近更新：${now}）\n\n` +
-  `- 总 API 数量：${apiAddresses.length}\n` +
+  `- 总 API 数量：${Object.keys(apiStats).length}\n` +
   `- 成功 API 数量：${successApis}\n` +
   `- 失败 API 数量：${failApis}\n` +
   `- 重复 API 数量：${Object.keys(apiStats).filter(k => apiStats[k].total > 1).length}\n\n` +
