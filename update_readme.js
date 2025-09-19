@@ -49,7 +49,7 @@ let successApis = 0;
 let failApis = 0;
 
 const parsedRows = Object.entries(apiStats).map(([api, { success, total }]) => {
-  const successRate = success / total;  // 可用率
+  const successRate = success / total;  // 可用率（小数形式）
   successApis += success;
   failApis += (total - success);
 
@@ -61,14 +61,21 @@ const parsedRows = Object.entries(apiStats).map(([api, { success, total }]) => {
   };
 });
 
-// 🔥 按可用率排序（成功率降序排列）
+// 🔥 按成功率排序（小数形式降序排列）
 parsedRows.sort((a, b) => b.successRate - a.successRate);
 
-// 拼接排序后的表格行
-const updatedRows = parsedRows.map(({ api, success, total }) => {
+// 拼接排序后的表格行，并显示为百分比格式
+const updatedRows = parsedRows.map(({ api, success, total, successRate }) => {
   // 查找对应的行
   const line = rows.find(row => row.includes(api));
   const cols = line.split('|').map(c => c.trim());
+
+  // 显示为百分比格式，保留两位小数
+  const successRatePercentage = (successRate * 100).toFixed(2) + '%';
+
+  // 更新状态列的成功率为百分比
+  cols[1] = `✅ ${successRatePercentage}`;  // 状态列更新为百分比形式
+
   return `| ${cols.slice(1).join(' | ')} |`;  // 更新表格格式
 });
 
@@ -99,10 +106,10 @@ if (readmeContent.includes("<!-- API_TABLE_START -->") && readmeContent.includes
     /## API 状态（最近更新：[^\n]+）[\s\S]*?<!-- API_TABLE_END -->/,
     tableBlock
   );
-  console.log("✅ README.md 已更新 API 状态表格（已按可用率排序）");
+  console.log("✅ README.md 已更新 API 状态表格（已按可用率排序，显示百分比）");
 } else {
   readmeContent += `\n\n${tableBlock}\n`;
-  console.log("⚠️ README.md 未找到标记，已自动追加 API 状态表格到末尾（已按可用率排序）");
+  console.log("⚠️ README.md 未找到标记，已自动追加 API 状态表格到末尾（已按可用率排序，显示百分比）");
 }
 
 fs.writeFileSync(readmePath, readmeContent, 'utf-8');
