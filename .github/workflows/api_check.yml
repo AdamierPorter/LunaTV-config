@@ -1,5 +1,6 @@
 name: API Health Check
 
+
 on:
   schedule:
     - cron: "0 */4 * * *"  # 每 4 小时运行一次 (UTC)
