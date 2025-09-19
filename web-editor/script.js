@@ -1,3 +1,4 @@
+// web-editor/script.js
 // 全局变量
 let editor;
 let currentConfig = '';
