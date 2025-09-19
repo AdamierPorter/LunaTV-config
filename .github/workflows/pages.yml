@@ -1,6 +1,5 @@
 name: Deploy to GitHub Pages
 
-
 on:
   push:
     branches: [ main ]
@@ -10,6 +9,12 @@ on:
     branches: [ main ]
     paths:
       - 'web-editor/**'   # 仅在 pull request 涉及 web-editor 目录时触发
+  workflow_dispatch:   # 添加手动触发
+    inputs:
+      deploy_message:
+        description: 'Deployment message'
+        required: false
+        default: 'Manual deployment'
 
 jobs:
   deploy:
