@@ -45,23 +45,25 @@ rows.forEach(line => {
     }
     
     // 计算当前行的可用率
-    const successRate = (apiStats[api].success / apiStats[api].total * 100).toFixed(1);
+    const successRate = (apiStats[api].success / apiStats[api].total * 100);
     
     rowsWithData.push({
         line: line,
         cols: cols,
         api: api,
-        successRate: parseFloat(successRate),
+        successRate: successRate, // 保持为数字类型
         isSuccess: status.includes('✅')
     });
 });
 
-// 按照可用率排序（从高到低）
+// 按照可用率排序（从高到低） - 修正排序逻辑
 rowsWithData.sort((a, b) => {
+    // 首先按可用率降序排列（数值比较）
     if (b.successRate !== a.successRate) {
-        return b.successRate - a.successRate; // 按可用率降序
+        return b.successRate - a.successRate;
     }
-    return a.api.localeCompare(b.api); // 可用率相同时按API名称排序
+    // 可用率相同时按API名称升序排列
+    return a.api.localeCompare(b.api);
 });
 
 // 生成排序后的表格行
@@ -127,9 +129,15 @@ if (readmeContent.includes("<!-- API_TABLE_START -->") && readmeContent.includes
 // 写回文件
 fs.writeFileSync(readmePath, readmeContent, 'utf-8');
 
-// 输出排序结果摘要
+// 输出排序结果摘要和调试信息
 console.log(`\n📊 统计摘要：`);
 console.log(`- 整体可用率：${overallSuccessRate}%`);
 console.log(`- 高可用率 API：${highAvailability} 个`);
 console.log(`- 中等可用率 API：${mediumAvailability} 个`);
 console.log(`- 低可用率 API：${lowAvailability} 个`);
+
+// 调试信息：显示排序后的前5个API
+console.log(`\n🔍 排序结果（前5个）：`);
+rowsWithData.slice(0, 5).forEach((row, index) => {
+    console.log(`${index + 1}. ${row.api}: ${row.successRate.toFixed(1)}%`);
+});
