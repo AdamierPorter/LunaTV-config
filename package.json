@@ -1,7 +1,7 @@
 {
   "name": "lunatv-base58",
   "version": "1.0.0",
-  "description": "Convert luna-tv-config.json to Base58",
+  "description": "Convert LunaTV-config.json to Base58",
   "main": "encode.js",
   "scripts": {
     "encode": "node encode.js"
