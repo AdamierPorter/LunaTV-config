@@ -3,7 +3,7 @@ const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
 
-const configPath = path.join(__dirname, 'luna-tv-config.json');
+const configPath = path.join(__dirname, 'LunaTV-config.json');
 const reportPath = path.join(__dirname, 'report.md');
 const MAX_DAYS = 100;
 const WARN_STREAK = 3; // 连续失败天数阈值
