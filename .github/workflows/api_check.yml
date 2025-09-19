@@ -24,10 +24,10 @@ jobs:
       run: |
         npm install axios  # 安装 axios
 
-    - name: 延时 30 秒
+    - name: 延时 5 秒
       run: |
-        echo "等待 30 秒后开始执行 API 检查..."
-        sleep 30  # 延时 30 秒
+        echo "等待 5 秒后开始执行 API 检查..."
+        sleep 5  # 延时 5 秒
 
     - name: 运行 API 检查脚本
       run: node check_apis.js
