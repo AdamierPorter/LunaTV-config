@@ -575,6 +575,128 @@ class FileOperations {
     }
 }
 
+// 🔧 新增：编辑器控制功能（修复全屏、复制、查找无反应问题）
+class EditorControls {
+    // 全屏功能
+    static toggleFullscreen() {
+        if (!editorLoaded || !editor) {
+            MessageManager.show('编辑器尚未加载完成', 'error');
+            return;
+        }
+        
+        const appContainer = document.querySelector('.app-container');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        
+        if (!document.fullscreenElement) {
+            appContainer.requestFullscreen().then(() => {
+                fullscreenBtn.textContent = '🔍 退出全屏';
+                fullscreenBtn.title = '退出全屏模式';
+                MessageManager.show('已进入全屏模式，按ESC键退出', 'success');
+                
+                // 重新布局编辑器
+                setTimeout(() => {
+                    if (editor) {
+                        editor.layout();
+                    }
+                }, 100);
+            }).catch(() => {
+                MessageManager.show('无法进入全屏模式', 'error');
+            });
+        } else {
+            document.exitFullscreen().then(() => {
+                fullscreenBtn.textContent = '🔍 全屏';
+                fullscreenBtn.title = '全屏模式';
+                MessageManager.show('已退出全屏模式', 'info');
+                
+                // 重新布局编辑器
+                setTimeout(() => {
+                    if (editor) {
+                        editor.layout();
+                    }
+                }, 100);
+            });
+        }
+    }
+    
+    // 复制功能
+    static copyContent() {
+        if (!editorLoaded || !editor) {
+            MessageManager.show('编辑器尚未加载完成', 'error');
+            return;
+        }
+        
+        try {
+            const content = editor.getValue();
+            
+            // 尝试使用现代 Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(content).then(() => {
+                    MessageManager.show('内容已复制到剪贴板', 'success');
+                }).catch(() => {
+                    // 降级到传统方法
+                    this.fallbackCopy(content);
+                });
+            } else {
+                // 降级到传统方法
+                this.fallbackCopy(content);
+            }
+        } catch (error) {
+            MessageManager.show(`复制失败: ${error.message}`, 'error');
+        }
+    }
+    
+    // 降级复制方法
+    static fallbackCopy(content) {
+        try {
+            const textArea = document.createElement('textarea');
+            textArea.value = content;
+            textArea.style.position = 'fixed';
+            textArea.style.top = '-9999px';
+            textArea.style.left = '-9999px';
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            if (successful) {
+                MessageManager.show('内容已复制到剪贴板', 'success');
+            } else {
+                MessageManager.show('复制失败，请手动复制内容', 'error');
+            }
+        } catch (error) {
+            MessageManager.show('复制失败，请手动复制内容', 'error');
+        }
+    }
+    
+    // 查找功能
+    static openSearch() {
+        if (!editorLoaded || !editor) {
+            MessageManager.show('编辑器尚未加载完成', 'error');
+            return;
+        }
+        
+        try {
+            // 触发Monaco编辑器的搜索功能
+            if (editor.getAction) {
+                const searchAction = editor.getAction('actions.find');
+                if (searchAction) {
+                    searchAction.run();
+                    MessageManager.show('搜索功能已打开', 'info');
+                } else {
+                    MessageManager.show('搜索功能不可用', 'warning');
+                }
+            } else {
+                MessageManager.show('编辑器功能不完整', 'error');
+            }
+        } catch (error) {
+            MessageManager.show(`打开搜索失败: ${error.message}`, 'error');
+        }
+    }
+}
+
 // 初始化Monaco编辑器
 function initializeEditor() {
     if (typeof monaco !== 'undefined') {
@@ -583,7 +705,7 @@ function initializeEditor() {
     }
     
     const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/loader.min.js';
     script.onload = () => {
         require.config({ 
             paths: { 
@@ -620,7 +742,9 @@ function createEditor() {
     "GitHub同步",
     "浏览器密码管理",
     "树状视图",
-    "全屏编辑"
+    "全屏编辑",
+    "复制功能",
+    "查找替换"
   ]
 }`,
             language: 'json',
@@ -640,6 +764,7 @@ function createEditor() {
             bracketPairColorization: { enabled: true }
         });
         
+        // 监听内容变化
         editor.onDidChangeModelContent(() => {
             if (editorLoaded) {
                 JSONOperations.validate();
@@ -648,8 +773,16 @@ function createEditor() {
             }
         });
         
+        // 监听光标位置变化
+        editor.onDidChangeCursorPosition((e) => {
+            const positionEl = document.getElementById('cursor-position');
+            if (positionEl) {
+                positionEl.textContent = `行: ${e.position.lineNumber}, 列: ${e.position.column}`;
+            }
+        });
+        
         editorLoaded = true;
-        MessageManager.show('编辑器初始化完成', 'success');
+        MessageManager.show('编辑器初始化完成，全屏、复制、查找功能已修复', 'success');
         
     } catch (error) {
         MessageManager.show(`编辑器创建失败: ${error.message}`, 'error');
@@ -723,9 +856,9 @@ function updatePreview() {
     }
 }
 
-// 事件监听器设置
+// 🔧 事件监听器设置（修复版本）
 function setupEventListeners() {
-    // 按钮事件
+    // 基础按钮事件
     const buttons = [
         { id: 'load-btn', handler: GitHubAPI.loadConfig },
         { id: 'save-btn', handler: GitHubAPI.saveConfig },
@@ -746,6 +879,22 @@ function setupEventListeners() {
         }
     });
     
+    // 🔧 编辑器控制按钮（修复版本）
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', EditorControls.toggleFullscreen);
+    }
+    
+    const copyBtn = document.getElementById('copy-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', EditorControls.copyContent);
+    }
+    
+    const searchBtn = document.getElementById('search-btn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', EditorControls.openSearch);
+    }
+    
     // 文件上传
     const fileInput = document.getElementById('file-input');
     if (fileInput) {
@@ -757,6 +906,7 @@ function setupEventListeners() {
     if (tokenInput) {
         tokenInput.addEventListener('input', (e) => {
             githubToken = e.target.value.trim();
+            updateSaveButton();
         });
         
         // 监听浏览器自动填充
@@ -766,6 +916,7 @@ function setupEventListeners() {
                     githubToken = tokenInput.value.trim();
                     if (githubToken) {
                         MessageManager.show('已从浏览器恢复Token', 'success');
+                        updateSaveButton();
                     }
                 }
             }, 100);
@@ -830,6 +981,20 @@ function setupEventListeners() {
         });
     }
     
+    // 全屏状态监听
+    document.addEventListener('fullscreenchange', () => {
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        if (fullscreenBtn) {
+            if (document.fullscreenElement) {
+                fullscreenBtn.textContent = '🔍 退出全屏';
+                fullscreenBtn.title = '退出全屏模式';
+            } else {
+                fullscreenBtn.textContent = '🔍 全屏';
+                fullscreenBtn.title = '全屏模式';
+            }
+        }
+    });
+    
     // 键盘快捷键
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey) {
@@ -850,7 +1015,28 @@ function setupEventListeners() {
                     e.preventDefault();
                     FileOperations.download();
                     break;
+                case 'f':
+                    e.preventDefault();
+                    if (editorLoaded) EditorControls.openSearch();
+                    break;
+                case 'c':
+                    if (e.shiftKey) {
+                        e.preventDefault();
+                        if (editorLoaded) EditorControls.copyContent();
+                    }
+                    break;
+                case 'enter':
+                    if (e.altKey) {
+                        e.preventDefault();
+                        if (editorLoaded) EditorControls.toggleFullscreen();
+                    }
+                    break;
             }
+        }
+        
+        // ESC键退出全屏
+        if (e.key === 'Escape' && document.fullscreenElement) {
+            document.exitFullscreen();
         }
     });
 }
@@ -875,7 +1061,7 @@ function initializeApp() {
     
     // 显示欢迎消息
     setTimeout(() => {
-        MessageManager.show('🌙 欢迎使用Luna TV配置编辑器！支持浏览器密码管理', 'info');
+        MessageManager.show('🔧 Luna TV配置编辑器已启动！全屏、复制、查找功能已修复', 'success');
     }, 1500);
 }
 
@@ -894,4 +1080,4 @@ if (document.readyState === 'loading') {
     initializeApp();
 }
 
-console.log('🔐 Luna TV配置编辑器已启动，支持浏览器密码保存功能');
+console.log('🔧 Luna TV配置编辑器已启动，全屏、复制、查找功能已修复');
