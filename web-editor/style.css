@@ -104,24 +104,12 @@ body {
     cursor: not-allowed;
 }
 
-.btn-primary {
-    color: white;
-}
-
 .btn-primary:hover:not(:disabled) {
     transform: translateY(-1px);
 }
 
-.btn-success {
-    color: white;
-}
-
 .btn-success:hover:not(:disabled) {
     transform: translateY(-1px);
-}
-
-.btn-secondary {
-    color: white;
 }
 
 .btn-secondary:hover:not(:disabled) {
