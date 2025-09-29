@@ -104,6 +104,35 @@ body {
     cursor: not-allowed;
 }
 
+.btn-primary {
+    background: #0d6efd;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #0b5ed7;
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: #198754;
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #146c43;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #545b62;
+}
+
 .btn-outline {
     background: transparent;
     color: #e0e0e0;
