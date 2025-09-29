@@ -87,72 +87,28 @@ body {
     box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }
 
-/* === 按钮样式 === */
-.btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+/* === 顶部按钮统一灰色风格 === */
+.btn-primary, .btn-success, .btn-secondary, .btn-outline {
+    background: #444;      /* 深灰色背景 */
+    color: #e0e0e0;        /* 浅灰文字 */
+    border: 1px solid #555;
 }
 
-.btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.btn-primary {
-    background: #0d6efd;
-    color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: #0b5ed7;
-    transform: translateY(-1px);
-}
-
-.btn-success {
-    background: #198754;
-    color: white;
-}
-
-.btn-success:hover:not(:disabled) {
-    background: #146c43;
-    transform: translateY(-1px);
-}
-
-.btn-secondary {
-    background: #6c757d;
-    color: white;
-}
-
-.btn-secondary:hover:not(:disabled) {
-    background: #545b62;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #e0e0e0;
-    border: 1px solid rgba(255,255,255,0.3);
-}
-
+.btn-primary:hover:not(:disabled),
+.btn-success:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled),
 .btn-outline:hover:not(:disabled) {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.5);
+    background: #555;      /* hover 加亮 */
+    border-color: #777;
 }
 
-.btn-icon {
-    background: #343a40;
-    color: white;
-    padding: 6px 12px;
-    font-size: 0.85rem;
-}
-
-.btn-icon:hover:not(:disabled) {
-    background: #495057;
+.btn-primary:disabled,
+.btn-success:disabled,
+.btn-secondary:disabled,
+.btn-outline:disabled {
+    background: #333;
+    color: #888;
+    border-color: #444;
 }
 
 /* === 主容器 === */
