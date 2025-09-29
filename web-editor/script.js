@@ -1,4 +1,6 @@
-    // web-editor/script.js
+// 🔧 Luna TV配置编辑器 - 修复递归错误版
+// 修复了 TokenManager.triggerPasswordSave() 无限递归问题
+
 // 全局变量
 let editor;
 let currentConfig = '';
@@ -140,48 +142,52 @@ class MessageManager {
     }
 }
 
-// Token管理类 - 支持浏览器密码保存
+// 🔧 修复后的Token管理类 - 解决递归问题
 class TokenManager {
     static init() {
-        // 监听表单提交事件，触发浏览器密码保存
-        const form = document.getElementById('login-form');
+        // 简化Token管理，移除递归风险
         const tokenInput = document.getElementById('github-token');
         
-        if (form && tokenInput) {
-            // 当Token输入后自动提交表单（但阻止实际提交）
+        if (tokenInput) {
+            // 监听Token输入
             tokenInput.addEventListener('input', (e) => {
                 githubToken = e.target.value.trim();
+                updateSaveButton();
                 
-                // 延迟触发，确保浏览器检测到表单"提交"
-                setTimeout(() => {
-                    if (githubToken && githubToken.length > 10) {
-                        this.triggerPasswordSave();
-                    }
-                }, 500);
+                // 简单的保存提示，不触发事件循环
+                if (githubToken && githubToken.length > 20) {
+                    this.showTokenSaveHint();
+                }
             });
             
-            // 监听表单提交
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.triggerPasswordSave();
+            // 监听浏览器自动填充
+            tokenInput.addEventListener('change', () => {
+                setTimeout(() => {
+                    if (tokenInput.value && !githubToken) {
+                        githubToken = tokenInput.value.trim();
+                        if (githubToken) {
+                            MessageManager.show('已从浏览器恢复Token', 'success');
+                            updateSaveButton();
+                        }
+                    }
+                }, 100);
             });
+            
+            // 页面加载后尝试恢复Token
+            setTimeout(() => {
+                this.restoreFromBrowser();
+            }, 1000);
         }
     }
     
-    // 触发浏览器密码保存提示
-static triggerPasswordSave() {
-    if (githubToken) {
-        // 直接提示，不使用事件循环
-        MessageManager.show('Token已输入', 'success');
-        
-        // 可选：触发浏览器焦点变化来提示密码保存
-        const tokenInput = document.getElementById('github-token');
-        if (tokenInput) {
-            tokenInput.blur();
-            setTimeout(() => tokenInput.focus(), 100);
+    // 🔧 修复：简化密码保存提示，不使用事件循环
+    static showTokenSaveHint() {
+        // 静默提示，避免频繁显示
+        if (!this.hintShown) {
+            MessageManager.show('💡 浏览器会提示保存此Token', 'info', 2000);
+            this.hintShown = true;
         }
     }
-}
     
     // 切换Token显示/隐藏
     static toggleTokenVisibility() {
@@ -203,6 +209,7 @@ static triggerPasswordSave() {
             tokenInput.value = '';
         }
         githubToken = '';
+        updateSaveButton();
         MessageManager.show('Token已清除', 'info');
     }
     
@@ -212,7 +219,8 @@ static triggerPasswordSave() {
         if (tokenInput && tokenInput.value) {
             githubToken = tokenInput.value.trim();
             if (githubToken) {
-                MessageManager.show('已从浏览器恢复Token', 'success');
+                MessageManager.show('✅ 已从浏览器恢复Token', 'success');
+                updateSaveButton();
                 return true;
             }
         }
@@ -336,7 +344,7 @@ class GitHubAPI {
                 }
                 
                 StatusManager.updateFileInfo({ size: data.size, lastModified: data.sha });
-                MessageManager.show('配置文件加载成功！', 'success');
+                MessageManager.show('✅ 配置文件加载成功！', 'success');
                 return true;
                 
             } catch (jsonError) {
@@ -349,7 +357,7 @@ class GitHubAPI {
             }
             
         } catch (error) {
-            MessageManager.show(`加载失败: ${error.message}`, 'error');
+            MessageManager.show(`❌ 加载失败: ${error.message}`, 'error');
             return false;
         } finally {
             StatusManager.setLoading(false);
@@ -373,7 +381,7 @@ class GitHubAPI {
             JSON.parse(content);
         } catch (error) {
             const translatedError = Utils.translateJsonError(error);
-            MessageManager.show(`保存失败：${translatedError}`, 'error');
+            MessageManager.show(`❌ 保存失败：${translatedError}`, 'error');
             return false;
         }
         
@@ -419,11 +427,11 @@ class GitHubAPI {
                 lastSaved: Utils.getTimestamp()
             });
             
-            MessageManager.show('配置文件保存成功！', 'success');
+            MessageManager.show('✅ 配置文件保存成功！', 'success');
             return true;
             
         } catch (error) {
-            MessageManager.show(`保存失败: ${error.message}`, 'error');
+            MessageManager.show(`❌ 保存失败: ${error.message}`, 'error');
             return false;
         } finally {
             StatusManager.setLoading(false);
@@ -456,10 +464,10 @@ class JSONOperations {
             const parsed = JSON.parse(content);
             const formatted = JSON.stringify(parsed, null, 2);
             editor.setValue(formatted);
-            MessageManager.show('JSON格式化完成', 'success');
+            MessageManager.show('✅ JSON格式化完成', 'success');
         } catch (error) {
             const translatedError = Utils.translateJsonError(error);
-            MessageManager.show(`格式化失败: ${translatedError}`, 'error');
+            MessageManager.show(`❌ 格式化失败: ${translatedError}`, 'error');
         }
     }
     
@@ -474,10 +482,10 @@ class JSONOperations {
             const parsed = JSON.parse(content);
             const minified = JSON.stringify(parsed);
             editor.setValue(minified);
-            MessageManager.show('JSON压缩完成', 'success');
+            MessageManager.show('✅ JSON压缩完成', 'success');
         } catch (error) {
             const translatedError = Utils.translateJsonError(error);
-            MessageManager.show(`压缩失败: ${translatedError}`, 'error');
+            MessageManager.show(`❌ 压缩失败: ${translatedError}`, 'error');
         }
     }
     
@@ -491,12 +499,12 @@ class JSONOperations {
             const content = editor.getValue();
             JSON.parse(content);
             StatusManager.updateValidationStatus(true);
-            MessageManager.show('JSON格式验证通过', 'success');
+            MessageManager.show('✅ JSON格式验证通过', 'success');
             return true;
         } catch (error) {
             const translatedError = Utils.translateJsonError(error);
             StatusManager.updateValidationStatus(false, translatedError);
-            MessageManager.show(`JSON格式错误: ${translatedError}`, 'error');
+            MessageManager.show(`❌ JSON格式错误: ${translatedError}`, 'error');
             return false;
         }
     }
@@ -538,10 +546,10 @@ class FileOperations {
                 const content = e.target.result;
                 JSON.parse(content);
                 editor.setValue(content);
-                MessageManager.show(`文件 "${file.name}" 上传成功`, 'success');
+                MessageManager.show(`✅ 文件 "${file.name}" 上传成功`, 'success');
             } catch (error) {
                 const translatedError = Utils.translateJsonError(error);
-                MessageManager.show(`文件格式错误: ${translatedError}`, 'error');
+                MessageManager.show(`❌ 文件格式错误: ${translatedError}`, 'error');
             }
         };
         
@@ -570,15 +578,15 @@ class FileOperations {
             document.body.removeChild(a);
             
             URL.revokeObjectURL(url);
-            MessageManager.show('文件下载成功', 'success');
+            MessageManager.show('✅ 文件下载成功', 'success');
         } catch (error) {
             const translatedError = Utils.translateJsonError(error);
-            MessageManager.show(`下载失败: ${translatedError}`, 'error');
+            MessageManager.show(`❌ 下载失败: ${translatedError}`, 'error');
         }
     }
 }
 
-// 🔧 新增：编辑器控制功能（修复全屏、复制、查找无反应问题）
+// 编辑器控制功能
 class EditorControls {
     // 全屏功能
     static toggleFullscreen() {
@@ -634,7 +642,7 @@ class EditorControls {
             // 尝试使用现代 Clipboard API
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(content).then(() => {
-                    MessageManager.show('内容已复制到剪贴板', 'success');
+                    MessageManager.show('✅ 内容已复制到剪贴板', 'success');
                 }).catch(() => {
                     // 降级到传统方法
                     this.fallbackCopy(content);
@@ -644,7 +652,7 @@ class EditorControls {
                 this.fallbackCopy(content);
             }
         } catch (error) {
-            MessageManager.show(`复制失败: ${error.message}`, 'error');
+            MessageManager.show(`❌ 复制失败: ${error.message}`, 'error');
         }
     }
     
@@ -665,12 +673,12 @@ class EditorControls {
             document.body.removeChild(textArea);
             
             if (successful) {
-                MessageManager.show('内容已复制到剪贴板', 'success');
+                MessageManager.show('✅ 内容已复制到剪贴板', 'success');
             } else {
-                MessageManager.show('复制失败，请手动复制内容', 'error');
+                MessageManager.show('❌ 复制失败，请手动复制内容', 'error');
             }
         } catch (error) {
-            MessageManager.show('复制失败，请手动复制内容', 'error');
+            MessageManager.show('❌ 复制失败，请手动复制内容', 'error');
         }
     }
     
@@ -687,15 +695,15 @@ class EditorControls {
                 const searchAction = editor.getAction('actions.find');
                 if (searchAction) {
                     searchAction.run();
-                    MessageManager.show('搜索功能已打开', 'info');
+                    MessageManager.show('✅ 搜索功能已打开', 'info');
                 } else {
-                    MessageManager.show('搜索功能不可用', 'warning');
+                    MessageManager.show('⚠️ 搜索功能不可用', 'warning');
                 }
             } else {
-                MessageManager.show('编辑器功能不完整', 'error');
+                MessageManager.show('❌ 编辑器功能不完整', 'error');
             }
         } catch (error) {
-            MessageManager.show(`打开搜索失败: ${error.message}`, 'error');
+            MessageManager.show(`❌ 打开搜索失败: ${error.message}`, 'error');
         }
     }
 }
@@ -708,11 +716,11 @@ function initializeEditor() {
     }
     
     const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/loader.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js';
     script.onload = () => {
         require.config({ 
             paths: { 
-                'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs' 
+                'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' 
             } 
         });
         
@@ -722,7 +730,7 @@ function initializeEditor() {
     };
     
     script.onerror = () => {
-        MessageManager.show('Monaco编辑器加载失败，请检查网络连接', 'error');
+        MessageManager.show('❌ Monaco编辑器加载失败，请检查网络连接', 'error');
     };
     
     document.head.appendChild(script);
@@ -731,15 +739,20 @@ function initializeEditor() {
 function createEditor() {
     const editorContainer = document.getElementById('json-editor');
     if (!editorContainer) {
-        MessageManager.show('编辑器容器未找到', 'error');
+        MessageManager.show('❌ 编辑器容器未找到', 'error');
         return;
     }
     
     try {
         editor = monaco.editor.create(editorContainer, {
             value: `{
-  "message": "欢迎使用Luna TV配置编辑器",
+  "message": "欢迎使用Luna TV配置编辑器 - 修复版",
   "description": "请点击'加载配置'按钮开始编辑您的配置文件",
+  "fixes": [
+    "✅ 修复TokenManager递归错误",
+    "✅ 优化浏览器密码管理",
+    "✅ 完善错误处理机制"
+  ],
   "features": [
     "JSON格式化和验证",
     "GitHub同步",
@@ -785,10 +798,10 @@ function createEditor() {
         });
         
         editorLoaded = true;
-        MessageManager.show('编辑器初始化完成，全屏、复制、查找功能已修复', 'success');
+        MessageManager.show('✅ 编辑器初始化完成，递归错误已修复！', 'success');
         
     } catch (error) {
-        MessageManager.show(`编辑器创建失败: ${error.message}`, 'error');
+        MessageManager.show(`❌ 编辑器创建失败: ${error.message}`, 'error');
         console.error('编辑器创建失败:', error);
     }
 }
@@ -882,7 +895,7 @@ function setupEventListeners() {
         }
     });
     
-    // 🔧 编辑器控制按钮（修复版本）
+    // 编辑器控制按钮
     const fullscreenBtn = document.getElementById('fullscreen-btn');
     if (fullscreenBtn) {
         fullscreenBtn.addEventListener('click', EditorControls.toggleFullscreen);
@@ -902,28 +915,6 @@ function setupEventListeners() {
     const fileInput = document.getElementById('file-input');
     if (fileInput) {
         fileInput.addEventListener('change', FileOperations.handleFileUpload);
-    }
-    
-    // Token输入框事件
-    const tokenInput = document.getElementById('github-token');
-    if (tokenInput) {
-        tokenInput.addEventListener('input', (e) => {
-            githubToken = e.target.value.trim();
-            updateSaveButton();
-        });
-        
-        // 监听浏览器自动填充
-        tokenInput.addEventListener('change', () => {
-            setTimeout(() => {
-                if (tokenInput.value && !githubToken) {
-                    githubToken = tokenInput.value.trim();
-                    if (githubToken) {
-                        MessageManager.show('已从浏览器恢复Token', 'success');
-                        updateSaveButton();
-                    }
-                }
-            }, 100);
-        });
     }
     
     // 标签页切换
@@ -1046,9 +1037,9 @@ function setupEventListeners() {
 
 // 应用初始化
 function initializeApp() {
-    console.log('🌙 Luna TV配置编辑器启动中...');
+    console.log('🔧 Luna TV配置编辑器启动中...');
     
-    // 初始化Token管理
+    // 初始化Token管理（修复递归版本）
     TokenManager.init();
     
     // 初始化编辑器
@@ -1057,14 +1048,9 @@ function initializeApp() {
     // 设置事件监听器
     setupEventListeners();
     
-    // 尝试从浏览器恢复Token
-    setTimeout(() => {
-        TokenManager.restoreFromBrowser();
-    }, 1000);
-    
     // 显示欢迎消息
     setTimeout(() => {
-        MessageManager.show('🔧 Luna TV配置编辑器已启动！全屏、复制、查找功能已修复', 'success');
+        MessageManager.show('🔧 Luna TV配置编辑器已启动！递归错误已修复', 'success');
     }, 1500);
 }
 
@@ -1083,4 +1069,4 @@ if (document.readyState === 'loading') {
     initializeApp();
 }
 
-console.log('🔧 Luna TV配置编辑器已启动，全屏、复制、查找功能已修复');
+console.log('✅ Luna TV配置编辑器已启动，递归错误已修复！');
