@@ -104,17 +104,6 @@ body {
     cursor: not-allowed;
 }
 
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-1px);
-}
-
-.btn-success:hover:not(:disabled) {
-    transform: translateY(-1px);
-}
-
-.btn-secondary:hover:not(:disabled) {
-}
-
 .btn-outline {
     background: transparent;
     color: #e0e0e0;
