@@ -1,4 +1,4 @@
-// web-editor/script.js
+    // web-editor/script.js
 // 全局变量
 let editor;
 let currentConfig = '';
@@ -169,16 +169,19 @@ class TokenManager {
     }
     
     // 触发浏览器密码保存提示
-    static triggerPasswordSave() {
-        const form = document.getElementById('login-form');
-        if (form && githubToken) {
-            // 创建一个隐藏的提交事件来触发浏览器密码保存
-            const event = new Event('submit', { bubbles: true, cancelable: true });
-            form.dispatchEvent(event);
-            
-            MessageManager.show('Token已输入，浏览器应该会提示保存密码', 'success');
+static triggerPasswordSave() {
+    if (githubToken) {
+        // 直接提示，不使用事件循环
+        MessageManager.show('Token已输入', 'success');
+        
+        // 可选：触发浏览器焦点变化来提示密码保存
+        const tokenInput = document.getElementById('github-token');
+        if (tokenInput) {
+            tokenInput.blur();
+            setTimeout(() => tokenInput.focus(), 100);
         }
     }
+}
     
     // 切换Token显示/隐藏
     static toggleTokenVisibility() {
