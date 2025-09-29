@@ -7,8 +7,8 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #333;
+    background: #121212; /* 暗夜黑背景 */
+    color: #e0e0e0;      /* 浅色文字 */
     height: 100vh;
     overflow: hidden;
 }
@@ -18,18 +18,18 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: #f8f9fa;
+    background: #181818; /* 主体深灰背景 */
 }
 
 /* === 顶部工具栏 === */
 .top-toolbar {
-    background: linear-gradient(90deg, #2c3e50, #34495e);
-    color: white;
+    background: linear-gradient(90deg, #1c1c1c, #2a2a2a);
+    color: #f0f0f0;
     padding: 12px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     z-index: 100;
 }
 
@@ -43,6 +43,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
+    color: #ffffff;
 }
 
 .file-info {
@@ -51,6 +52,7 @@ body {
     gap: 12px;
     font-size: 0.85rem;
     opacity: 0.9;
+    color: #bbb;
 }
 
 .file-size, .file-status {
@@ -58,6 +60,7 @@ body {
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.8rem;
+    color: #e0e0e0;
 }
 
 /* === 认证区域 === */
