@@ -1,14 +1,12 @@
- <!-- web-editor/index.html -->
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙 Luna TV 配置编辑器</title>
-    <meta name="description" content="专业的JSON配置编辑器，支持GitHub同步">
+    <title>🌙 Luna TV 配置编辑器 - 修复版</title>
+    <meta name="description" content="专业的JSON配置编辑器，Monaco兼容性修复">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='{{http://www.w3.org/2000/svg}}' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='{{69}}' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
 </head>
 <body>
     <div class="app-container">
@@ -24,41 +22,27 @@
             </div>
             
             <div class="toolbar-right">
-                <!-- 使用form包装以支持浏览器密码管理 -->
-                <form class="auth-form" autocomplete="on" id="login-form">
-                    <div class="auth-section">
-                        <!-- 隐藏的用户名字段，帮助浏览器识别这是登录表单 -->
-                        <input type="text" 
-                               id="username" 
-                               name="username"
-                               value="Luna-TV-GitHub"
-                               autocomplete="username"
-                               style="display: none;" 
-                               readonly>
-                        
-                        <!-- Token输入框，设置为密码类型 -->
-                        <input type="password" 
-                               id="github-token" 
-                               name="password"
-                               placeholder="请输入 GitHub Personal Access Token" 
-                               class="token-input"
-                               autocomplete="current-password"
-                               data-lpignore="false">
-                        
-                        <button type="button" id="load-btn" class="btn btn-primary" title="从GitHub加载配置">
-                            📥 加载配置
-                        </button>
-                        <button type="button" id="save-btn" class="btn btn-success" disabled title="保存到GitHub">
-                            💾 保存配置
-                        </button>
-                        <button type="button" id="clear-token-btn" class="btn btn-secondary" title="清除Token">
-                            🗑️ 清除Token
-                        </button>
-                        <button type="button" id="toggle-token-btn" class="btn btn-outline" title="显示/隐藏Token">
-                            👁️ 显示
-                        </button>
-                    </div>
-                </form>
+                <div class="auth-section">
+                    <input type="password" 
+                           id="github-token" 
+                           name="github-token"
+                           placeholder="请输入 GitHub Personal Access Token" 
+                           class="token-input"
+                           autocomplete="github-token">
+                    
+                    <button type="button" id="load-btn" class="btn btn-primary" title="从GitHub加载配置">
+                        📥 加载配置
+                    </button>
+                    <button type="button" id="save-btn" class="btn btn-success" disabled title="保存到GitHub">
+                        💾 保存配置
+                    </button>
+                    <button type="button" id="clear-token-btn" class="btn btn-secondary" title="清除Token">
+                        🗑️ 清除Token
+                    </button>
+                    <button type="button" id="toggle-token-btn" class="btn btn-outline" title="显示/隐藏Token">
+                        👁️ 显示
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -147,6 +131,12 @@
                     </div>
                     
                     <div class="editor-controls">
+                        <button id="expand-all-btn" class="btn btn-icon" title="展开所有节点" style="display: none;">
+                            📂 全部展开
+                        </button>
+                        <button id="collapse-all-btn" class="btn btn-icon" title="收起所有节点" style="display: none;">
+                            📁 全部收起
+                        </button>
                         <button id="fullscreen-btn" class="btn btn-icon" title="全屏模式">
                             🔍 全屏
                         </button>
@@ -211,7 +201,8 @@
         </div>
     </div>
 
-    <script src="{{166}}"></script>
-    <script src="script.js"></script>
+    <!-- 🔧 使用稳定版本的Monaco编辑器 -->
+    <script src="{{70}}"></script>
+    <script src="script-fixed.js"></script>
 </body>
 </html>
