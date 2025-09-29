@@ -1,5 +1,44 @@
-// 🌳 Luna TV配置编辑器 - 树状视图修复版
-// 修复了递归错误问题 + 真正的可交互树状视图
+// 🔧 Luna TV配置编辑器 - Monaco兼容性修复版
+// 解决 t.getModifierState is not a function 错误
+
+// 🛠️ 键盘事件兼容性修复 - 必须在Monaco加载前执行
+function fixKeyboardEventCompatibility() {
+    if (typeof KeyboardEvent !== 'undefined' && KeyboardEvent.prototype) {
+        const originalGetModifierState = KeyboardEvent.prototype.getModifierState;
+        
+        if (!originalGetModifierState || typeof originalGetModifierState !== 'function') {
+            KeyboardEvent.prototype.getModifierState = function(keyArg) {
+                console.log(`[兼容性修复] 调用getModifierState(${keyArg})`);
+                
+                // 基本的修饰键检测
+                switch (keyArg) {
+                    case 'Control':
+                    case 'Ctrl':
+                        return this.ctrlKey || false;
+                    case 'Shift':
+                        return this.shiftKey || false;
+                    case 'Alt':
+                        return this.altKey || false;
+                    case 'Meta':
+                        return this.metaKey || false;
+                    case 'CapsLock':
+                        return false; // 简化处理
+                    case 'NumLock':
+                        return false; // 简化处理
+                    case 'ScrollLock':
+                        return false; // 简化处理
+                    default:
+                        return false;
+                }
+            };
+            
+            console.log('✅ 键盘事件兼容性补丁已应用');
+        }
+    }
+}
+
+// 立即执行兼容性修复
+fixKeyboardEventCompatibility();
 
 // 全局变量
 let editor;
@@ -179,7 +218,7 @@ class TokenManager {
         }
     }
     
-    // 🔧 修复：简化密码保存提示，避免递归
+    // 修复：简化密码保存提示，避免递归
     static showTokenSaveHint() {
         // 静默提示，避免频繁显示
         if (!this.hintShown) {
@@ -701,20 +740,55 @@ class EditorControls {
     }
 }
 
-// 初始化Monaco编辑器
+// 🔧 修复后的Monaco编辑器初始化
 function initializeEditor() {
+    console.log('🔧 开始初始化Monaco编辑器（兼容性修复版）');
+    
+    // 再次确保兼容性修复已应用
+    fixKeyboardEventCompatibility();
+    
     if (typeof monaco !== 'undefined') {
         createEditor();
         return;
     }
     
+    // 使用稳定版本的Monaco编辑器
     const script = document.createElement('script');
-    script.src = '61;
+    script.src = '{{71}}';
+    
+    script.onload = () => {
+        console.log('✅ Monaco编辑器脚本加载成功');
+        
+        require.config({ 
+            paths: { 
+                'vs': '{{72}}' 
+            }
+        });
+        
+        require(['vs/editor/editor.main'], function () {
+            console.log('✅ Monaco编辑器模块加载成功');
+            createEditor();
+        });
+    };
+    
+    script.onerror = () => {
+        MessageManager.show('❌ Monaco编辑器加载失败，尝试备用源...', 'warning');
+        loadFallbackEditor();
+    };
+    
+    document.head.appendChild(script);
+}
+
+// 备用编辑器加载
+function loadFallbackEditor() {
+    const script = document.createElement('script');
+    script.src = '{{73}}';
+    
     script.onload = () => {
         require.config({ 
             paths: { 
-                'vs': '62 
-            } 
+                'vs': '{{74}}' 
+            }
         });
         
         require(['vs/editor/editor.main'], function () {
@@ -723,10 +797,57 @@ function initializeEditor() {
     };
     
     script.onerror = () => {
-        MessageManager.show('❌ Monaco编辑器加载失败，请检查网络连接', 'error');
+        MessageManager.show('❌ Monaco编辑器加载失败，使用备用文本框', 'error');
+        createFallbackTextArea();
     };
     
     document.head.appendChild(script);
+}
+
+// 简单文本框备用方案
+function createFallbackTextArea() {
+    const editorContainer = document.getElementById('json-editor');
+    if (!editorContainer) return;
+    
+    const textarea = document.createElement('textarea');
+    textarea.id = 'fallback-editor';
+    textarea.style.cssText = `
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-family: 'Monaco', 'Consolas', monospace;
+        font-size: 14px;
+        padding: 16px;
+        resize: none;
+        background: #1e1e1e;
+        color: #d4d4d4;
+    `;
+    
+    textarea.value = `{
+  "message": "备用编辑器已加载",
+  "note": "Monaco编辑器加载失败，正在使用简单文本框",
+  "suggestion": "请刷新页面重试或检查网络连接"
+}`;
+    
+    editorContainer.innerHTML = '';
+    editorContainer.appendChild(textarea);
+    
+    // 创建简化的editor对象
+    editor = {
+        getValue: () => textarea.value,
+        setValue: (value) => { textarea.value = value; },
+        getAction: () => null,
+        layout: () => {},
+        updateOptions: () => {},
+        onDidChangeModelContent: (callback) => {
+            textarea.addEventListener('input', callback);
+        },
+        onDidChangeCursorPosition: () => {}
+    };
+    
+    editorLoaded = true;
+    MessageManager.show('⚠️ 备用编辑器已加载', 'warning');
 }
 
 function createEditor() {
@@ -737,34 +858,33 @@ function createEditor() {
     }
     
     try {
+        console.log('🔧 创建Monaco编辑器实例...');
+        
+        // 最后一次确保兼容性修复
+        fixKeyboardEventCompatibility();
+        
         editor = monaco.editor.create(editorContainer, {
             value: `{
-  "message": "欢迎使用Luna TV配置编辑器 - 树状视图修复版",
-  "description": "请点击'加载配置'按钮开始编辑您的配置文件",
+  "message": "欢迎使用Luna TV配置编辑器 - 兼容性修复版",
+  "description": "已修复Monaco编辑器键盘事件兼容性问题",
   "fixes": [
     "✅ 修复TokenManager递归错误",
     "✅ 真正的可交互树状视图",
     "✅ 区分预览和树状视图功能",
-    "✅ 完善错误处理机制"
+    "🔧 修复t.getModifierState错误",
+    "🔧 增强Monaco编辑器兼容性"
   ],
   "features": {
-    "editor": "Monaco编辑器 - 直接编辑JSON",
+    "editor": "Monaco编辑器 - 修复键盘事件",
     "tree": "树状视图 - 可交互的树形结构",
     "preview": "预览视图 - 纯文本格式化显示",
     "github": "GitHub同步功能",
     "validation": "JSON验证和错误提示"
   },
-  "nested_example": {
-    "level1": {
-      "level2": {
-        "level3": {
-          "deep_value": "这是深层嵌套的值",
-          "numbers": [1, 2, 3, 4, 5],
-          "boolean": true,
-          "null_value": null
-        }
-      }
-    }
+  "compatibility": {
+    "keyboard_events": "已修复getModifierState方法",
+    "cdn_fallback": "多重CDN备用加载",
+    "browser_support": "增强浏览器兼容性"
   }
 }`,
             language: 'json',
@@ -781,8 +901,15 @@ function createEditor() {
             smoothScrolling: true,
             cursorBlinking: 'smooth',
             folding: true,
-            bracketPairColorization: { enabled: true }
+            bracketPairColorization: { enabled: true },
+            // 🔧 添加兼容性选项，减少键盘事件处理
+            quickSuggestions: false,
+            parameterHints: { enabled: false },
+            suggest: { showKeywords: false },
+            hover: { enabled: false }
         });
+        
+        console.log('✅ Monaco编辑器实例创建成功');
         
         // 监听内容变化
         editor.onDidChangeModelContent(() => {
@@ -802,11 +929,13 @@ function createEditor() {
         });
         
         editorLoaded = true;
-        MessageManager.show('🌳 编辑器初始化完成，树状视图已修复！', 'success');
+        MessageManager.show('🔧 编辑器初始化完成，兼容性问题已修复！', 'success');
         
     } catch (error) {
         MessageManager.show(`❌ 编辑器创建失败: ${error.message}`, 'error');
         console.error('编辑器创建失败:', error);
+        // 尝试备用方案
+        createFallbackTextArea();
     }
 }
 
@@ -916,7 +1045,7 @@ function createTreeView(data, key = '', level = 0) {
         header.innerHTML = `
             <span class="tree-toggle">▼</span>
             <span class="tree-key">${key}</span>
-            <span class="tree-type">{Object(${keys.length})} </span>
+            <span class="tree-type">{Object(${keys.length})}</span>
         `;
         
         const content = document.createElement('div');
@@ -1124,4 +1253,129 @@ function setupEventListeners() {
     if (lineNumbersToggle) {
         lineNumbersToggle.addEventListener('change', (e) => {
             if (editor) {
-                editor.update
+                editor.updateOptions({ lineNumbers: e.target.checked ? 'on' : 'off' });
+            }
+        });
+    }
+    
+    const themeSelect = document.getElementById('theme-select');
+    if (themeSelect) {
+        themeSelect.addEventListener('change', (e) => {
+            if (typeof monaco !== 'undefined') {
+                monaco.editor.setTheme(e.target.value);
+            }
+        });
+    }
+    
+    const fontSizeSlider = document.getElementById('font-size-slider');
+    if (fontSizeSlider) {
+        fontSizeSlider.addEventListener('input', (e) => {
+            const fontSize = parseInt(e.target.value);
+            if (editor) {
+                editor.updateOptions({ fontSize });
+            }
+            const valueSpan = document.getElementById('font-size-value');
+            if (valueSpan) {
+                valueSpan.textContent = `${fontSize}px`;
+            }
+        });
+    }
+    
+    // 全屏状态监听
+    document.addEventListener('fullscreenchange', () => {
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        if (fullscreenBtn) {
+            if (document.fullscreenElement) {
+                fullscreenBtn.textContent = '🔍 退出全屏';
+                fullscreenBtn.title = '退出全屏模式';
+            } else {
+                fullscreenBtn.textContent = '🔍 全屏';
+                fullscreenBtn.title = '全屏模式';
+            }
+        }
+    });
+    
+    // 键盘快捷键
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey) {
+            switch (e.key.toLowerCase()) {
+                case 's':
+                    e.preventDefault();
+                    if (editorLoaded) GitHubAPI.saveConfig();
+                    break;
+                case 'o':
+                    e.preventDefault();
+                    if (editorLoaded) GitHubAPI.loadConfig();
+                    break;
+                case 'u':
+                    e.preventDefault();
+                    FileOperations.upload();
+                    break;
+                case 'd':
+                    e.preventDefault();
+                    FileOperations.download();
+                    break;
+                case 'f':
+                    e.preventDefault();
+                    if (editorLoaded) EditorControls.openSearch();
+                    break;
+                case 'c':
+                    if (e.shiftKey) {
+                        e.preventDefault();
+                        if (editorLoaded) EditorControls.copyContent();
+                    }
+                    break;
+                case 'enter':
+                    if (e.altKey) {
+                        e.preventDefault();
+                        if (editorLoaded) EditorControls.toggleFullscreen();
+                    }
+                    break;
+            }
+        }
+        
+        // ESC键退出全屏
+        if (e.key === 'Escape' && document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+    });
+}
+
+// 应用初始化
+function initializeApp() {
+    console.log('🔧 Luna TV配置编辑器启动中（兼容性修复版）...');
+    
+    // 确保键盘事件兼容性修复已应用
+    fixKeyboardEventCompatibility();
+    
+    // 初始化Token管理（修复递归版本）
+    TokenManager.init();
+    
+    // 初始化编辑器
+    initializeEditor();
+    
+    // 设置事件监听器
+    setupEventListeners();
+    
+    // 显示欢迎消息
+    setTimeout(() => {
+        MessageManager.show('🔧 Luna TV配置编辑器已启动，Monaco兼容性问题已修复！', 'success');
+    }, 1500);
+}
+
+// 页面卸载前保存状态
+window.addEventListener('beforeunload', (e) => {
+    if (editor && editor.getValue() !== currentConfig && editor.getValue().trim() !== '') {
+        e.preventDefault();
+        e.returnValue = '您有未保存的更改，确定要离开吗？';
+    }
+});
+
+// 页面加载完成后初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
+
+console.log('🔧 Luna TV配置编辑器已启动，Monaco编辑器兼容性问题已修复！');
