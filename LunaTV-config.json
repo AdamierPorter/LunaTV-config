@@ -15,7 +15,7 @@
     },
     "tyyszyapi": {
       "name": "🎬天涯影视",
-      "api": "https://api.allorigins.win/raw?url=https://tyyszy.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://tyyszy.com/api.php/provide/vod",
       "detail": "https://tyyszy.com",
       "is_adult": false
     },
@@ -75,7 +75,7 @@
     },
     "ruyi": {
       "name": "🎬如意资源",
-      "api": "https://api.allorigins.win/raw?url=https://cj.rycjapi.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
       "detail": "https://www.ryzyw.com",
       "is_adult": false
     },
@@ -105,7 +105,7 @@
     },
     "mozhuazy": {
       "name": "🎬魔爪资源",
-      "api": "https://api.allorigins.win/raw?url=https://mozhuazy.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
       "detail": "https://mozhuazy.com",
       "is_adult": false
     },
@@ -141,7 +141,7 @@
     },
     "yinghua": {
       "name": "🎬樱花资源",
-      "api": "https://api.allorigins.win/raw?url=https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://m3u8.apiyhzy.com/api.php/provide/vod",
       "detail": "https://yhzy.cc",
       "is_adult": false
     },
@@ -159,13 +159,13 @@
     },
     "xsd_sdzyapi": {
       "name": "🎬索尼资源",
-      "api": "https://api.allorigins.win/raw?url=https://xsd.sdzyapi.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://xsd.sdzyapi.com/api.php/provide/vod",
       "detail": "https://suonizy.net",
       "is_adult": false
     },
     "kuaichezy": {
       "name": "🎬快车资源",
-      "api": "https://api.allorigins.win/raw?url=https://caiji.kuaichezy.org/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://caiji.kuaichezy.org/api.php/provide/vod",
       "detail": "https://kuaichezy.com",
       "is_adult": false
     },
@@ -231,13 +231,13 @@
     },
     "uku": {
       "name": "🎬U酷资源",
-      "api": "https://api.allorigins.win/raw?url=https://api.ukuapi.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
       "detail": "https://api.ukuapi.com",
       "is_adult": false
     },
     "ukuapi88": {
       "name": "🎬U酷88",
-      "api": "https://api.allorigins.win/raw?url=https://api.ukuapi88.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
       "detail": "https://api.ukuapi88.com",
       "is_adult": false
     },
@@ -393,7 +393,7 @@
     },
     "aosikazy": {
       "name": "🔞奥斯卡",
-      "api": "https://api.allorigins.win/raw?url=https://aosikazy.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://aosikazy.com/api.php/provide/vod",
       "detail": "https://aosikazy.com",
       "is_adult": true
     },
@@ -417,7 +417,7 @@
     },
     "apilj.com": {
       "name": "🔞辣椒资源",
-      "api": "https://api.allorigins.win/raw?url=https://apilj.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://apilj.com/api.php/provide/vod",
       "detail": "https://apilj.com",
       "is_adult": true
     },
