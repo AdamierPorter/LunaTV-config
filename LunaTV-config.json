@@ -15,7 +15,7 @@
     },
     "tyyszyapi": {
       "name": "🎬天涯影视",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://tyyszy.com/api.php/provide/vod",
+      "api": "https://tyyszy.com/api.php/provide/vod",
       "detail": "https://tyyszy.com",
       "is_adult": false
     },
@@ -75,7 +75,7 @@
     },
     "ruyi": {
       "name": "🎬如意资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
       "detail": "https://www.ryzyw.com",
       "is_adult": false
     },
@@ -141,7 +141,7 @@
     },
     "yinghua": {
       "name": "🎬樱花资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "detail": "https://yhzy.cc",
       "is_adult": false
     },
@@ -159,13 +159,13 @@
     },
     "xsd_sdzyapi": {
       "name": "🎬索尼资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://xsd.sdzyapi.com/api.php/provide/vod",
+      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
       "detail": "https://suonizy.net",
       "is_adult": false
     },
     "kuaichezy": {
       "name": "🎬快车资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://caiji.kuaichezy.org/api.php/provide/vod",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
       "detail": "https://kuaichezy.com",
       "is_adult": false
     },
@@ -393,7 +393,7 @@
     },
     "aosikazy": {
       "name": "🔞奥斯卡",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://aosikazy.com/api.php/provide/vod",
+      "api": "https://aosikazy.com/api.php/provide/vod",
       "detail": "https://aosikazy.com",
       "is_adult": true
     },
@@ -417,7 +417,7 @@
     },
     "apilj.com": {
       "name": "🔞辣椒资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://apilj.com/api.php/provide/vod",
+      "api": "https://apilj.com/api.php/provide/vod",
       "detail": "https://apilj.com",
       "is_adult": true
     },
