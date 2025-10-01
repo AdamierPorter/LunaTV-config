@@ -20,6 +20,11 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 - 📄 **自动检测API状态**： 每隔4小时自动检测API状态，并生成最近100次检测报告！可根据API测试结果自行禁用可用率不高的源！
 - 📄 **API名称添加图标**： API名称前添加图标以便更好区分成人源！
 
+## 测试
+**临时使用中转API**：使用allOrigins提供的api中转提高视频源成功率!
+描述：获取原始内容（CORS）
+示例： https://api.allorigins.win/raw?url=https://jinyingzy.com/api.php/provide/vod
+
 ## API 健康报告（每日自动检测API状态）
 
 ## API 状态（最近更新：2025-10-01 17:58 CST）
@@ -116,6 +121,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🔞奶香资源 | https://Naixxzy.com/api.php/provide/vod | 98 | 2 | 98.0% | 0 |
 | ✅ | 🔞豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 93 | 3 | 96.9% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
