@@ -21,7 +21,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 - 📄 **API名称添加图标**： API名称前添加图标以便更好区分成人源！
 
 ## 测试
-**临时使用中转API**：使用CORSAPI中转提高视频源成功率!
+**使用中转API**：使用CORSAPI中转提高视频源成功率!
 
 CORSAPI接口
 ```bash
@@ -126,6 +126,7 @@ https://dl.hafrey.dpdns.org/?url=
 | ✅ | 🔞奶香资源 | https://Naixxzy.com/api.php/provide/vod | 98 | 2 | 98.0% | 0 |
 | ✅ | 🔞豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 93 | 3 | 96.9% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
