@@ -23,7 +23,11 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ## 测试
 **临时使用中转API**：使用CORSAPI中转提高视频源成功率!
 
-描述：获取原始内容（CORS）
+CORSAPI接口
+```bash
+https://dl.hafrey.dpdns.org/?url=
+```
+描述：获取原始内容（CORS）  
 示例： https://dl.hafrey.dpdns.org/?url=https://jinyingzy.com/api.php/provide/vod
 
 ## API 健康报告（每日自动检测API状态）
@@ -122,6 +126,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🔞奶香资源 | https://Naixxzy.com/api.php/provide/vod | 98 | 2 | 98.0% | 0 |
 | ✅ | 🔞豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 93 | 3 | 96.9% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
