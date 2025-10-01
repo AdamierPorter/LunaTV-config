@@ -3,13 +3,13 @@
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config
 
-👉 [🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jinhuang.txt)
+👉 下面是订阅链接点击复制[🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jinhuang.txt)
                                                                                       
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jinhuang.txt
 ```
 
-👉 [🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
+👉 下面是订阅链接点击复制[🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
                                                                                      
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
@@ -127,6 +127,7 @@ https://dl.hafrey.dpdns.org/?url=
 | ✅ | 🔞奶香资源 | https://Naixxzy.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ❌ | 🔞豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 94 | 4 | 95.9% | 1 |
 <!-- API_TABLE_END -->
+
 
 
 
