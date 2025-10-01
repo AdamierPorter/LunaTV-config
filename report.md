@@ -37145,7 +37145,7 @@
       {
         "name": "🎬爱奇艺",
         "api": "https://iqiyizyapi.com/api.php/provide/vod",
-        "success": false
+        "success": true
       },
       {
         "name": "🎬豆瓣资源",
