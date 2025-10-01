@@ -207,7 +207,7 @@
     },
     "huyaapi": {
       "name": "🎬虎牙资源",
-      "api": "https://www.huyaapi.com/api.php/provide/vod",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/at/json",
       "detail": "https://www.huyaapi.com",
       "is_adult": false
     },
