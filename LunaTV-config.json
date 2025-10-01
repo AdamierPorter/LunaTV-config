@@ -459,7 +459,7 @@
     },
     "swzy": {
       "name": "🔞丝袜资源",
-      "api": "https://siwazyw.tv/api.php/provide/vod",
+      "api": "https://siwazyw.tv/api.php/provide/vod/at/json",
       "detail": "https://siwazyw.tv",
       "is_adult": true
     }
