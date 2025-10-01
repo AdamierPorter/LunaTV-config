@@ -105,7 +105,7 @@
     },
     "mozhuazy": {
       "name": "🎬魔爪资源",
-      "api": "https://mozhuazy.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://mozhuazy.com/api.php/provide/vod",
       "detail": "https://mozhuazy.com",
       "is_adult": false
     },
@@ -159,13 +159,13 @@
     },
     "xsd_sdzyapi": {
       "name": "🎬索尼资源",
-      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://xsd.sdzyapi.com/api.php/provide/vod",
       "detail": "https://suonizy.net",
       "is_adult": false
     },
     "kuaichezy": {
       "name": "🎬快车资源",
-      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://caiji.kuaichezy.org/api.php/provide/vod",
       "detail": "https://kuaichezy.com",
       "is_adult": false
     },
