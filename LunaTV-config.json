@@ -411,8 +411,8 @@
     },
     "semaozy": {
       "name": "🔞色猫资源",
-      "api": "https://caiji.semaozy.net/inc/apijson_vod.php",
-      "detail": "https://semaozy1.com/",
+      "api": "https://caiji.semaozy.net/inc/apijson_vod.php/provide/vod",
+      "detail": "https://semaozy1.com",
       "is_adult": true
     },
     "apilj.com": {
