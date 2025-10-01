@@ -105,7 +105,7 @@
     },
     "mozhuazy": {
       "name": "🎬魔爪资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://mozhuazy.com/api.php/provide/vod",
       "detail": "https://mozhuazy.com",
       "is_adult": false
     },
