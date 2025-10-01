@@ -15,7 +15,7 @@
     },
     "tyyszyapi": {
       "name": "🎬天涯影视",
-      "api": "https://tyyszy.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://tyyszy.com/api.php/provide/vod",
       "detail": "https://tyyszy.com",
       "is_adult": false
     },
@@ -231,13 +231,13 @@
     },
     "uku": {
       "name": "🎬U酷资源",
-      "api": "https://api.ukuapi.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://api.ukuapi.com/api.php/provide/vod",
       "detail": "https://api.ukuapi.com",
       "is_adult": false
     },
     "ukuapi88": {
       "name": "🎬U酷88",
-      "api": "https://api.ukuapi88.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://api.ukuapi88.com/api.php/provide/vod",
       "detail": "https://api.ukuapi88.com",
       "is_adult": false
     },
@@ -417,7 +417,7 @@
     },
     "apilj.com": {
       "name": "🔞辣椒资源",
-      "api": "https://apilj.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://apilj.com/api.php/provide/vod",
       "detail": "https://apilj.com",
       "is_adult": true
     },
