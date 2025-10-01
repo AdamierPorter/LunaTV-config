@@ -141,7 +141,7 @@
     },
     "yinghua": {
       "name": "🎬樱花资源",
-      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://m3u8.apiyhzy.com/api.php/provide/vod",
       "detail": "https://yhzy.cc",
       "is_adult": false
     },
@@ -393,7 +393,7 @@
     },
     "aosikazy": {
       "name": "🔞奥斯卡",
-      "api": "https://aosikazy.com/api.php/provide/vod",
+      "api": "https://api.allorigins.win/raw?url=https://aosikazy.com/api.php/provide/vod",
       "detail": "https://aosikazy.com",
       "is_adult": true
     },
