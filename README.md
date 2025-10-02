@@ -22,7 +22,7 @@ https://dl.hafrey.dpdns.org/?url=
 示例： https://dl.hafrey.dpdns.org/?url=https://jinyingzy.com/api.php/provide/vod
 
 ##  Luna-TV配置
-直接使用：复制链接里的内容
+直接使用：复制链接里的内容   
 👉 jingjian.json[🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json)   
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json
@@ -31,7 +31,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json
 ```bash 
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json
 ```
-订阅使用：复制下面链接
+订阅使用：复制下面链接   
 👉 Base58编码订阅链接[🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt)                              
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt
@@ -137,6 +137,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🔞jkun资源 | https://jkunzyapi.com/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 | ✅ | 🔞黄色仓库 | https://hsckzy.xyz/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
