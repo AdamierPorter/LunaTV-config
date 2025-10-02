@@ -8,6 +8,7 @@ https://hafrey1.github.io/LunaTV-config
 - 📄 **添加is_adult参数**： 标记成人内容源，KatelyaTV可用点击链接，然后选择“另存为...”来下载文件：[链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 - 📄 **自动检测API状态**： 每隔1小时自动检测API状态，并生成最近100次检测报告！   可根据API测试结果自行禁用可用率不高的源！
 - 📄 **API名称添加图标**： API名称前添加图标以便更好区分成人源！
+- 📄 **被墙的资源**： 如果你的API无效，可使用CF worker搭建CORSAPI接口，添加自定义域名，给源提供中转！
 
 ## 测试
 - 📄 **测试使用中转API**：使用CORSAPI中转提高视频源成功率!复活无法使用的API!!!
@@ -135,6 +136,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🔞黄AVZY | https://www.pgxdy.com/api/json.php | 100 | 0 | 100.0% | 0 |
 | ✅ | 🔞黄色仓库 | https://hsckzy.xyz/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
