@@ -75,12 +75,13 @@
     },
     "uku": {
       "name": "🎬U酷资源",
-      "api": "https://api.ukuapi.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
       "detail": "https://api.ukuapi.com",
       "is_adult": false
     }
   }
 }
+
 
 
 
