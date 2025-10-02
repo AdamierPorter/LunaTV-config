@@ -11,8 +11,8 @@ https://hafrey1.github.io/LunaTV-config
 - 📄 **被墙的资源**： 如果你的API无效，可使用CF worker搭建CORSAPI接口，添加自定义域名，给源提供中转！
 
 ## 测试
-- 📄 **测试使用中转API**：使用CORSAPI中转提高视频源成功率!复活无法使用的API!!!
-- 📄 **搜索结果被污染**：使用🎬虎牙资源、🔞丝袜资源、🔞色猫资源这几个源会污染搜索结果！如果介意可以自行禁用！！！
+- 📄 **测试使用中转API**：使用CORSAPI中转提高视频源成功率!复活无法使用的API！
+- 📄 **搜索结果被污染**：使用🎬虎牙资源、🔞丝袜资源、🔞色猫资源这几个源会污染搜索结果！如果介意可以自行禁用！
 
 CORSAPI接口
 ```bash
@@ -137,6 +137,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🔞豆豆资源 | https://api.douapi.cc/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 | ✅ | 🔞黄色仓库 | https://hsckzy.xyz/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
