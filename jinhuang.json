@@ -43,18 +43,6 @@
       "detail": "https://1080zyk4.com",
       "is_adult": false
     },
-    "lzcaiji": {
-      "name": "🎬量子资源",
-      "api": "https://cj.lzcaiji.com/api.php/provide/vod",
-      "detail": "https://cj.lzcaiji.com",
-      "is_adult": false
-    },
-    "ruyi": {
-      "name": "🎬如意资源",
-      "api": "https://cj.rycjapi.com/api.php/provide/vod",
-      "detail": "https://www.ryzyw.com",
-      "is_adult": false
-    },
     "zy360": {
       "name": "🎬360资源",
       "api": "https://360zy.com/api.php/provide/vod",
@@ -85,12 +73,6 @@
       "detail": "https://cj.ffzyapi.com",
       "is_adult": false
     },
-    "p2100": {
-      "name": "🎬飘零资源",
-      "api": "https://p2100.net/api.php/provide/vod",
-      "detail": "https://p2100.net",
-      "is_adult": false
-    },
     "uku": {
       "name": "🎬U酷资源",
       "api": "https://api.ukuapi.com/api.php/provide/vod",
@@ -99,4 +81,5 @@
     }
   }
 }
+
 
