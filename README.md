@@ -23,20 +23,20 @@ https://dl.hafrey.dpdns.org/?url=
 
 ##  Luna-TV配置
 直接使用：复制链接里的内容   
-👉 jingjian.json[🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json)   
+👉 [精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json) 精简版观影体验更好  
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json
 ```  
-👉 LunaTV-config.json[🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json)                   
+👉 [完整版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json)  完整版资源更丰富            
 ```bash 
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json
 ```
 订阅使用：复制下面链接   
-👉 Base58编码订阅链接[🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt)                              
+👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt)                              
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt
 ```
-👉 Base58编码订阅链接[🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
+👉 Base58编码订阅链接[完整版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 ```
@@ -137,6 +137,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🔞jkun资源 | https://jkunzyapi.com/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 | ✅ | 🔞黄色仓库 | https://hsckzy.xyz/api.php/provide/vod | 99 | 1 | 99.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
