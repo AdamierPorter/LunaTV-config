@@ -53,12 +53,6 @@ markdown
    - `Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS`：支持的 HTTP 方法。
    - `Access-Control-Allow-Headers: Content-Type, Authorization`：允许的请求头部。
 
-## 使用建议
-
-- **API Key 验证**：可以添加 API Key 验证，防止滥用服务。
-- **域名限制**：可以限制目标域名，仅允许请求特定的 URL 地址。
-- **缓存机制**：可以考虑添加缓存策略，减少对目标服务器的请求次数，提高性能。
-
 ## 许可
 
 本项目使用 MIT 许可证，详见 [LICENSE](./LICENSE) 文件。
