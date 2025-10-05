@@ -5,7 +5,6 @@ https://hafrey1.github.io/LunaTV-config
 
 ## 更新内容
 - 📄 **Luna-TV配置编辑器**： 专业的JSON配置文件编辑器，专为本项目而设计。
-- 📄 **添加is_adult参数**： 标记成人内容源，KatelyaTV可用点击链接，然后选择“另存为...”来下载文件：[链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt)
 - 📄 **自动检测API状态**： 每隔1小时自动检测API状态，并生成最近100次检测报告！   可根据API测试结果自行禁用可用率不高的源！
 - 📄 **API名称添加图标**： API名称前添加图标以便更好区分成人源！
 - 📄 **被墙的资源**： 如果你的API无效，可使用CF worker搭建CORSAPI接口，添加自定义域名，给源提供中转！
@@ -137,6 +136,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬茅台资源 | https://caiji.maotaizy.cc/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 92 | 4 | 95.8% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
