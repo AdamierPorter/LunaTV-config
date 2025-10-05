@@ -19,7 +19,7 @@
 
 2. **JSON 配置前缀替换**
 
-   * 使用 `?config=1` 参数获取远程 JSON，并将所有 `api` 字段加上自定义前缀
+   * 使用 `?config=1` 参数获取远程 JSON，并将所有 `api` 字段加上自己的API代理
    * 默认前缀为：
 
    * 示例：
@@ -30,7 +30,7 @@
 
 3. **Base58 订阅**
 
-   * 使用 `?config=1&encode=base58` 参数，可以获取前缀替换后的完整 JSON 的 **Base58 编码订阅**
+   * 使用 `?config=1&encode=base58` 参数，可以获取自己API代理完整 JSON 的 **Base58 编码订阅**
    * 示例：
 
      ```
@@ -68,13 +68,13 @@ https://api.example.workers.dev
   https://api.example.workers.dev/?url=https://ikunzyapi.com/api.php/provide/vod
   ```
 
-* **获取 JSON 配置并自动替换前缀**
+* **获取 JSON 配置并使用自己的API代理**
 
   ```
   https://api.example.workers.dev/?config=1
   ```
 
-* **获取 Base58 订阅**
+* **获取 Base58 订阅并使用自己的API代理**
 
   ```
   https://api.example.workers.dev/?config=1&encode=base58
@@ -89,14 +89,14 @@ https://api.example.workers.dev
 | `url`           | 代理任意 API 请求                      | `?url=https://...`                               |
 | `config=1`      | 返回替换前缀后的 JSON 配置                 | `?config=1`                                      |
 | `encode=base58` | 将 JSON 配置结果编码为 Base58            | `?config=1&encode=base58`                        |
-| (可选)`prefix`    | 手动指定前缀，默认使用 `https://<域名>/?url=` | `?config=1&prefix=https://api.example.com/?url=` |
+| (可选)`prefix`    | 手动指定API代理，默认使用 `https://<域名>/?url=` | `?config=1&prefix=https://api.example.com/?url=` |
 
 ---
 
 ## 📌 注意事项
 
 * **Workers 免费额度**：每天 10 万次请求，适合轻量使用。
-* **前缀替换逻辑**：如果 JSON 中 `api` 字段已包含 `?url=` 前缀，会先去掉旧前缀，再加上新前缀。
+* **API代理替换逻辑**：如果 JSON 中 `api` 字段已包含 `?url=` 前缀，会先去掉旧前缀，再加上新前缀。
 * **Base58 输出**：适合直接作为订阅链接在部分客户端中使用。
 
 ---
