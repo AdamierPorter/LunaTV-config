@@ -20,9 +20,6 @@ CORSAPI接口
 https://test.hafrey.dpdns.org/?config=1
 ```
 
-```bash
-https://dl.hafrey.dpdns.org/?url=
-```
 描述：获取原始内容（CORS）  
 示例： https://dl.hafrey.dpdns.org/?url=https://jinyingzy.com/api.php/provide/vod
 
@@ -142,6 +139,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
