@@ -1,75 +1,102 @@
-# Cloudflare Worker CORS 代理服务
+# API Proxy & JSON Config Rewriter (with Base58 Subscription)
 
-这个项目使用 Cloudflare Workers 构建了一个简单的 CORS 代理服务，可以接收带有 `url` 参数的请求，转发到目标 URL 并返回响应，同时添加 CORS 头部，允许浏览器绕过 CORS 限制，实现跨域访问。
-
-## 功能
-
-- **CORS 代理**：允许跨域请求通过代理服务器进行访问。
-- **支持 HTTP/HTTPS**：只允许 HTTP 或 HTTPS 协议的 URL。
-- **灵活的查询参数**：用户只需在 URL 中传递目标 URL，即可通过此 Worker 转发请求。
-
-## 使用示例
-
-### 请求方式
-
-你可以通过以下方式使用这个 CORS 代理服务：
-
-https://your-worker.example.com/?url=<目标_URL>
-
-bash
-复制代码
-
-### 示例
-
-假设你想访问目标 URL `https://caiji.kuaichezy.org/api.php/provide/vod`，可以这样请求：
-
-https://your-worker.example.com/?url=https://caiji.kuaichezy.org/api.php/provide/vod
-
-markdown
-复制代码
-
-此请求会被转发到 `https://caiji.kuaichezy.org/api.php/provide/vod`，并返回响应数据，同时自动添加 CORS 头部，允许浏览器绕过 CORS 错误。
-
-## 部署到 Cloudflare Workers
-
-1. **创建 Cloudflare Worker**：
-   - 登录到 [Cloudflare Dashboard](https://dash.cloudflare.com/)。
-   - 选择 **Workers**。
-   - 点击 **创建 Worker** 按钮。
-   - 在编辑器中删除默认代码，粘贴本项目的代码。
-
-2. **配置路由**：
-   - 在 **路由** 部分配置路由规则，例如：`https://your-worker.example.com/*`，这样所有请求都会经过该 Worker 进行中转。
-
-3. **保存并部署**：
-   - 点击 **保存并部署** 按钮完成部署。
-
-## 代码说明
-
-1. **请求处理**：通过查询参数 `url` 提供目标地址。验证该 URL 是否有效，并检查其协议是否为 HTTP 或 HTTPS。
-2. **代理请求**：将原始请求转发到目标 URL，保留原始请求方法和头部，并在转发请求时附加请求体（如果有）。
-3. **CORS 头部**：对返回的响应添加以下 CORS 头部：
-   - `Access-Control-Allow-Origin: *`：允许所有来源。
-   - `Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS`：支持的 HTTP 方法。
-   - `Access-Control-Allow-Headers: Content-Type, Authorization`：允许的请求头部。
-
-## 许可
-
-本项目使用 MIT 许可证，详见 [LICENSE](./LICENSE) 文件。
+这是一个基于 **Cloudflare Workers** 的中转代理 + JSON 配置前缀替换工具。
+支持将 API 请求通过 Worker 转发，并自动为 JSON 配置中的 `api` 字段添加/替换前缀。
+同时支持生成 **Base58 编码的订阅格式**，方便在外部应用中快速使用。
 
 ---
 
-感谢你使用这个简单的 CORS 代理服务！如果你有任何问题或改进建议，欢迎提交 issues 或 PR。
+## ✨ 功能
 
-解释
-标题和简介：清楚地说明了项目的功能和目的。
+1. **通用 API 代理**
 
-使用示例：提供了如何使用此服务的简单示例，帮助用户理解如何构建请求。
+   * 使用 `?url=` 参数转发任意 API 请求
+   * 示例：
 
-部署步骤：详细列出了如何将这个代码部署到 Cloudflare Workers 上的步骤。
+     ```
+     https://<你的域名>/?url=https://ikunzyapi.com/api.php/provide/vod
+     ```
 
-代码说明：简要描述了代码的实现逻辑，帮助开发者理解和扩展功能。
+2. **JSON 配置前缀替换**
 
-使用建议：提出了常见的优化建议，帮助用户根据需要进一步增强服务。
+   * 使用 `?config=1` 参数获取远程 JSON，并将所有 `api` 字段加上自定义前缀
+   * 默认前缀为：
 
-你可以根据这个模板进行修改或增加内容。希望这能帮助你顺利部署和使用 CORS 代理服务！如果有其他问题，随时告知！
+   * 示例：
+
+     ```
+     https://<你的域名>/?config=1
+     ```
+
+3. **Base58 订阅**
+
+   * 使用 `?config=1&encode=base58` 参数，可以获取前缀替换后的完整 JSON 的 **Base58 编码订阅**
+   * 示例：
+
+     ```
+     https://<你的域名>/?config=1&encode=base58
+     ```
+
+4. **动态示例生成**
+
+   * HTML 页面会根据当前域名自动生成示例链接，无需手动修改。
+
+---
+
+## 🚀 部署方法
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. 新建一个 **Workers & Pages → Worker**
+3. 将 `worker.js` 代码粘贴到编辑器中
+4. 保存并部署
+
+---
+
+## 🔗 使用示例
+
+假设你的 Worker 部署在：
+
+```
+https://api.example.workers.dev
+```
+
+那么你可以这样使用：
+
+* **代理任意 API**
+
+  ```
+  https://api.example.workers.dev/?url=https://ikunzyapi.com/api.php/provide/vod
+  ```
+
+* **获取 JSON 配置并自动替换前缀**
+
+  ```
+  https://api.example.workers.dev/?config=1
+  ```
+
+* **获取 Base58 订阅**
+
+  ```
+  https://api.example.workers.dev/?config=1&encode=base58
+  ```
+
+---
+
+## 🛠️ 参数说明
+
+| 参数              | 说明                               | 示例                                               |
+| --------------- | -------------------------------- | ------------------------------------------------ |
+| `url`           | 代理任意 API 请求                      | `?url=https://...`                               |
+| `config=1`      | 返回替换前缀后的 JSON 配置                 | `?config=1`                                      |
+| `encode=base58` | 将 JSON 配置结果编码为 Base58            | `?config=1&encode=base58`                        |
+| (可选)`prefix`    | 手动指定前缀，默认使用 `https://<域名>/?url=` | `?config=1&prefix=https://api.example.com/?url=` |
+
+---
+
+## 📌 注意事项
+
+* **Workers 免费额度**：每天 10 万次请求，适合轻量使用。
+* **前缀替换逻辑**：如果 JSON 中 `api` 字段已包含 `?url=` 前缀，会先去掉旧前缀，再加上新前缀。
+* **Base58 输出**：适合直接作为订阅链接在部分客户端中使用。
+
+---
