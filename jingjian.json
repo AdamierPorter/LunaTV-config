@@ -1,15 +1,15 @@
 {
   "cache_time": 7200,
   "api_site": {
+    "dyttzy": {
+      "name": "🎬电影天堂",
+      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "detail": "http://caiji.dyttzyapi.com"    
+    },
     "caijidb": {
       "name": "🎬豆瓣资源",
       "api": "https://caiji.dbzy5.com/api.php/provide/vod",
       "detail": "dbzy.tv"
-    },
-    "tyyszyapi": {
-      "name": "🎬天涯影视",
-      "api": "https://tyyszy.com/api.php/provide/vod",
-      "detail": "https://tyyszy.com"  
     },
     "maotaizy": {
       "name": "🎬茅台资源",
@@ -25,12 +25,6 @@
       "name": "🎬量子资源",
       "api": "https://cj.lziapi.com/api.php/provide/vod",
       "detail": "https://lzizy.net"
-    },
-    "dyttzy": {
-      "name": "🎬电影天堂",
-      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
-      "detail": "http://caiji.dyttzyapi.com"
-      
     },
     "1080y": {
       "name": "🎬优质资源",
@@ -69,6 +63,7 @@
     }
   }
 }
+
 
 
 
