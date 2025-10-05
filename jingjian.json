@@ -4,8 +4,18 @@
     "dyttzy": {
       "name": "🎬电影天堂",
       "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
-      "detail": "http://caiji.dyttzyapi.com"    
+      "detail": "http://caiji.dyttzyapi.com"
     },
+    "mozhuazy": {
+      "name": "🎬魔爪资源",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
+      "detail": "https://mozhuazy.com"
+    },
+    "uku": {
+      "name": "🎬U酷资源",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
+      "detail": "https://api.ukuapi.com"
+    }, 
     "caijidb": {
       "name": "🎬豆瓣资源",
       "api": "https://caiji.dbzy5.com/api.php/provide/vod",
@@ -46,26 +56,10 @@
       "api": "https://www.mdzyapi.com/api.php/provide/vod",
       "detail": "https://www.moduzy.net"
     },
-    "mozhuazy": {
-      "name": "🎬魔爪资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
-      "detail": "https://mozhuazy.com"
-    },
     "ffzy1": {
       "name": "🎬非凡资源",
       "api": "https://api.ffzyapi.com/api.php/provide/vod",
       "detail": "https://cj.ffzyapi.com"
-    },
-    "uku": {
-      "name": "🎬U酷资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
-      "detail": "https://api.ukuapi.com"
     }
   }
 }
-
-
-
-
-
-
