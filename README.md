@@ -3,7 +3,7 @@
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config     
 API 代理 & JSON 配置重写器
-https://dl.hafrey.dpdns.org    （可自己部署到CF）
+https://dl.hafrey.dpdns.org    （可部署到CF）
 ## 更新内容
 - 📄 **Luna-TV配置编辑器**： 专业的JSON配置文件编辑器，专为本项目而设计。
 - 📄 **自动检测API状态**： 每隔1小时自动检测API状态，并生成最近100次检测报告！   可根据API测试结果自行禁用可用率不高的源！
@@ -142,6 +142,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 94 | 6 | 94.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
