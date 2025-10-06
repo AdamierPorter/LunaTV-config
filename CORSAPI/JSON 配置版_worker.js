@@ -2,18 +2,39 @@ addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
 
-/**
- * 给 JSON 的所有 api 字段添加自定义前缀
- * - 如果已有 ?url= 前缀，则替换为新前缀
- * - 避免重复添加
- */
-function addOrReplacePrefix(obj, newPrefix) {
-  if (typeof obj !== 'object' || obj === null) return obj
+// Base58 编码函数（Cloudflare Workers 兼容）
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+function base58Encode(obj) {
+  const str = JSON.stringify(obj)
+  const bytes = new TextEncoder().encode(str) // Uint8Array
 
-  if (Array.isArray(obj)) {
-    return obj.map(item => addOrReplacePrefix(item, newPrefix))
+  // 转 BigInt
+  let intVal = 0n
+  for (let b of bytes) {
+    intVal = (intVal << 8n) + BigInt(b)
   }
 
+  // 编码为 Base58
+  let result = ''
+  while (intVal > 0n) {
+    const mod = intVal % 58n
+    result = BASE58_ALPHABET[Number(mod)] + result
+    intVal = intVal / 58n
+  }
+
+  // 保留前导零
+  for (let b of bytes) {
+    if (b === 0) result = BASE58_ALPHABET[0] + result
+    else break
+  }
+
+  return result
+}
+
+// JSON api 字段前缀替换
+function addOrReplacePrefix(obj, newPrefix) {
+  if (typeof obj !== 'object' || obj === null) return obj
+  if (Array.isArray(obj)) return obj.map(item => addOrReplacePrefix(item, newPrefix))
   const newObj = {}
   for (const key in obj) {
     if (key === 'api' && typeof obj[key] === 'string') {
@@ -37,20 +58,18 @@ async function handleRequest(request) {
     'Access-Control-Max-Age': '86400',
   }
 
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders })
-  }
+  if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders })
 
   const reqUrl = new URL(request.url)
   const targetUrlParam = reqUrl.searchParams.get('url')
   const configParam = reqUrl.searchParams.get('config')
   const prefixParam = reqUrl.searchParams.get('prefix')
+  const encodeParam = reqUrl.searchParams.get('encode')
 
-  // 自动根据当前访问域名生成默认前缀
   const currentOrigin = reqUrl.origin
   const defaultPrefix = currentOrigin + '/?url='
 
-  // -------------------- 通用 API 中转代理逻辑 --------------------
+  // -------------------- 通用 API 中转代理 --------------------
   if (targetUrlParam) {
     let fullTargetUrl = targetUrlParam
     const urlMatch = request.url.match(/[?&]url=([^&]+(?:&.*)?)/)
@@ -105,7 +124,7 @@ async function handleRequest(request) {
     }
   }
 
-  // -------------------- JSON 配置 + API 前缀替换逻辑 --------------------
+  // -------------------- JSON 配置 + API 前缀替换 + Base58 --------------------
   if (configParam === '1') {
     try {
       const jsonUrl = 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json'
@@ -113,9 +132,16 @@ async function handleRequest(request) {
       const data = await response.json()
       const newData = addOrReplacePrefix(data, prefixParam || defaultPrefix)
 
-      return new Response(JSON.stringify(newData), {
-        headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
-      })
+      if (encodeParam === 'base58') {
+        const encoded = base58Encode(newData)
+        return new Response(encoded, {
+          headers: { 'Content-Type': 'text/plain;charset=UTF-8', ...corsHeaders },
+        })
+      } else {
+        return new Response(JSON.stringify(newData), {
+          headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
+        })
+      }
     } catch (err) {
       return new Response(JSON.stringify({ error: err.message }), {
         status: 500,
@@ -154,9 +180,34 @@ pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; 
 ${defaultPrefix}https://caiji.kuaichezy.org/api.php/provide/vod
 </a>
 </div>
+<h2>订阅链接</h2>
+<p>
+  JSON 配置：
+  <code class="copyable">${currentOrigin}?config=1</code>
+  <button class="copy-btn">复制</button>
+</p>
+<p>
+  Base58 编码订阅：
+  <code class="copyable">${currentOrigin}?config=1&encode=base58</code>
+  <button class="copy-btn">复制</button>
+</p>
+<p>
+  JSON 配置 + 自定义中转API：
+  <code class="copyable">${currentOrigin}?config=1&prefix=自定义中转API</code>
+  <button class="copy-btn">复制</button>
+</p>
 
-<p>JSON 配置 + API 前缀替换：<code>?config=1&prefix=自定义前缀</code></p>
-<p>默认 JSON api 前缀为：<code>${defaultPrefix}</code></p>
+<script>
+  document.querySelectorAll('.copy-btn').forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      const text = document.querySelectorAll('.copyable')[idx].innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = '已复制！';
+        setTimeout(() => (btn.innerText = '复制'), 1500);
+      });
+    });
+  });
+</script>
 
 <h2>支持的功能</h2>
 <ul>
