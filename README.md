@@ -3,7 +3,7 @@
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config     
 API 代理 & JSON 配置重写器
-https://dl.hafrey.dpdns.org    （可部署到CF）[代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/JSON%20%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js
+https://dl.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，只适合个人使用，有条件的可部署到自己的CF）[代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/JSON%20%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js
 ) 
 ## 更新内容
 - 📄 **Luna-TV配置编辑器**： 专业的JSON配置文件编辑器，专为本项目而设计。
@@ -143,6 +143,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 93 | 7 | 93.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
