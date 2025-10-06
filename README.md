@@ -14,7 +14,7 @@ https://dl.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，
 ## 测试
 - 📄 **测试使用中转API**：使用CORSAPI中转提高视频源成功率!复活无法使用的API！
 - 📄 **搜索结果被污染**：使用🎬虎牙资源、🔞丝袜资源、🔞色猫资源这几个源会污染搜索结果！如果介意可以自行禁用！
-- 📄 **统计源的使用频率** 为了使精简源的观影体验更好，现在通过测试源使用中转服务统计出大家使用频率最高的源，用以更新精简源，欢迎大家测试！ 
+- 📄 **统计源的使用频率**： 为了使精简源的观影体验更好，现在通过测试源使用中转服务统计出大家使用频率最高的源，用以更新精简源，欢迎大家测试！ 
 
 ## 测试源json及订阅链接
 （仅供测试使用，如需使用稳定中转请自行在CF部署自己的CORSAPI，注意要使用自定义域名）    
@@ -143,6 +143,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 93 | 7 | 93.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
