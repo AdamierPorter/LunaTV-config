@@ -124,31 +124,57 @@ async function handleRequest(request) {
     }
   }
 
-  // -------------------- JSON 配置 + API 前缀替换 + Base58 --------------------
-  if (configParam === '1') {
-    try {
-      const jsonUrl = 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json'
-      const response = await fetch(jsonUrl)
-      const data = await response.json()
-      const newData = addOrReplacePrefix(data, prefixParam || defaultPrefix)
+// -------------------- JSON 配置 + API 前缀替换 + Base58 --------------------
+if (configParam === '1') {
+  try {
+    const jsonUrl = 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json'
+    const response = await fetch(jsonUrl)
+    const data = await response.json()
+    const newData = addOrReplacePrefix(data, prefixParam || defaultPrefix)
 
-      if (encodeParam === 'base58') {
-        const encoded = base58Encode(newData)
-        return new Response(encoded, {
-          headers: { 'Content-Type': 'text/plain;charset=UTF-8', ...corsHeaders },
-        })
-      } else {
-        return new Response(JSON.stringify(newData), {
-          headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
-        })
-      }
-    } catch (err) {
-      return new Response(JSON.stringify({ error: err.message }), {
-        status: 500,
+    if (encodeParam === 'base58') {
+      const encoded = base58Encode(newData)
+      return new Response(encoded, {
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8', ...corsHeaders },
+      })
+    } else {
+      return new Response(JSON.stringify(newData), {
         headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
       })
     }
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
+    })
   }
+}
+
+// -------------------- JSON 配置（原始，不加前缀） config=0 --------------------
+if (configParam === '0') {
+  try {
+    const jsonUrl = 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json'
+    const response = await fetch(jsonUrl)
+    const data = await response.json()
+
+    if (encodeParam === 'base58') {
+      const encoded = base58Encode(data)
+      return new Response(encoded, {
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8', ...corsHeaders },
+      })
+    } else {
+      return new Response(JSON.stringify(data), {
+        headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
+      })
+    }
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
+    })
+  }
+}
+
 
   // -------------------- 根目录或其他情况返回说明页面 --------------------
   const html = `
@@ -181,6 +207,11 @@ ${defaultPrefix}https://caiji.kuaichezy.org/api.php/provide/vod
 </a>
 </div>
 <h2>订阅链接</h2>
+<p>
+  原始JSON 配置：
+  <code class="copyable">${currentOrigin}?config=0</code>
+  <button class="copy-btn">复制</button>
+</p>
 <p>
   JSON 配置：
   <code class="copyable">${currentOrigin}?config=1</code>
