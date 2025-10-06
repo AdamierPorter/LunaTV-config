@@ -67,7 +67,10 @@ https://api.example.workers.dev
   ```
   https://api.example.workers.dev/?url=https://ikunzyapi.com/api.php/provide/vod
   ```
-
+* **获取原始 JSON 配置**   
+  ```
+  https://api.example.workers.dev/?config=0
+  ```
 * **获取 JSON 配置并使用自己的API代理**
 
   ```
