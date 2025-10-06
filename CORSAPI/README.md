@@ -90,6 +90,7 @@ https://api.example.workers.dev
 | 参数              | 说明                               | 示例                                               |
 | --------------- | -------------------------------- | ------------------------------------------------ |
 | `url`           | 代理任意 API 请求                      | `?url=https://...`                               |
+| `config=0`      | 返回原始 JSON 配置                 | `?config=0`                                      |
 | `config=1`      | 返回替换前缀后的 JSON 配置                 | `?config=1`                                      |
 | `encode=base58` | 将 JSON 配置结果编码为 Base58            | `?config=1&encode=base58`                        |
 | (可选)`prefix`    | 手动指定API代理，默认使用 `https://<域名>/?url=` | `?config=1&prefix=https://api.example.com/?url=` |
