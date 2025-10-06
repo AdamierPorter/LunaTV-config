@@ -26,7 +26,7 @@ https://test.hafrey.dpdns.org/?config=1
 ```bash
 https://test.hafrey.workers.dev/?config=1&encode=base58
 ```
-# 测试结果
+### 测试结果
 <img width="519" height="247" alt="1" src="https://github.com/user-attachments/assets/4112f4c4-c1b3-4834-980e-2e90952fd9f7" />
 <img width="519" height="252" alt="2" src="https://github.com/user-attachments/assets/782917b0-58f7-4527-9e4b-5d9ae9068be0" />
 
@@ -146,6 +146,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 93 | 7 | 93.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
