@@ -22,10 +22,15 @@ https://dl.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，
 ```bash 
 https://test.hafrey.dpdns.org/?config=1
 ```   
-👉 Base58编码订阅链接[测试🎬+🔞源链接](https://test.hafrey.workers.dev/?config=1&encode=base58)                             
+👉 Base58编码订阅链接[测试🎬+🔞源链接<img width="519" height="252" alt="2" src="https://github.com/user-attachments/assets/bfcb2cd2-af78-4ecc-abfc-a7dc25b073c4" />
+](https://test.hafrey.workers.dev/?config=1&encode=base58)                             
 ```bash
 https://test.hafrey.workers.dev/?config=1&encode=base58
 ```
+# 测试结果
+<img width="519" height="247" alt="1" src="https://github.com/user-attachments/assets/4112f4c4-c1b3-4834-980e-2e90952fd9f7" />
+<img width="519" height="247" alt="1" src="https://github.com/user-attachments/assets/3bfe0411-aca8-4c66-837e-02c696950dbd" />
+<img width="519" height="252" alt="2" src="https://github.com/user-attachments/assets/782917b0-58f7-4527-9e4b-5d9ae9068be0" />
 
 ##  Luna-TV配置
 直接使用：复制链接里的内容   
@@ -143,6 +148,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 93 | 7 | 93.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
