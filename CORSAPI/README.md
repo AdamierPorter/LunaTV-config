@@ -1,4 +1,4 @@
-# API Proxy & JSON Config Rewriter
+# API 代理 & JSON 订阅器
 
 这是一个基于 **Cloudflare Workers** 的中转代理 + JSON 配置前缀替换工具。
 支持将 API 请求通过 Worker 转发，并自动为 JSON 配置中的 `api` 字段添加/替换前缀。
