@@ -2,7 +2,7 @@
 
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config     
-## API 代理 & JSON 配置重写器
+## API 代理 & JSON 订阅器
 https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，只适合个人使用，有条件的可部署到自己的CF）[代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/JSON%20%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js
 ) 
 ## 更新内容
@@ -132,6 +132,7 @@ https://wzpz.hafrey.dpdns.org?config=0&encode=base58
 | ❌ | 🎬如意资源 | https://jingjian.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 | ❌ | 🎬魔爪资源 | https://jingjian.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 <!-- API_TABLE_END -->
+
 
 
 
