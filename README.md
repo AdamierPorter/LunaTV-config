@@ -17,22 +17,22 @@ https://dl.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，
 
 ##  Luna-TV配置
 直接使用：复制链接里的内容   
-👉 [精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json) （推荐使用）精简版剔除无搜索结果和污染搜索结果源  
+👉 原始 JSON 配置链接[精简版🎬+🔞源链接](https://jjpz.hafrey.dpdns.org?config=0) （推荐使用）精简版剔除无搜索结果和污染搜索结果源  
 ```bash
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json
+https://jjpz.hafrey.dpdns.org?config=0
 ```  
-👉 [完整版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json)  完整版包含所有源        
+👉 原始 JSON 配置链接[完整版🎬+🔞源链接](https://wzpz.hafrey.dpdns.org?config=0)  完整版包含所有源        
 ```bash 
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json
+https://wzpz.hafrey.dpdns.org?config=0
 ```
 订阅使用：复制下面链接   
-👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt) （推荐使用）精简版剔除无搜索结果和污染搜索结果源                             
+👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://jjpz.hafrey.dpdns.org?config=0&encode=base58) （推荐使用）精简版剔除无搜索结果和污染搜索结果源                             
 ```bash
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt
+https://jjpz.hafrey.dpdns.org?config=0&encode=base58
 ```
-👉 Base58编码订阅链接[完整版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt) 完整版包含所有源
+👉 Base58编码订阅链接[完整版🎬+🔞源链接](https://wzpz.hafrey.dpdns.org?config=0&encode=base58) 完整版包含所有源
 ```bash
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
+https://wzpz.hafrey.dpdns.org?config=0&encode=base58
 ```
 
 ## API 健康报告（每日自动检测API状态）
@@ -132,6 +132,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ❌ | 🎬如意资源 | https://jingjian.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 | ❌ | 🎬魔爪资源 | https://jingjian.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 <!-- API_TABLE_END -->
+
 
 
 
