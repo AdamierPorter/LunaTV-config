@@ -228,6 +228,14 @@ ${defaultPrefix}https://caiji.kuaichezy.org/api.php/provide/vod
   <button class="copy-btn">复制</button>
 </p>
 
+<h2>支持的功能</h2>
+<ul>
+<li>✅ 支持 GET、POST、PUT、DELETE 等所有 HTTP 方法</li>
+<li>✅ 自动转发请求头和请求体</li>
+<li>✅ 保留原始响应头（除敏感信息）</li>
+<li>✅ 完整的 CORS 支持</li>
+<li>✅ 超时保护（30 秒）</li>
+</ul>
 <script>
   document.querySelectorAll('.copy-btn').forEach((btn, idx) => {
     btn.addEventListener('click', () => {
@@ -239,15 +247,6 @@ ${defaultPrefix}https://caiji.kuaichezy.org/api.php/provide/vod
     });
   });
 </script>
-
-<h2>支持的功能</h2>
-<ul>
-<li>✅ 支持 GET、POST、PUT、DELETE 等所有 HTTP 方法</li>
-<li>✅ 自动转发请求头和请求体</li>
-<li>✅ 保留原始响应头（除敏感信息）</li>
-<li>✅ 完整的 CORS 支持</li>
-<li>✅ 超时保护（30 秒）</li>
-</ul>
 </body>
 </html>
 `
