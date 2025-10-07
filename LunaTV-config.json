@@ -138,7 +138,7 @@
     },
     "kuaichezy": {
       "name": "🎬快车资源",
-      "api": "https://caiji.kczyapi.com/api.php/provide/vod",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
       "detail": "https://kuaichezy.com"
     },
     "xinlangapi": {
