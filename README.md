@@ -3,6 +3,7 @@
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config     
 ## API 代理 & JSON 订阅器
+这是一个基于 Cloudflare Workers 的中转代理 + JSON 配置前缀替换工具。 支持将 API 请求通过 Worker 转发，并自动为 JSON 配置中的 api 字段添加/替换前缀。 同时支持生成 Base58 编码的订阅格式，方便在外部应用中快速使用。   
 [精简版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E7%B2%BE%E7%AE%80%E7%89%88%E9%85%8D%E7%BD%AE_worker.js)    
 [完整版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js)
 # 演示
@@ -135,6 +136,7 @@ https://wzpz.hafrey.dpdns.org?config=0&encode=base58
 | ❌ | 🎬如意资源 | https://jingjian.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 | ❌ | 🎬魔爪资源 | https://jingjian.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 <!-- API_TABLE_END -->
+
 
 
 
