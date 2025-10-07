@@ -17,7 +17,7 @@ https://dl.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，
 
 ##  Luna-TV配置
 直接使用：复制链接里的内容   
-👉 [精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json) 精简版剔除无搜索结果和污染搜索结果源  
+👉 [精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json) （推荐使用）精简版剔除无搜索结果和污染搜索结果源  
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json
 ```  
@@ -26,7 +26,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.json
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.json
 ```
 订阅使用：复制下面链接   
-👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt) 精简版剔除无搜索结果和污染搜索结果源                             
+👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt) （推荐使用）精简版剔除无搜索结果和污染搜索结果源                             
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/jingjian.txt
 ```
@@ -132,6 +132,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/main/LunaTV-config.txt
 | ✅ | 🎬如意资源 | https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 93 | 7 | 93.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
