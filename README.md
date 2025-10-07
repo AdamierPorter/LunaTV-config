@@ -19,6 +19,7 @@ https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求�
 ## 测试
 - 📄 **测试使用中转API**：使用CORSAPI中转提高视频源成功率!复活无法使用的API！
 - 📄 **精简版源更新**：使用🎬虎牙资源、🔞丝袜资源、🔞色猫资源这几个源会污染搜索结果！还有多个源无搜索结果！精简版剔除了这些源！
+<img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
 
 ##  Luna-TV配置
 直接使用：复制链接里的内容   
@@ -137,6 +138,7 @@ https://wzpz.hafrey.dpdns.org?config=0&encode=base58
 | ❌ | 🎬如意资源 | https://jingjian.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 | ❌ | 🎬魔爪资源 | https://jingjian.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 <!-- API_TABLE_END -->
+
 
 
 
