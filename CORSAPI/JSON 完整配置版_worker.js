@@ -206,24 +206,24 @@ pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; 
 ${defaultPrefix}https://caiji.kuaichezy.org/api.php/provide/vod
 </a>
 </div>
-<h2>订阅链接</h2>
+<h2>中转API配置订阅链接</h2>
 <p>
-  原始JSON 配置：
+  原始 JSON 配置订阅：
   <code class="copyable">${currentOrigin}?config=0</code>
   <button class="copy-btn">复制</button>
 </p>
 <p>
-  JSON 配置：
+中转API JSON 配置订阅：
   <code class="copyable">${currentOrigin}?config=1</code>
   <button class="copy-btn">复制</button>
 </p>
 <p>
-  Base58 编码订阅：
+中转API Base58 编码配置订阅：
   <code class="copyable">${currentOrigin}?config=1&encode=base58</code>
   <button class="copy-btn">复制</button>
 </p>
 <p>
-  JSON 配置 + 自定义中转API：
+  JSON 配置 + 自定义中转API配置订阅：
   <code class="copyable">${currentOrigin}?config=1&prefix=自定义中转API</code>
   <button class="copy-btn">复制</button>
 </p>
