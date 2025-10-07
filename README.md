@@ -7,7 +7,7 @@ https://hafrey1.github.io/LunaTV-config
 ### 以下为部署代码    
 - [精简版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E7%B2%BE%E7%AE%80%E7%89%88%E9%85%8D%E7%BD%AE_worker.js)    
 - [完整版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js)
-# 演示
+### 演示
 https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，只适合个人使用，有条件的可部署到自己的CF）
 
 ## 更新内容
@@ -137,6 +137,7 @@ https://wzpz.hafrey.dpdns.org?config=0&encode=base58
 | ❌ | 🎬如意资源 | https://jingjian.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 | ❌ | 🎬魔爪资源 | https://jingjian.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod | 0 | 1 | 0.0% | 1 |
 <!-- API_TABLE_END -->
+
 
 
 
