@@ -133,12 +133,12 @@
     },
     "xsd_sdzyapi": {
       "name": "🎬索尼资源",
-      "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "api": "https://suoniapi.com/api.php/provide/vod",
       "detail": "https://suonizy.net"
     },
     "kuaichezy": {
       "name": "🎬快车资源",
-      "api": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "api": "https://caiji.kczyapi.com/api.php/provide/vod",
       "detail": "https://kuaichezy.com"
     },
     "xinlangapi": {
