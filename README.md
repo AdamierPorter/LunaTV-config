@@ -135,13 +135,13 @@ https://api.example.workers.dev/?config=1&encode=base58
 ### ⚙️ 精简版源更新
 - 去除污染源与无搜索结果源（如 🎬虎牙、🔞丝袜、🔞色猫）。  
 - 精简后共 **61 个可用源**，在中转代理下全部可访问。  
-
+<details>
+<summary>示例</summary>
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
   
 ---   
   
 </details>
-  
 ---   
   
 ## API 健康报告（每日自动检测API状态）
@@ -241,6 +241,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
