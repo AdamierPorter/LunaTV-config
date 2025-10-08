@@ -31,7 +31,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 > 基于 Cloudflare Workers 的 API 中转与 JSON 前缀替换工具，支持代理任意 API、自动添加中转、生成 Base58 订阅格式。一键部署即可拥有自己的中转 API 与订阅链接！
 
 <details>
-<summary>🚀 部署方法（点击展开）</summary>
+<summary>🚀 部署方法</summary>
 
 **部署代码：**  
 - [精简版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/jingjian_worker.js)  
@@ -48,7 +48,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 </details>
 
 <details>
-<summary>🔗 使用示例（点击展开）</summary>
+<summary>🔗 使用示例</summary>
 
 假设你的 Worker 部署在：
 
@@ -69,7 +69,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 </details>
 
 <details>
-<summary>🛠️ 参数说明（点击展开）</summary>
+<summary>🛠️ 参数说明</summary>
 
 | 参数 | 说明 | 示例 |
 |------|------|------|
@@ -86,7 +86,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 </details>
 
 <details>
-<summary>📌 注意事项（点击展开）</summary>
+<summary>📌 注意事项</summary>
 
 - ☁️ **Workers 免费额度：**  
   每日 10 万次请求，适合轻量部署与个人订阅使用。  
@@ -104,7 +104,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 </details>
 
 <details>
-<summary>🆕 更新内容（点击展开）</summary>
+<summary>🆕 更新内容</summary>
 
 - 📄 **Luna-TV配置编辑器**：专业的 JSON 配置文件可视化编辑器。  
 - 🔍 **自动检测API状态**：每 1 小时检测一次 API 可用性，并记录最近 100 次测试报告。  
@@ -114,7 +114,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 </details>
 
 <details>
-<summary>🧪 测试与示例（点击展开）</summary>
+<summary>🧪 测试与示例</summary>
 
 ### ✅ 使用中转API测试
 - 通过 CORSAPI 转发后，大幅提升视频源可用率。  
@@ -225,6 +225,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
