@@ -46,12 +46,16 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 4. 保存并部署  
 
 部署完成后，你就拥有了自己的 API 代理与订阅转换服务！
+
 ---   
+
 </details>
 
 <details>
 <summary>🔗 使用示例</summary>
-
+  
+---   
+  
 假设你的 Worker 部署在：
 
 https://api.example.workers.dev
@@ -67,12 +71,16 @@ https://api.example.workers.dev/?config=1
 
 ### ④ 获取 Base58 编码订阅  
 https://api.example.workers.dev/?config=1&encode=base58
-
+  
+---   
+  
 </details>
 
 <details>
 <summary>🛠️ 参数说明</summary>
-
+  
+---   
+  
 | 参数 | 说明 | 示例 |
 |------|------|------|
 | `url` | 代理任意 API 请求 | `?url=https://...` |
@@ -84,12 +92,16 @@ https://api.example.workers.dev/?config=1&encode=base58
 🧩 **前缀替换逻辑**  
 - 若 JSON 中的 `api` 字段已包含旧前缀（`?url=`），系统会自动去除旧前缀并替换为新的代理前缀。  
 - 可自定义代理路径，方便接入私有 API 或多 Worker 配置。
-
+  
+---   
+  
 </details>
 
 <details>
 <summary>📌 注意事项</summary>
-
+  
+---   
+  
 - ☁️ **Workers 免费额度：**  
   每日 10 万次请求，适合轻量部署与个人订阅使用。  
 
@@ -102,22 +114,30 @@ https://api.example.workers.dev/?config=1&encode=base58
 - 🚫 **敏感源处理：**  
   “禁18版” 自动过滤含成人资源的接口，保持内容纯净安全。
 
-
+  
+---   
+  
 </details>
 
 <details>
 <summary>🆕 更新内容</summary>
-
+  
+---   
+  
 - 📄 **Luna-TV配置编辑器**：专业的 JSON 配置文件可视化编辑器。  
 - 🔍 **自动检测API状态**：每 1 小时检测一次 API 可用性，并记录最近 100 次测试报告。  
 - 🧩 **API名称添加图标**：成人源前自动显示识别图标，方便区分。  
 - 🌐 **被墙资源自动中转**：为受限 API 提供 CF Worker 中转能力。  
-
+  
+---   
+  
 </details>
 
 <details>
 <summary>🧪 测试与示例</summary>
-
+  
+---   
+  
 ### ✅ 使用中转API测试
 - 通过 CORSAPI 转发后，大幅提升视频源可用率。  
 - 可“复活”原本无法访问的资源。  
@@ -127,9 +147,13 @@ https://api.example.workers.dev/?config=1&encode=base58
 - 精简后共 **61 个可用源**，在中转代理下全部可访问。  
 
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
-
+  
+---   
+  
 </details>
-
+  
+---   
+  
 ## API 健康报告（每日自动检测API状态）
 
 API 状态（最近更新：2025-10-08 23:20 CST）
@@ -227,6 +251,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
