@@ -32,9 +32,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 
 <details>
 <summary>🚀 部署方法</summary>
-  
 ---   
-
 **部署代码：**  
 - [精简版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/jingjian_worker.js)  
 - [禁18版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/jin18_worker.js)
@@ -46,7 +44,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 4. 保存并部署  
 
 部署完成后，你就拥有了自己的 API 代理与订阅转换服务！
-
+---   
 </details>
 
 <details>
@@ -227,6 +225,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
