@@ -28,9 +28,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 
 # 🌐 CORSAPI（API 代理 & JSON 订阅器）
 
-> 基于 Cloudflare Workers 的 API 中转与 JSON 前缀替换工具  
-> 支持代理任意 API、自动添加前缀、生成 Base58 订阅格式。  
-> 一键部署即可拥有自己的中转 API 与订阅链接！
+> 基于 Cloudflare Workers 的 API 中转与 JSON 前缀替换工具，支持代理任意 API、自动添加中转、生成 Base58 订阅格式。一键部署即可拥有自己的中转 API 与订阅链接！
 
 <details>
 <summary>🚀 部署方法（点击展开）</summary>
@@ -227,6 +225,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
