@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 ---   
   
 假设你的 Worker 部署在：
-
+```bash
 https://api.example.workers.dev
 
 ### ① 代理任意 API  
@@ -71,7 +71,7 @@ https://api.example.workers.dev/?config=1
 
 ### ④ 获取 Base58 编码订阅  
 https://api.example.workers.dev/?config=1&encode=base58
-  
+```
 ---   
   
 </details>
@@ -111,10 +111,6 @@ https://api.example.workers.dev/?config=1&encode=base58
 - 💾 **Base58 编码：**  
   生成的 Base58 结果可直接导入支持订阅的客户端。  
 
-- 🚫 **敏感源处理：**  
-  “禁18版” 自动过滤含成人资源的接口，保持内容纯净安全。
-
-  
 ---   
   
 </details>
@@ -251,6 +247,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
