@@ -5,6 +5,27 @@ https://hafrey1.github.io/LunaTV-config
 
 ---   
 
+##  Luna-TV配置
+订阅使用：复制下面链接  
+
+👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    （推荐使用）精简版禁18源
+
+```bash
+https://j18pz.hafrey.dpdns.org?config=0&encode=base58
+```
+```bash
+https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt
+```
+👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://jjpz.hafrey.dpdns.org?config=0&encode=base58) （推荐使用）精简版剔除无搜索结果和污染搜索结果源                             
+```bash
+https://jjpz.hafrey.dpdns.org?config=0&encode=base58
+```
+```bash
+https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt
+```
+
+--- 
+
 # CORSAPI（API 代理 & JSON 订阅器）
 这是一个基于 Cloudflare Workers 的中转代理 + JSON 配置前缀替换工具。 支持将 API 请求通过 Worker 转发，并自动为 JSON 配置中的 api 字段添加/替换前缀。 同时支持生成 Base58 编码的订阅格式，方便在外部应用中快速使用。部署到cf即可拥有自己的订阅链接，还能实现API代理！    
 
@@ -78,27 +99,8 @@ https://api.example.workers.dev
 
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
 
---- 
-
-##  Luna-TV配置
-订阅使用：复制下面链接  
-
-👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    （推荐使用）精简版禁18源
-
-```bash
-https://j18pz.hafrey.dpdns.org?config=0&encode=base58
-```
-```bash
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt
-```
-👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://jjpz.hafrey.dpdns.org?config=0&encode=base58) （推荐使用）精简版剔除无搜索结果和污染搜索结果源                             
-```bash
-https://jjpz.hafrey.dpdns.org?config=0&encode=base58
-```
-```bash
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt
-```
 ---   
+
 ## API 健康报告（每日自动检测API状态）
 
 API 状态（最近更新：2025-10-08 23:20 CST）
@@ -196,6 +198,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
