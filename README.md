@@ -2,18 +2,23 @@
 
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config  
+
 ---   
 
 # CORSAPI（API 代理 & JSON 订阅器）
 这是一个基于 Cloudflare Workers 的中转代理 + JSON 配置前缀替换工具。 支持将 API 请求通过 Worker 转发，并自动为 JSON 配置中的 api 字段添加/替换前缀。 同时支持生成 Base58 编码的订阅格式，方便在外部应用中快速使用。部署到cf即可拥有自己的订阅链接，还能实现API代理！    
+
 ---   
+
 ## 🚀 部署方法
 * **部署代码**     [（精简版代码）](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/jingjian_worker.js) 和[（禁18版代码）](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/jin18_worker.js)
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
 2. 新建一个 **Workers & Pages → Worker**
 3. 将 `worker.js` 代码粘贴到编辑器中
-4. 保存并部署   
+4. 保存并部署
+
 ---   
+
 ## 🔗 使用示例   
 假设你的 Worker 部署在：   
 ```
@@ -36,6 +41,7 @@ https://api.example.workers.dev
   ```
   https://api.example.workers.dev/?config=1&encode=base58
   ```
+  
 ---
 
 ## 🛠️ 参数说明
@@ -190,6 +196,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
