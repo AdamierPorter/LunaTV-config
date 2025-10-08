@@ -26,7 +26,7 @@ https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求�
 ##  Luna-TV配置
 订阅使用：复制下面链接  
 
-👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    
+👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    （推荐使用）精简版无成人源
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt
 ```
@@ -142,6 +142,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
