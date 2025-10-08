@@ -227,6 +227,11 @@ ${defaultPrefix}https://caiji.kuaichezy.org/api.php/provide/vod
   <code class="copyable">${currentOrigin}?config=1&prefix=自定义中转API</code>
   <button class="copy-btn">复制</button>
 </p>
+<p>
+  Base58编码 + 自定义中转API配置订阅：
+  <code class="copyable">${currentOrigin}?config=1&encode=base58&prefix=自定义中转API</code>
+  <button class="copy-btn">复制</button>
+</p>
 
 <h2>支持的功能</h2>
 <ul>
