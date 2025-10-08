@@ -24,23 +24,20 @@ https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求�
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
 
 ##  Luna-TV配置
-直接使用：复制链接里的内容   
-👉 原始 JSON 配置链接[精简版🎬+🔞源链接](https://jjpz.hafrey.dpdns.org?config=0) （推荐使用）精简版剔除无搜索结果和污染搜索结果源  
-```bash
-https://jjpz.hafrey.dpdns.org?config=0
-```  
-👉 原始 JSON 配置链接[完整版🎬+🔞源链接](https://wzpz.hafrey.dpdns.org?config=0)  完整版包含所有源        
-```bash 
-https://wzpz.hafrey.dpdns.org?config=0
-```
 订阅使用：复制下面链接   
 👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://jjpz.hafrey.dpdns.org?config=0&encode=base58) （推荐使用）精简版剔除无搜索结果和污染搜索结果源                             
 ```bash
 https://jjpz.hafrey.dpdns.org?config=0&encode=base58
 ```
+```bash
+https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt
+```
 👉 Base58编码订阅链接[完整版🎬+🔞源链接](https://wzpz.hafrey.dpdns.org?config=0&encode=base58) 完整版包含所有源
 ```bash
 https://wzpz.hafrey.dpdns.org?config=0&encode=base58
+```
+```bash
+https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.txt
 ```
 
 ## API 健康报告（每日自动检测API状态）
@@ -140,6 +137,7 @@ https://wzpz.hafrey.dpdns.org?config=0&encode=base58
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
