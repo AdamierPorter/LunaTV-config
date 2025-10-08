@@ -6,7 +6,7 @@ https://hafrey1.github.io/LunaTV-config
 这是一个基于 Cloudflare Workers 的中转代理 + JSON 配置前缀替换工具。 支持将 API 请求通过 Worker 转发，并自动为 JSON 配置中的 api 字段添加/替换前缀。 同时支持生成 Base58 编码的订阅格式，方便在外部应用中快速使用。部署到cf即可拥有自己的订阅链接，还能实现API代理！    
 ### 部署代码    
 - [精简版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E7%B2%BE%E7%AE%80%E7%89%88%E9%85%8D%E7%BD%AE_worker.js)    
-- [完整版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js)
+- [禁18版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%89%88_worker.js)
 ### 演示
 https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，只适合个人使用，有条件的可部署到自己的CF）
 
@@ -40,11 +40,6 @@ https://jjpz.hafrey.dpdns.org?config=0&encode=base58
 ```
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt
-```
-👉 Base58编码订阅链接[完整版🎬+🔞源链接](https://wzpz.hafrey.dpdns.org?config=0&encode=base58) 完整版包含所有源
-
-```bash
-https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.txt
 ```
 
 ## API 健康报告（每日自动检测API状态）
@@ -144,6 +139,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
