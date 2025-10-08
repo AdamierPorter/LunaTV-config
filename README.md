@@ -123,7 +123,7 @@ https://api.example.workers.dev/?config=1&encode=base58
   
 - 📄 **Luna-TV配置编辑器**：专业的 JSON 配置文件可视化编辑器。  
 - 🔍 **自动检测API状态**：每 1 小时检测一次 API 可用性，并记录最近 100 次测试报告。  
-- 🧩 **API名称添加图标**：成人源前自动显示识别图标，方便区分。  
+- 🧩 **API名称添加图标**：源前添加识别图标，方便区分。  
 - 🌐 **被墙资源自动中转**：为受限 API 提供 CF Worker 中转能力。  
   
 ---   
@@ -245,6 +245,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
