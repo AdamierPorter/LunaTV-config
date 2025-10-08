@@ -59,14 +59,14 @@ https://api.example.workers.dev
 - 📄 **自动检测API状态**： 每隔1小时自动检测API状态，并生成最近100次检测报告！   可根据API测试结果自行禁用可用率不高的源！
 - 📄 **API名称添加图标**： API名称前添加图标以便更好区分成人源！
 - 📄 **被墙的资源**： 如果你的API无效，可使用CF worker搭建CORSAPI接口，添加自定义域名，给源提供中转！
-
+---   
 ## 测试
 - 📄 **测试使用中转API**：使用CORSAPI中转提高视频源成功率!复活无法使用的API！
 - 📄 **精简版源更新**：使用🎬虎牙资源、🔞丝袜资源、🔞色猫资源这几个源会污染搜索结果！还有多个源无搜索结果！精简版剔除了这些源！
 
 ### 精简版共61个源全部可用（必须要使用中转api，否则不能保证全部可用）
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
-
+---   
 ##  Luna-TV配置
 订阅使用：复制下面链接  
 
@@ -85,7 +85,7 @@ https://jjpz.hafrey.dpdns.org?config=0&encode=base58
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt
 ```
-
+---   
 ## API 健康报告（每日自动检测API状态）
 
 ## API 状态（最近更新：2025-10-08 23:20 CST）
@@ -183,6 +183,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
