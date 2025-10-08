@@ -116,8 +116,8 @@ https://api.example.workers.dev/?config=1&encode=base58
   
 </details>
 
-<details>
-<summary>🆕 更新内容</summary>
+
+## 🆕 更新内容
   
 ---   
   
@@ -127,11 +127,8 @@ https://api.example.workers.dev/?config=1&encode=base58
 - 🌐 **被墙资源自动中转**：为受限 API 提供 CF Worker 中转能力。  
   
 ---   
-  
-</details>
 
-<details>
-<summary>🧪 测试与示例</summary>
+## 🧪 测试与示例
   
 ---   
   
@@ -248,6 +245,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
