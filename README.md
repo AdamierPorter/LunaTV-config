@@ -44,7 +44,7 @@ https://api.example.workers.dev
 | --------------- | -------------------------------- | ------------------------------------------------ |
 | `url`           | 代理任意 API 请求                      | `?url=https://...`                               |
 | `config=0`      | 返回原始 JSON 配置                 | `?config=0`                                      |
-| `config=1`      | 返回替换前缀后的 JSON 配置                 | `?config=1`                                      |
+| `config=1`      | 返回使用中转的 JSON 配置                 | `?config=1`                                      |
 | `encode=base58` | 将 JSON 配置结果编码为 Base58            | `?config=1&encode=base58`                        |
 | (可选)`prefix`    | 手动指定API代理，默认使用 `https://<域名>/?url=` | `?config=1&prefix=https://api.example.com/?url=` |    
 ---   
@@ -183,6 +183,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
