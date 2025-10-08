@@ -14,7 +14,7 @@ https://hafrey1.github.io/LunaTV-config
 ---    
 
 ### 演示
-https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，只适合个人使用，有条件的可部署到自己的CF）
+-https://wzpz.hafrey.dpdns.org    （只做演示使用，每天 10 万次请求，只适合个人使用，有条件的可部署到自己的CF）
 ---   
 ## 🚀 部署方法
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
@@ -192,6 +192,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
