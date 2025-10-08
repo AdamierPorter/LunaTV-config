@@ -118,9 +118,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 
 
 ## 🆕 更新内容
-  
----   
-  
+
 - 📄 **Luna-TV配置编辑器**：专业的 JSON 配置文件可视化编辑器。  
 - 🔍 **自动检测API状态**：每 1 小时检测一次 API 可用性，并记录最近 100 次测试报告。  
 - 🧩 **API名称添加图标**：源前添加识别图标，方便区分。  
@@ -129,9 +127,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 ---   
 
 ## 🧪 测试与示例
-  
----   
-  
+
 ### ✅ 使用中转API测试
 - 通过 CORSAPI 转发后，大幅提升视频源可用率。  
 - 可“复活”原本无法访问的资源。  
@@ -245,6 +241,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
