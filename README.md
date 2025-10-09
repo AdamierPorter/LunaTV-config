@@ -3,7 +3,7 @@
 Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config  
 
---   
+----   
 
 ##  Luna-TV配置
 订阅使用：复制下面链接  
@@ -242,6 +242,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
