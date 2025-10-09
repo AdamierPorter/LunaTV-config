@@ -33,7 +33,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 <details>
 <summary>🚀 部署方法</summary>
   
----   
+#   
   
 **部署代码：**  
 - [精简版代码](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/CORSAPI/jingjian_worker.js)  
@@ -54,7 +54,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 <details>
 <summary>🔗 使用示例</summary>
   
----   
+#  
 
 ```bash
 假设你的 Worker 部署在：
@@ -80,7 +80,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 <details>
 <summary>🛠️ 参数说明</summary>
   
----   
+# 
   
 | 参数 | 说明 | 示例 |
 |------|------|------|
@@ -101,7 +101,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 <details>
 <summary>📌 注意事项</summary>
   
----   
+# 
   
 - ☁️ **Workers 免费额度：**  
   每日 10 万次请求，适合轻量部署与个人订阅使用。  
@@ -139,7 +139,6 @@ https://api.example.workers.dev/?config=1&encode=base58
 <summary>示例</summary>
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
   
----   
   
 </details>
 
@@ -242,6 +241,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
