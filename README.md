@@ -4,6 +4,7 @@ https://hafrey1.github.io/LunaTV-config
 --- 
 
 ##  Luna-TV配置
+如果源不可用,一般都是被墙了,要使用代理!    
 订阅使用：复制下面链接  
 
 👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    （推荐使用）精简版禁18源
@@ -239,6 +240,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
