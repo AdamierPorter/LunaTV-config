@@ -28,7 +28,7 @@
     },
     "wolong": {
       "name": "🎬卧龙资源",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://wolongzyw.com/api.php/provide/vod",
+      "api": "https://wolongzyw.com/api.php/provide/vod",
       "detail": "https://wolongzyw.com"
     },
     "ikun": {
@@ -73,7 +73,7 @@
     },
     "collectwolongzy": {
       "name": "🎬卧龙资源1",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://collect.wolongzyw.com/api.php/provide/vod",
+      "api": "https://collect.wolongzyw.com/api.php/provide/vod",
       "detail": "https://collect.wolongzyw.com"
     },
     "jisu": {
