@@ -146,7 +146,7 @@ https://api.example.workers.dev/?config=1&encode=base58
   
 ## API 健康报告（每日自动检测API状态）
 
-API 状态（最近更新：2025-10-08 23:20 CST）
+## API 状态（最近更新：2025-10-08 23:20 CST）
 
 - 总 API 数量：78
 - 成功 API 数量：78
@@ -241,6 +241,7 @@ API 状态（最近更新：2025-10-08 23:20 CST）
 | ✅ | 🎬豆瓣资源 | https://caiji.dbzy5.com/api.php/provide/vod | 97 | 3 | 97.0% | 0 |
 | ✅ | 🔞奥斯卡 | https://aosikazy.com/api.php/provide/vod | 96 | 4 | 96.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
