@@ -144,7 +144,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 
 ---   
   
-## API 健康报告（每日自动检测API状态）
+# API 健康报告（每日自动检测API状态）
 
 ## API 状态（最近更新：2025-10-15 09:26 CST）
 
@@ -241,6 +241,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🎬卧龙资源 | https://wolongzyw.com/api.php/provide/vod | 39 | 60 | 39.4% | 0 |
 | ✅ | 🎬卧龙资源1 | https://collect.wolongzyw.com/api.php/provide/vod | 39 | 60 | 39.4% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
