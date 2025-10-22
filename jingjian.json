@@ -186,21 +186,6 @@
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "detail": "https://caiji.moduapi.cc"
     },
-    "yyzyw": {
-      "name": "🎬鸭鸭资源",
-      "api": "https://cj.yayazy.net/api.php/provide/vod",
-      "detail": "https://yayazy3.com"
-    },
-    "shzy": {
-      "name": "🎬山海资源",
-      "api": "https://zy.sh0o.cn/api.php/provide/vod",
-      "detail": "https://zy.sh0o.cn"
-    },
-    "jazy": {
-      "name": "🎬建安资源",
-      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
-      "detail": "http://154.219.117.232:9981"
-    },
     "/91md.me": {
       "name": "🔞91麻豆",
       "api": "https://91md.me/api.php/provide/vod",
@@ -323,5 +308,6 @@
     }
   }
 }
+
 
 
