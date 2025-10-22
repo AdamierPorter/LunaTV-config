@@ -186,7 +186,7 @@
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "detail": "https://caiji.moduapi.cc"
     },
-    "yyzy": {
+    "yyzyw": {
       "name": "🎬鸭鸭资源",
       "api": "https://cj.yayazy.net/api.php/provide/vod",
       "detail": "https://yayazy3.com"
@@ -323,4 +323,5 @@
     }
   }
 }
+
 
