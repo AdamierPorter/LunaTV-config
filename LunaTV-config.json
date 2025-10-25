@@ -171,11 +171,6 @@
       "api": "https://subocaiji.com/api.php/provide/vod",
       "detail": "www.subozy.com"
     },
-    "xiaomaomi": {
-      "name": "🎬小猫咪",
-      "api": "https://zy.xmm.hk/api.php/provide/vod",
-      "detail": "http://zy.xmm.hk"
-    },
     "huyaapi": {
       "name": "🎬虎牙资源",
       "api": "https://www.huyaapi.com/api.php/provide/vod/at/json",
