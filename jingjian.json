@@ -63,7 +63,7 @@
     },
     "ruyi": {
       "name": "🎬如意资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
       "detail": "https://www.ryzyw.com"
     },
     "zy360": {
@@ -138,7 +138,7 @@
     },
     "hhzyapi": {
       "name": "🎬豪华资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://hhzyapi.com/api.php/provide/vod",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://hhzyapi.com/api.php/provide/vod",
       "detail": "https://www.haohuazy.com"
     },
     "subocaiji": {
@@ -158,12 +158,12 @@
     },
     "uku": {
       "name": "🎬U酷资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
       "detail": "https://api.ukuapi.com"
     },
     "ukuapi88": {
       "name": "🎬U酷88",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
       "detail": "https://api.ukuapi88.com"
     },
     "guangsuapi": {
@@ -303,6 +303,7 @@
     }
   }
 }
+
 
 
 
