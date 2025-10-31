@@ -86,11 +86,6 @@
       "api": "https://www.mdzyapi.com/api.php/provide/vod",
       "detail": "https://www.moduzy.net"
     },
-    "mozhuazy": {
-      "name": "🎬魔爪资源",
-      "api": "https://dl.hafrey.dpdns.org/?url=https://mozhuazy.com/api.php/provide/vod",
-      "detail": "https://mozhuazy.com"
-    },
     "ffzy1": {
       "name": "🎬非凡资源",
       "api": "https://api.ffzyapi.com/api.php/provide/vod",
@@ -143,7 +138,7 @@
     },
     "hhzyapi": {
       "name": "🎬豪华资源",
-      "api": "https://hhzyapi.com/api.php/provide/vod",
+      "api": "https://dl.hafrey.dpdns.org/?url=https://hhzyapi.com/api.php/provide/vod",
       "detail": "https://www.haohuazy.com"
     },
     "subocaiji": {
@@ -308,6 +303,7 @@
     }
   }
 }
+
 
 
 
