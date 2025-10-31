@@ -86,7 +86,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 |------|------|------|
 | `url` | 代理任意 API 请求 | `?url=https://...` |
 | `config=0` | 返回原始 JSON 配置 | `?config=0` |
-| `config=1` | 返回使用中转代理的 JSON 配置 | `?config=1` |
+| `config=1` | 返回使用api代理的 JSON 配置 | `?config=1` |
 | `encode=base58` | 将 JSON 配置编码为 Base58 | `?config=1&encode=base58` |
 | `(可选) prefix` | 手动指定 API 代理前缀，默认使用当前域名 | `?config=1&prefix=https://api.example.com/?url=` |
 
@@ -242,6 +242,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🔞91麻豆 | https://91md.me/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🎬iKun资源 | https://ikunzyapi.com/api.php/provide/vod | 94 | 6 | 94.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
