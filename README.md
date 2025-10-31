@@ -121,7 +121,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 
 - 📄 **Luna-TV配置编辑器**：专业的 JSON 配置文件可视化编辑器。  
 - 🔍 **自动检测API状态**：每 1 小时检测一次 API 可用性，并记录最近 100 次测试报告。  
-- 🧩 **API名称添加图标**：源前添加识别图标，方便区分。  
+- 🧩 **源名称前添加图标**：源名称前添加图标，方便区分。  
 - 🌐 **被墙资源自动中转**：为受限 API 提供 CF Worker 中转能力。  
   
 ---   
@@ -242,6 +242,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🔞91麻豆 | https://91md.me/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🎬iKun资源 | https://ikunzyapi.com/api.php/provide/vod | 94 | 6 | 94.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
