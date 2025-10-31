@@ -67,10 +67,10 @@ https://api.example.workers.dev/?url=https://ikunzyapi.com/api.php/provide/vod
 ### ② 获取原始 JSON 配置  
 https://api.example.workers.dev/?config=0
 
-### ③ 获取中转后的 JSON 配置  
+### ③ 获取API 代理的 JSON 配置  
 https://api.example.workers.dev/?config=1
 
-### ④ 获取 Base58 编码订阅  
+### ④ 获取API 代理的 Base58 编码订阅  
 https://api.example.workers.dev/?config=1&encode=base58
 ```
 ---   
@@ -242,6 +242,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🔞91麻豆 | https://91md.me/api.php/provide/vod | 95 | 5 | 95.0% | 0 |
 | ✅ | 🎬iKun资源 | https://ikunzyapi.com/api.php/provide/vod | 94 | 6 | 94.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
