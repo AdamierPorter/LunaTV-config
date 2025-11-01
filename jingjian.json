@@ -176,6 +176,11 @@
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "detail": "https://caiji.moduapi.cc"
     },
+    "shzy": {
+      "name": "🎬山海资源",
+      "api": "https://zy.sh0o.cn/api.php/provide/vod",
+      "detail": "https://zy.sh0o.cn"
+    },
     "/91md.me": {
       "name": "🔞91麻豆",
       "api": "https://91md.me/api.php/provide/vod",
