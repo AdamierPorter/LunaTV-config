@@ -16,11 +16,6 @@
       "api": "https://tyyszy.com/api.php/provide/vod",
       "detail": "https://tyyszy.com"
     },
-    "ckzy.me": {
-      "name": "🎬CK资源",
-      "api": "https://ckzy.me/api.php/provide/vod",
-      "detail": "https://ckzy.me"
-    },
     "maotaizy": {
       "name": "🎬茅台资源",
       "api": "https://caiji.maotaizy.cc/api.php/provide/vod",
@@ -230,6 +225,11 @@
       "name": "🔞91麻豆",
       "api": "https://91md.me/api.php/provide/vod",
       "detail": "https://91md.me"
+    },
+    "ckzy.me": {
+      "name": "🔞CK资源",
+      "api": "https://ckzy.me/api.php/provide/vod",
+      "detail": "https://ckzy.me"
     },
     "lbapiby": {
       "name": "🔞AIvin",
