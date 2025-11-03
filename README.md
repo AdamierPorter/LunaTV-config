@@ -1,8 +1,6 @@
 # Luna TV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config  
 
-如果源不可用,一般都是被墙了,要使用代理才能使用 !  
-
 --- 
 
 ##  Luna-TV配置
