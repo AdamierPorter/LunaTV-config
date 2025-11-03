@@ -2,7 +2,7 @@
   "cache_time": 7200,
   "api_site": {
     "aqyzy": {
-      "name": "🎬爱奇艺",
+      "name": "🎬 爱奇艺",
       "api": "https://iqiyizyapi.com/api.php/provide/vod",
       "detail": "https://iqiyizyapi.com"
     },
@@ -62,12 +62,12 @@
       "detail": "https://www.ryzyw.com"
     },
     "zy360": {
-      "name": "🎬360资源",
+      "name": "🎬360 资源",
       "api": "https://360zy.com/api.php/provide/vod",
       "detail": "https://360zy.com"
     },
     "collectwolongzy": {
-      "name": "🎬卧龙资源1",
+      "name": "🎬卧龙影视",
       "api": "https://collect.wolongzyw.com/api.php/provide/vod",
       "detail": "https://collect.wolongzyw.com"
     },
@@ -117,7 +117,7 @@
       "detail": "https://wujinzy.com"
     },
     "wujincom": {
-      "name": "🎬无尽资源1",
+      "name": "🎬无尽影视",
       "api": "https://api.wujinapi.com/api.php/provide/vod",
       "detail": "https://wujinzy.com"
     },
@@ -182,18 +182,18 @@
       "detail": "https://p2100.net"
     },
     "uku": {
-      "name": "🎬U酷资源",
+      "name": "🎬U 酷资源",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
       "detail": "https://api.ukuapi.com"
     },
     "ukuapi88": {
-      "name": "🎬U酷88",
+      "name": "🎬U 酷影视",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
       "detail": "https://api.ukuapi88.com"
     },
     "guangsuapi": {
-      "api": "https://api.guangsuapi.com/api.php/provide/vod",
       "name": "🎬光速资源",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod",
       "detail": "https://api.guangsuapi.com"
     },
     "hongniuzy": {
@@ -222,17 +222,17 @@
       "detail": "http://154.219.117.232:9981"
     },
     "/91md.me": {
-      "name": "🔞91麻豆",
+      "name": "🔞91 麻豆",
       "api": "https://91md.me/api.php/provide/vod",
       "detail": "https://91md.me"
     },
     "ckzy.me": {
-      "name": "🔞CK资源",
+      "name": "🔞CK 资源",
       "api": "https://ckzy.me/api.php/provide/vod",
       "detail": "https://ckzy.me"
     },
     "lbapiby": {
-      "name": "🔞AIvin",
+      "name": "🔞 AIvin",
       "api": "http://lbapiby.com/api.php/provide/vod",
       "detail": "http://lbapiby.com"
     },
@@ -247,7 +247,7 @@
       "detail": "https://api.souavzy.vip"
     },
     "155zy": {
-      "name": "🔞155资源",
+      "name": "🔞155 资源",
       "api": "https://155api.com/api.php/provide/vod",
       "detail": "https://155zy2.com"
     },
@@ -272,7 +272,7 @@
       "detail": "https://www.jingpinx.com"
     },
     "apilsbzy1": {
-      "name": "🔞老色逼",
+      "name": "🔞老 色 逼",
       "api": "https://apilsbzy1.com/api.php/provide/vod",
       "detail": "https://apilsbzy1.com"
     },
@@ -292,7 +292,7 @@
       "detail": "https://xiaojizy.live"
     },
     ".pgxdy": {
-      "name": "🔞黄AVZY",
+      "name": "🔞黄 AVZY",
       "api": "https://www.pgxdy.com/api/json.php",
       "detail": "https://www.pgxdy.com"
     },
@@ -302,7 +302,7 @@
       "detail": "hsckzy.xyz"
     },
     "dnzzy": {
-      "name": "🔞大奶子",
+      "name": "🔞 大奶子",
       "api": "https://apidanaizi.com/api.php/provide/vod",
       "detail": "https://apidanaizi.com"
     },
@@ -322,7 +322,7 @@
       "detail": "https://xingba111.com"
     },
     "api.sexnguon": {
-      "name": "🔞色南国",
+      "name": "🔞 色南国",
       "api": "https://api.sexnguon.com/api.php/provide/vod",
       "detail": "https://api.sexnguon.com"
     },
@@ -332,12 +332,12 @@
       "detail": "https://lbapi9.com"
     },
     "msnii": {
-      "name": "🔞美少女",
+      "name": "🔞 美少女",
       "api": "https://www.msnii.com/api/json.php",
       "detail": "https://www.msnii.com"
     },
     "aosikazy": {
-      "name": "🔞奥斯卡",
+      "name": "🔞 奥斯卡",
       "api": "https://aosikazy.com/api.php/provide/vod",
       "detail": "https://aosikazy.com"
     },
@@ -367,7 +367,7 @@
       "detail": "https://shayuapi.com"
     },
     "xzybb21": {
-      "name": "🔞幸资源",
+      "name": "🔞 幸资源",
       "api": "https://xzybb2.com/api.php/provide/vod",
       "detail": "https://xzytv.com"
     },
