@@ -2,7 +2,7 @@
   "cache_time": 7200,
   "api_site": {
     "iqiyizyapi.com": {
-      "name": "🎬 爱奇艺",
+      "name": "🎬 爱奇艺 ",
       "api": "https://iqiyizyapi.com/api.php/provide/vod",
       "detail": "https://iqiyizyapi.com"
     },
@@ -217,17 +217,17 @@
       "detail": "http://154.219.117.232:9981"
     },
     "91md.me": {
-      "name": "🔞91 麻豆",
+      "name": "🔞 91 麻豆",
       "api": "https://91md.me/api.php/provide/vod",
       "detail": "https://91md.me"
     },
     "ckzy.me": {
-      "name": "🔞CK 资源",
+      "name": "🔞 CK 资源",
       "api": "https://ckzy.me/api.php/provide/vod",
       "detail": "https://ckzy.me"
     },
     "lbapiby.com": {
-      "name": "🔞 AIvin",
+      "name": "🔞  AIvin ",
       "api": "http://lbapiby.com/api.php/provide/vod",
       "detail": "http://lbapiby.com"
     },
@@ -267,7 +267,7 @@
       "detail": "https://www.jingpinx.com"
     },
     "apilsbzy1.com": {
-      "name": "🔞老 色 逼",
+      "name": "🔞  老色逼",
       "api": "https://apilsbzy1.com/api.php/provide/vod",
       "detail": "https://apilsbzy1.com"
     },
@@ -287,7 +287,7 @@
       "detail": "https://xiaojizy.live"
     },
     "www.pgxdy.com": {
-      "name": "🔞黄 AVZY",
+      "name": "🔞 黄AVZY ",
       "api": "https://www.pgxdy.com/api/json.php",
       "detail": "https://www.pgxdy.com"
     },
@@ -297,7 +297,7 @@
       "detail": "https://hsckzy.xyz"
     },
     "apidanaizi.com": {
-      "name": "🔞 大奶子",
+      "name": "🔞 大奶子 ",
       "api": "https://apidanaizi.com/api.php/provide/vod",
       "detail": "https://apidanaizi.com"
     },
@@ -317,7 +317,7 @@
       "detail": "https://xingba111.com"
     },
     "api.sexnguon.com": {
-      "name": "🔞 色南国",
+      "name": "🔞 色南国 ",
       "api": "https://api.sexnguon.com/api.php/provide/vod",
       "detail": "https://api.sexnguon.com"
     },
@@ -327,12 +327,12 @@
       "detail": "https://lbapi9.com"
     },
     "www.msnii.com": {
-      "name": "🔞 美少女",
+      "name": "🔞 美少女 ",
       "api": "https://www.msnii.com/api/json.php",
       "detail": "https://www.msnii.com"
     },
     "aosikazy.com": {
-      "name": "🔞 奥斯卡",
+      "name": "🔞 奥斯卡 ",
       "api": "https://aosikazy.com/api.php/provide/vod",
       "detail": "https://aosikazy.com"
     },
@@ -362,7 +362,7 @@
       "detail": "https://shayuapi.com"
     },
     "xzytv.com": {
-      "name": "🔞 幸资源",
+      "name": "🔞 幸资源 ",
       "api": "https://xzybb2.com/api.php/provide/vod",
       "detail": "https://xzytv.com"
     },
