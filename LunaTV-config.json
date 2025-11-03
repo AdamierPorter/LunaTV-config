@@ -103,7 +103,7 @@
     },
     "yhzy.cc": {
       "name": "🎬樱花资源",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "detail": "https://yhzy.cc"
     },
     "wujinzy.me": {
@@ -148,7 +148,7 @@
     },
     "www.haohuazy.com": {
       "name": "🎬豪华资源",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://hhzyapi.com/api.php/provide/vod",
+      "api": "https://hhzyapi.com/api.php/provide/vod",
       "detail": "https://www.haohuazy.com"
     },
     "www.subozy.com": {
@@ -176,14 +176,9 @@
       "api": "https://p2100.net/api.php/provide/vod",
       "detail": "https://p2100.net"
     },
-    "api.ukuapi.com": {
-      "name": "🎬U 酷资源",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi.com/api.php/provide/vod",
-      "detail": "https://api.ukuapi.com"
-    },
     "api.ukuapi88.com": {
       "name": "🎬U 酷影视",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.ukuapi88.com/api.php/provide/vod",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod",
       "detail": "https://api.ukuapi88.com"
     },
     "api.guangsuapi.com": {
