@@ -132,7 +132,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 
 ### ⚙️ 精简版源更新
 - 去除污染源与无搜索结果源（如 🎬虎牙、🔞丝袜、🔞色猫）。  
-- 精简后共 **61 个可用源**，在中转代理下全部可访问。  
+- 精简后共 **66 个可用源**，在中转代理下全部可访问。  
 <details>
 <summary>示例</summary>
 <img width="1025" height="486" alt="61" src="https://github.com/user-attachments/assets/81c80108-7c03-4583-87ab-b7b57cdfd3bd" />
@@ -239,6 +239,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🔞 91-麻豆 | https://91md.me/api.php/provide/vod | 94 | 6 | 94.0% | 0 |
 | ✅ | 🎬iKun资源 | https://ikunzyapi.com/api.php/provide/vod | 90 | 10 | 90.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
