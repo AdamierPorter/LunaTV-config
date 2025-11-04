@@ -154,7 +154,7 @@
     "api.ukuapi88.com": {
       "name": "🎬U酷影视",
       "api": "https://api.ukuapi88.com/api.php/provide/vod",
-      "detail": "https://api.ukuapi88.com"
+      "detail": "https://www.ukuzy.com"
     },
     "api.guangsuapi.com": {
       "name": "🎬光速资源",
@@ -180,6 +180,11 @@
       "name": "🎬樱花资源",
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "detail": "https://yhzy.cc"
+    },
+    "bdzy1.com": {
+      "name": "🎬百度云zy",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "detail": "https://bdzy1.com"
     },
     "jazy": {
       "name": "🎬建安资源",
