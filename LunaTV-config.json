@@ -176,16 +176,6 @@
       "api": "https://zy.sh0o.cn/api.php/provide/vod",
       "detail": "https://zy.sh0o.cn"
     },
-    "yhzy.cc": {
-      "name": "🎬樱花资源",
-      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-      "detail": "https://yhzy.cc"
-    },
-    "bdzy1.com": {
-      "name": "🎬百度云zy",
-      "api": "https://api.apibdzy.com/api.php/provide/vod",
-      "detail": "https://bdzy1.com"
-    },
     "jazy": {
       "name": "🎬建安资源",
       "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
@@ -215,6 +205,16 @@
       "name": "🎬闪电资源",
       "api": "https://xsd.sdzyapi.com/api.php/provide/vod",
       "detail": "https://shandianzy.com"
+    },
+    "yhzy.cc": {
+      "name": "🎬樱花资源",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "detail": "https://yhzy.cc"
+    },
+    "bdzy1.com": {
+      "name": "🎬百度云zy",
+      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "detail": "https://bdzy1.com"
     },
     "91md.me": {
       "name": "🔞91-麻豆-",
