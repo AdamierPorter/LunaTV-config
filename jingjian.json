@@ -176,8 +176,13 @@
       "api": "https://zy.sh0o.cn/api.php/provide/vod",
       "detail": "https://zy.sh0o.cn"
     },
+    "91md.me": {
+      "name": "🔞麻豆视频",
+      "api": "https://91md.me/api.php/provide/vod",
+      "detail": "https://91md.me"
+    },
     "91jpzyw.com": {
-      "name": "🔞91-麻豆-",
+      "name": "🔞91-精品-",
       "api": "https://91jpzyw.com/api.php/provide/vod",
       "detail": "https://91jpzyw.com"
     },
@@ -333,4 +338,5 @@
     }
   }
 }
+
 
