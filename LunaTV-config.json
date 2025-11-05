@@ -213,7 +213,7 @@
     },
     "bdzy1.com": {
       "name": "🎬百度云zy",
-      "api": "https://api.apibdzy.com/api.php/provide/vod",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.apibdzy.com/api.php/provide/vod",
       "detail": "https://bdzy1.com"
     },
     "91md.me": {
