@@ -1,9 +1,9 @@
-# Luna TV 配置编辑器（自用）
+# MoonTV/LunaTV 配置编辑器（自用）
 https://hafrey1.github.io/LunaTV-config  
 
 --- 
 
-##  Luna-TV配置
+##  MoonTV/LunaTV配置
 订阅使用：复制下面链接  
 
 👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    （推荐使用自己部署的代理）精简版禁18源
@@ -241,6 +241,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🔞麻豆视频 | https://91md.me/api.php/provide/vod | 92 | 5 | 94.8% | 0 |
 | ✅ | 🔞桃花资源 | https://thzy1.me/api.php/provide/vod | 94 | 6 | 94.0% | 0 |
 <!-- API_TABLE_END -->
+
 
 
 
