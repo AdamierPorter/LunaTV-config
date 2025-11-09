@@ -111,10 +111,10 @@ https://api.example.workers.dev/?format=1&source=full&prefix=https://my-proxy.co
 | 参数     | 说明             | 可选值                          | 示例         |        
 | -------- | ---------------- | ------------------------------- | ------------ |
 | `url`    | 代理任意 API 请求 | 任意有效 URL                     | `?url=https://...` |
-| `format` | 配置模式         | 0 或 raw = 原始 JSON  1 或 proxy = 添加代理前缀  2 或 base58 = 原始 Base58  3 或 proxy-base58 = 代理 Base58 | `?config=1` |
+| `format` | 配置模式         | `0 或 raw = 原始 JSON`  `1 或 proxy = 添加代理前缀`  `2 或 base58 = 原始 Base58`  `3 或 proxy-base58 = 代理 Base58` | `?format=0` |
 | `source` | 配置源选择       | `jin18` = 精简版`jingjian` = 精简+成人`full` = 完整版） | `?source=jin18` |
 | `prefix` | 自定义代理前缀   | 任意代理地址                      | `?prefix=https://.../?url=` |
-|errors&limit=10 | 查看错误日志 | errors&limit=10                 | https://<你的域名>?errors&limit=10 |
+| `errors&limit=10` | 查看错误日志 | `errors&limit=10`                 | `https://<你的域名>?errors&limit=10` |
 ---
 
 ---
