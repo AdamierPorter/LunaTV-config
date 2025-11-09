@@ -1,4 +1,4 @@
-// check_apis_v4.js
+// check_api.js
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
