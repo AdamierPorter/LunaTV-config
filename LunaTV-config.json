@@ -151,11 +151,6 @@
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "detail": "https://caiji.moduapi.cc"
     },
-    "zy.sh0o.cn": {
-      "name": "🎬山海资源",
-      "api": "https://zy.sh0o.cn/api.php/provide/vod",
-      "detail": "https://zy.sh0o.cn"
-    },
     "www.haohuazy.com": {
       "name": "🎬豪华资源",
       "api": "https://hhzyapi.com/api.php/provide/vod",
@@ -170,6 +165,11 @@
       "name": "🎬百度云zy",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.apibdzy.com/api.php/provide/vod",
       "detail": "https://bdzy1.com"
+    },
+    "zy.sh0o.cn": {
+      "name": "🎬山海资源",
+      "api": "https://zy.sh0o.cn/api.php/provide/vod",
+      "detail": "https://zy.sh0o.cn"
     },
     "1080zyk4.com": {
       "name": "🎬优质资源",
