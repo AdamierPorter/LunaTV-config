@@ -156,16 +156,15 @@
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
       "detail": "https://www.ryzyw.com"
     },
-
+    "www.haohuazy.com": {
+      "name": "🎬豪华资源",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://hhzyapi.com/api.php/provide/vod",
+      "detail": "https://www.haohuazy.com"
+    },
     "bdzy1.com": {
       "name": "🎬百度云zy",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.apibdzy.com/api.php/provide/vod",
       "detail": "https://bdzy1.com"
-    },
-    "www.haohuazy.com": {
-      "name": "🎬豪华资源",
-      "api": "https://hhzyapi.com/api.php/provide/vod",
-      "detail": "https://www.haohuazy.com"
     },
     "zy.sh0o.cn": {
       "name": "🎬山海资源",
@@ -342,7 +341,6 @@
       "api": "https://api.sexnguon.com/api.php/provide/vod",
       "detail": "https://api.sexnguon.com"
     },
-    
     "ckzy.me": {
       "name": "🔞 CK-资源",
       "api": "https://ckzy.me/api.php/provide/vod",
