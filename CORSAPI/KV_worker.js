@@ -2,23 +2,29 @@ addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
 
-// Base58 编码函数
+// Base58 编码函数（Cloudflare Workers 兼容）
 const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 function base58Encode(obj) {
   const str = JSON.stringify(obj)
   const bytes = new TextEncoder().encode(str)
+
   let intVal = 0n
-  for (let b of bytes) intVal = (intVal << 8n) + BigInt(b)
+  for (let b of bytes) {
+    intVal = (intVal << 8n) + BigInt(b)
+  }
+
   let result = ''
   while (intVal > 0n) {
     const mod = intVal % 58n
     result = BASE58_ALPHABET[Number(mod)] + result
     intVal = intVal / 58n
   }
+
   for (let b of bytes) {
     if (b === 0) result = BASE58_ALPHABET[0] + result
     else break
   }
+
   return result
 }
 
@@ -41,35 +47,29 @@ function addOrReplacePrefix(obj, newPrefix) {
   return newObj
 }
 
-// ---------- 新增：日志记录函数 ----------
-async function logError(type, info) {
-  try {
-    const key = `ERROR_${new Date().toISOString()}`
-    await CONFIG_KV.put(key, JSON.stringify({ type, ...info }), { expirationTtl: 604800 }) // 7天
-  } catch (e) {
-    console.log('logError failed:', e)
+// ---------- 新增：KV 辅助函数 ----------
+async function getCachedJSON(url) {
+  const cacheKey = 'CACHE_' + url
+  const cached = await CONFIG_KV.get(cacheKey)
+  if (cached) {
+    try {
+      return JSON.parse(cached)
+    } catch (e) {
+      await CONFIG_KV.delete(cacheKey) // 删除损坏缓存
+    }
   }
-}
-
-// ---------- 新增：KV 缓存函数 ----------
-async function getCache(key) {
-  return await CONFIG_KV.get(key, { type: 'json' })
-}
-async function setCache(key, value) {
-  await CONFIG_KV.put(key, JSON.stringify(value), { expirationTtl: 3600 }) // 1小时
-}
-
-// ---------- 新增：查看错误接口 ----------
-async function getRecentErrors(limit = 10) {
-  const list = await CONFIG_KV.list({ prefix: 'ERROR_' })
-  const sorted = list.keys.sort((a, b) => (a.name < b.name ? 1 : -1))
-  const recent = sorted.slice(0, limit)
-  const data = []
-  for (const k of recent) {
-    const val = await CONFIG_KV.get(k.name, { type: 'json' })
-    if (val) data.push(val)
-  }
+  // 无缓存或损坏，重新获取
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
+  const data = await res.json()
+  await CONFIG_KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 3600 })
   return data
+}
+
+// ---------- 新增：错误日志函数 ----------
+async function logError(type, info) {
+  const key = `ERROR_${new Date().toISOString()}`
+  await CONFIG_KV.put(key, JSON.stringify({ type, ...info }))
 }
 
 async function handleRequest(request) {
@@ -87,17 +87,9 @@ async function handleRequest(request) {
   const formatParam = reqUrl.searchParams.get('format')
   const prefixParam = reqUrl.searchParams.get('prefix')
   const sourceParam = reqUrl.searchParams.get('source')
+
   const currentOrigin = reqUrl.origin
   const defaultPrefix = currentOrigin + '/?url='
-
-  // ---------- 新增：错误查看接口 ----------
-  if (reqUrl.searchParams.has('errors')) {
-    const limit = Number(reqUrl.searchParams.get('limit') || 10)
-    const data = await getRecentErrors(limit)
-    return new Response(JSON.stringify(data, null, 2), {
-      headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders },
-    })
-  }
 
   // -------------------- 通用 API 中转代理 --------------------
   if (targetUrlParam) {
@@ -129,14 +121,21 @@ async function handleRequest(request) {
       clearTimeout(timeoutId)
 
       const responseHeaders = new Headers(corsHeaders)
-      const excludeHeaders = ['content-encoding', 'content-length', 'transfer-encoding', 'connection', 'keep-alive', 'set-cookie', 'set-cookie2']
+      const excludeHeaders = [
+        'content-encoding', 'content-length', 'transfer-encoding',
+        'connection', 'keep-alive', 'set-cookie', 'set-cookie2'
+      ]
       for (const [key, value] of response.headers) {
         if (!excludeHeaders.includes(key.toLowerCase())) responseHeaders.set(key, value)
       }
 
-      return new Response(response.body, { status: response.status, statusText: response.statusText, headers: responseHeaders })
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: responseHeaders
+      })
     } catch (err) {
-      await logError('proxy', { message: err.message, url: fullTargetUrl })
+      await logError('proxy', { message: err.message || '代理请求失败', url: fullTargetUrl })
       return new Response(JSON.stringify({
         error: 'Proxy Error',
         message: err.message || '代理请求失败',
@@ -155,36 +154,43 @@ async function handleRequest(request) {
     'jingjian': 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.json',
     'full': 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json'
   }
-  
+
   // -------------------- JSON 配置 + format 参数处理 --------------------
   if (formatParam !== null) {
     try {
-      const selectedSource = sourceParam && JSON_SOURCES[sourceParam] ? JSON_SOURCES[sourceParam] : JSON_SOURCES['full']
-      const cacheKey = `CACHE_${selectedSource}_${formatParam}_${prefixParam || ''}`
-      const cached = await getCache(cacheKey)
-      if (cached) {
-        return new Response(JSON.stringify(cached), {
-          headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
-        })
+      const selectedSource = sourceParam && JSON_SOURCES[sourceParam]
+        ? JSON_SOURCES[sourceParam]
+        : JSON_SOURCES['full']
+
+      // ✅ 使用 KV 缓存读取 JSON
+      const data = await getCachedJSON(selectedSource)
+
+      // 根据 format 参数决定处理逻辑
+      let addPrefix = false
+      let encodeBase58 = false
+
+      if (formatParam === '1' || formatParam === 'proxy') {
+        addPrefix = true
+      } else if (formatParam === '2' || formatParam === 'base58') {
+        encodeBase58 = true
+      } else if (formatParam === '3' || formatParam === 'proxy-base58') {
+        addPrefix = true
+        encodeBase58 = true
       }
 
-      const response = await fetch(selectedSource)
-      const data = await response.json()
-
-      let addPrefix = false, encodeBase58 = false
-      if (formatParam === '1' || formatParam === 'proxy') addPrefix = true
-      else if (formatParam === '2' || formatParam === 'base58') encodeBase58 = true
-      else if (formatParam === '3' || formatParam === 'proxy-base58') { addPrefix = true; encodeBase58 = true }
-
-      const newData = addPrefix ? addOrReplacePrefix(data, prefixParam || defaultPrefix) : data
+      const newData = addPrefix
+        ? addOrReplacePrefix(data, prefixParam || defaultPrefix)
+        : data
 
       if (encodeBase58) {
         const encoded = base58Encode(newData)
-        await setCache(cacheKey, encoded)
-        return new Response(encoded, { headers: { 'Content-Type': 'text/plain;charset=UTF-8', ...corsHeaders } })
+        return new Response(encoded, {
+          headers: { 'Content-Type': 'text/plain;charset=UTF-8', ...corsHeaders },
+        })
       } else {
-        await setCache(cacheKey, newData)
-        return new Response(JSON.stringify(newData), { headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders } })
+        return new Response(JSON.stringify(newData), {
+          headers: { 'Content-Type': 'application/json;charset=UTF-8', ...corsHeaders },
+        })
       }
     } catch (err) {
       await logError('json', { message: err.message })
