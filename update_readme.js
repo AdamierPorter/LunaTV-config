@@ -7,7 +7,7 @@ const readmePath = path.join(__dirname, 'README.md');
 
 // 读取 report.md
 if (!fs.existsSync(reportPath)) {
-    console.error('❌ report.md 不存在，请先运行 check_apis.js');
+    console.error('❌ report.md 不存在，请先运行 check_api.js');
     process.exit(1);
 }
 
