@@ -75,16 +75,16 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 https://api.example.workers.dev/?url=https://ikunzyapi.com/api.php/provide/vod/
 ```
 
-### 示例 2：获取原始 JSON 配置（精简版）
+### 示例 2：获取原始 JSON 配置（精简+成人版）
 
 ```jsx
-https://api.example.workers.dev/?format=0&source=jin18
+https://api.example.workers.dev/?format=0&source=jingjian
 ```
 
-### 示例 3：获取带代理前缀的 JSON 配置（完整版）
+### 示例 3：获取代理前缀的 JSON 配置（精简+成人版）
 
 ```jsx
-https://api.example.workers.dev/?format=1&source=full
+https://api.example.workers.dev/?format=1&source=jingjian
 ```
 
 ### 示例 4：获取原始 Base58 编码（精简+成人版）
@@ -93,10 +93,10 @@ https://api.example.workers.dev/?format=1&source=full
 https://api.example.workers.dev/?format=2&source=jingjian
 ```
 
-### 示例 5：获取代理 Base58 编码订阅（完整版）
+### 示例 5：获取代理前缀的 Base58 编码订阅（精简+成人版）
 
 ```jsx
-https://api.example.workers.dev/?format=3&source=full
+https://api.example.workers.dev/?format=3&source=jingjian
 ```
 
 ### 示例 6：自定义代理前缀
@@ -378,6 +378,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 16 | 3 | 84.2% | 0 | ✅❌✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 13 | 4 | 76.5% | 0 | ✅❌✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
