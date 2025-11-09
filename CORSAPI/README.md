@@ -111,9 +111,8 @@ https://api.example.workers.dev/?config=1&source=jin18&prefix=https://myproxy.co
 | 参数 | 说明 | 可选值 | 示例 |
 | --- | --- | --- | --- |
 | `url` | 代理任意 API 请求 | 任意有效 URL | `?url=https://...` |
-| `format` | 配置模式 | 0 或 raw = 原始 JSON 1 或 proxy = 添加代理前缀 2 或 base58 = 原始 Base58 3 或 proxy-base58 = 代理 Base58 | `?config=1` |
+| `format` | 配置模式 | 0 或 raw = 原始 JSON  1 或 proxy = 添加代理前缀  2 或 base58 = 原始 Base58  3 或 proxy-base58 = 代理 Base58 | `?config=1` |
 | `source` | 配置源选择 | `jin18` = 精简版`jingjian` = 精简+成人`full` = 完整版） | `?source=jin18` |
-| `encode` | 编码方式 | `base58` = Base58 编码输出 | `?encode=base58` |
 | `prefix` | 自定义代理前缀 | 任意代理地址 | `?prefix=https://.../?url=` |
 
 ---
