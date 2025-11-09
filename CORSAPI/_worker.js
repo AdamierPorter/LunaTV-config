@@ -231,21 +231,24 @@ async function handleRequest(request) {
     <h3>📦 精简版（jin18 ）</h3>
     <p>原始 JSON：<br><code class="copyable">${currentOrigin}?config=0&source=jin18</code> <button class="copy-btn">复制</button></p>
     <p>中转代理 JSON：<br><code class="copyable">${currentOrigin}?config=1&source=jin18</code> <button class="copy-btn">复制</button></p>
-    <p>Base58 编码：<br><code class="copyable">${currentOrigin}?config=1&source=jin18&encode=base58</code> <button class="copy-btn">复制</button></p>
+    <p>Base58 编码：<br><code class="copyable">${currentOrigin}?config=0&source=jin18&encode=base58</code> <button class="copy-btn">复制</button></p>
+    <p>中转Base58 编码：<br><code class="copyable">${currentOrigin}?config=1&source=jin18&encode=base58</code> <button class="copy-btn">复制</button></p>
   </div>
 
   <div class="section">
     <h3>📦 精简版+成人（jingjian）</h3>
     <p>原始 JSON：<br><code class="copyable">${currentOrigin}?config=0&source=jingjian</code> <button class="copy-btn">复制</button></p>
     <p>中转代理 JSON：<br><code class="copyable">${currentOrigin}?config=1&source=jingjian</code> <button class="copy-btn">复制</button></p>
-    <p>Base58 编码：<br><code class="copyable">${currentOrigin}?config=1&source=jingjian&encode=base58</code> <button class="copy-btn">复制</button></p>
+    <p>Base58 编码：<br><code class="copyable">${currentOrigin}?config=0&source=jingjian&encode=base58</code> <button class="copy-btn">复制</button></p>
+    <p>中转Base58 编码：<br><code class="copyable">${currentOrigin}?config=1&source=jingjian&encode=base58</code> <button class="copy-btn">复制</button></p>
   </div>
 
   <div class="section">
     <h3>📦 完整版（full，默认）</h3>
     <p>原始 JSON：<br><code class="copyable">${currentOrigin}?config=0&source=full</code> <button class="copy-btn">复制</button></p>
     <p>中转代理 JSON：<br><code class="copyable">${currentOrigin}?config=1&source=full</code> <button class="copy-btn">复制</button></p>
-    <p>Base58 编码：<br><code class="copyable">${currentOrigin}?config=1&source=full&encode=base58</code> <button class="copy-btn">复制</button></p>
+    <p>Base58 编码：<br><code class="copyable">${currentOrigin}?config=0&source=full&encode=base58</code> <button class="copy-btn">复制</button></p>
+    <p>中转Base58 编码：<br><code class="copyable">${currentOrigin}?config=1&source=full&encode=base58</code> <button class="copy-btn">复制</button></p>
   </div>
 
   <h2>支持的功能</h2>
