@@ -166,6 +166,11 @@
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
       "detail": "https://www.ryzyw.com"
     },
+    "bdzy1.com": {
+      "name": "🎬百度云zy",
+      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.apibdzy.com/api.php/provide/vod",
+      "detail": "https://bdzy1.com"
+    },
     "1080zyk4.com": {
       "name": "🎬优质资源",
       "api": "https://api.yzzy-api.com/inc/apijson.php",
@@ -206,11 +211,7 @@
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "detail": "https://yhzy.cc"
     },
-    "bdzy1.com": {
-      "name": "🎬百度云zy",
-      "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.apibdzy.com/api.php/provide/vod",
-      "detail": "https://bdzy1.com"
-    },
+
     "91md.me": {
       "name": "🔞麻豆视频",
       "api": "https://91md.me/api.php/provide/vod",
@@ -301,11 +302,7 @@
       "api": "https://jkunzyapi.com/api.php/provide/vod",
       "detail": "https://jkunzyapi.com"
     },
-    "api.sexnguon.com": {
-      "name": "🔞-色南国-",
-      "api": "https://api.sexnguon.com/api.php/provide/vod",
-      "detail": "https://api.sexnguon.com"
-    },
+
     "lbapi9.com": {
       "name": "🔞乐播资源",
       "api": "https://lbapi9.com/api.php/provide/vod",
@@ -355,6 +352,11 @@
       "name": "🔞香蕉资源",
       "api": "https://www.xiangjiaozyw.com/api.php/provide/vod",
       "detail": "https://www.xiangjiaozyw.com"
+    },
+    "api.sexnguon.com": {
+      "name": "🔞-色南国-",
+      "api": "https://api.sexnguon.com/api.php/provide/vod",
+      "detail": "https://api.sexnguon.com"
     },
     "www.msnii.com": {
       "name": "🔞-美少女-",
