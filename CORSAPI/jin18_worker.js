@@ -93,7 +93,7 @@ async function handleRequest(request) {
       })
 
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 30000)
+      const timeoutId = setTimeout(() => controller.abort(), 9000)
       const response = await fetch(proxyRequest, { signal: controller.signal })
       clearTimeout(timeoutId)
 
