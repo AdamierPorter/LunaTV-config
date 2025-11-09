@@ -26,7 +26,7 @@ jobs:
         npm install axios  # 安装 axios
 
     - name: 运行 API 检查脚本
-      run: node check_apis.js
+      run: node check_api.js
 
     - name: 运行update_readme
       run: node update_readme.js
