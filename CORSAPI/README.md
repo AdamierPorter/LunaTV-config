@@ -28,30 +28,23 @@ https://<你的域名>/?url=https://ikunzyapi.com/api.php/provide/vod/
 - **`source=jingjian`** - 精简+成人版（61个资源）
 - **`source=full`** - 完整版（88个资源，**默认**）
 
-### 3. JSON 配置前缀替换
+### 3. 统一的 format 参数
 
-使用 `?config=1` 参数获取远程 JSON，并将所有 `api` 字段加上你的 API 代理前缀
+使用 `?format=` 参数控制输出格式（合并了原来的 config 和 encode 参数）：
 
-**默认前缀格式：**
-
-```
-https://<你的域名>/?url=
-```
-
-**示例：**
-
-```
-https://<你的域名>/?config=1&source=jin18
-```
-
-### 4. Base58 编码订阅
-
-使用 `?config=1&encode=base58` 参数，获取经过 API 代理处理的完整 JSON 的 **Base58 编码订阅**
+- **`format=0`** 或 **`format=raw`** - 原始 JSON
+- **`format=1`** 或 **`format=proxy`** - 添加代理前缀的 JSON
+- **`format=2`** 或 **`format=base58`** - 原始 JSON 的 Base58 编码
+- **`format=3`** 或 **`format=proxy-base58`** - 代理前缀 JSON 的 Base58 编码
 
 **示例：**
 
-```
-https://<你的域名>/?config=1&source=full&encode=base58
+```jsx
+// 获取带代理前缀的 JSON
+https://<你的域名>/?format=1&source=jin18
+
+// 获取代理 Base58 编码订阅
+https://<你的域名>/?format=3&source=full
 ```
 
 ### 5. 动态示例生成
@@ -82,26 +75,32 @@ https://api.example.workers.dev/?url=https://ikunzyapi.com/api.php/provide/vod/
 
 ### 示例 2：获取原始 JSON 配置（精简版）
 
-```
-https://api.example.workers.dev/?config=0&source=jin18
+```jsx
+https://api.example.workers.dev/?format=0&source=jin18
 ```
 
 ### 示例 3：获取带代理前缀的 JSON 配置（完整版）
 
-```
-https://api.example.workers.dev/?config=1&source=full
-```
-
-### 示例 4：获取 Base58 编码订阅（精简+成人版）
-
-```
-https://api.example.workers.dev/?config=1&source=jingjian&encode=base58
+```jsx
+https://api.example.workers.dev/?format=1&source=full
 ```
 
-### 示例 5：自定义代理前缀
+### 示例 4：获取原始 Base58 编码（精简+成人版）
 
+```jsx
+https://api.example.workers.dev/?format=2&source=jingjian
 ```
-https://api.example.workers.dev/?config=1&source=jin18&prefix=https://myproxy.com/?url=
+
+### 示例 5：获取代理 Base58 编码订阅（完整版）
+
+```jsx
+https://api.example.workers.dev/?format=3&source=full
+```
+
+### 示例 6：自定义代理前缀
+
+```jsx
+https://api.example.workers.dev/?format=1&source=full&prefix=https://my-proxy.com/?url=
 ```
 
 ---
@@ -131,45 +130,54 @@ https://api.example.workers.dev/?config=1&source=jin18&prefix=https://myproxy.co
 
 ## 📋 完整订阅链接模板
 
-将 `<你的域名>` 替换为你的实际 Worker 地址：
+将 `\<你的域名\>` 替换为你的实际 Worker 地址：
 
 ### 精简版（jin18）
 
-```
+```jsx
 # 原始 JSON
-https://<你的域名>/?config=0&source=jin18
+https://<你的域名>/?format=0&source=jin18
 
 # 带代理前缀的 JSON
-https://<你的域名>/?config=1&source=jin18
+https://<你的域名>/?format=1&source=jin18
 
-# Base58 编码订阅
-https://<你的域名>/?config=1&source=jin18&encode=base58
+# 原始 Base58 编码
+https://<你的域名>/?format=2&source=jin18
+
+# 代理 Base58 编码（推荐用于订阅）
+https://<你的域名>/?format=3&source=jin18
 ```
 
 ### 精简+成人版（jingjian）
 
-```
+```jsx
 # 原始 JSON
-https://<你的域名>/?config=0&source=jingjian
+https://<你的域名>/?format=0&source=jingjian
 
 # 带代理前缀的 JSON
-https://<你的域名>/?config=1&source=jingjian
+https://<你的域名>/?format=1&source=jingjian
 
-# Base58 编码订阅
-https://<你的域名>/?config=1&source=jingjian&encode=base58
+# 原始 Base58 编码
+https://<你的域名>/?format=2&source=jingjian
+
+# 代理 Base58 编码（推荐用于订阅）
+https://<你的域名>/?format=3&source=jingjian
 ```
 
 ### 完整版（full，默认）
 
-```
+```jsx
 # 原始 JSON
-https://<你的域名>/?config=0&source=full
+https://<你的域名>/?format=0&source=full
 
 # 带代理前缀的 JSON
-https://<你的域名>/?config=1&source=full
+https://<你的域名>/?format=1&source=full
 
-# Base58 编码订阅
-https://<你的域名>/?config=1&source=full&encode=base58
+# 原始 Base58 编码
+https://<你的域名>/?format=2&source=full
+
+# 代理 Base58 编码（推荐用于订阅）
+https://<你的域名>/?format=3&source=full
 ```
 
 ---
