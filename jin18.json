@@ -156,11 +156,6 @@
       "api": "https://zy.sh0o.cn/api.php/provide/vod",
       "detail": "https://zy.sh0o.cn"
     },
-    "www.haohuazy.com": {
-      "name": "🎬豪华资源",
-      "api": "https://hhzyapi.com/api.php/provide/vod",
-      "detail": "https://www.haohuazy.com"
-    },
     "www.ryzyw.com": {
       "name": "🎬如意资源",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
