@@ -9,14 +9,14 @@ https://hafrey1.github.io/LunaTV-config
 👉 Base58编码订阅链接[精简版🎬源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt)    （推荐使用自己部署的代理）精简版禁18源
 
 ```bash
-https://pz.hafrey.dpdns.org?config=0&source=jin18&encode=base58
+https://pz.168188.dpdns.org?config=0&source=jin18&encode=base58
 ```
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.txt
 ```
 👉 Base58编码订阅链接[精简版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt) （推荐使用自己部署的代理）精简版剔除无搜索结果和污染搜索结果源                             
 ```bash
-https://pz.hafrey.dpdns.org?config=0&source=jingjian&encode=base58
+https://pz.168188.dpdns.org?config=0&source=jingjian&encode=base58
 ```
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt
@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian
 
 👉 Base58编码订阅链接[完整版🎬+🔞源链接](https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.txt) （推荐使用自己部署的代理）                          
 ```bash
-https://pz.hafrey.dpdns.org?config=0&source=full&encode=base58
+https://pz.168188.dpdns.org?config=0&source=full&encode=base58
 ```
 ```bash
 https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.txt
@@ -248,6 +248,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 15 | 3 | 83.3% | 0 | ✅✅❌✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 12 | 4 | 75.0% | 0 | ✅✅❌✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
