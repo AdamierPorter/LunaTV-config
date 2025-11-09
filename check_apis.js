@@ -116,7 +116,7 @@ for (const { api } of apiEntries) {
   for (const s of sorted) {
     const total = s.ok + s.fail;
     const rate = total > 0 ? ((s.ok / total) * 100).toFixed(1) + "%" : "-";
-    const shortUrl = s.api.length > 60 ? s.api.slice(0, 57) + "..." : s.api;
+    const shortUrl = s.api.length > 30 ? s.api.slice(0, 57) + "..." : s.api;
     const detailLink = s.detail.startsWith('http')
       ? `[🔗](${s.detail})`
       : s.detail;
