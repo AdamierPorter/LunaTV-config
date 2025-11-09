@@ -156,6 +156,7 @@
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
       "detail": "https://www.ryzyw.com"
     },
+
     "bdzy1.com": {
       "name": "🎬百度云zy",
       "api": "https://jjpz.hafrey.dpdns.org/?url=https://api.apibdzy.com/api.php/provide/vod",
@@ -341,6 +342,7 @@
       "api": "https://api.sexnguon.com/api.php/provide/vod",
       "detail": "https://api.sexnguon.com"
     },
+    
     "ckzy.me": {
       "name": "🔞 CK-资源",
       "api": "https://ckzy.me/api.php/provide/vod",
