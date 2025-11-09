@@ -27,6 +27,9 @@ jobs:
 
     - name: 运行 API 检查脚本
       run: node check_apis.js
+
+    - name: 运行update_readme
+      run: node update_readme.js
       
     - name: 提交并推送报告
       run: |
