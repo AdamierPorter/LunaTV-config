@@ -1,7 +1,8 @@
-// check_apis_v3.js
+// check_apis_v4.js
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
+const { URL } = require('url');
 
 const configPath = path.join(__dirname, 'LunaTV-config.json');
 const reportPath = path.join(__dirname, 'report.md');
@@ -62,14 +63,14 @@ for (const { api } of apiEntries) {
   for (const { name, api, detail } of apiEntries) {
     stats[api] = { name, api, detail, ok: 0, fail: 0, fail_streak: 0, trend: "", status: "❌", duplicate: apiCountMap[api] > 1 };
 
-    // 统计成功/失败次数
+    // 成功/失败次数
     for (const day of history) {
       const record = day.results.find(x => x.api === api);
       if (!record) continue;
       if (record.success) stats[api].ok++; else stats[api].fail++;
     }
 
-    // === 连续失败统计（反向） ===
+    // 连续失败
     let streak = 0;
     for (let i = history.length - 1; i >= 0; i--) {
       const record = history[i].results.find(x => x.api === api);
@@ -79,27 +80,26 @@ for (const { api } of apiEntries) {
     }
     stats[api].fail_streak = streak;
 
-    // === 最近7天趋势 ===
+    // 最近7天趋势
     const recent = history.slice(-7);
     stats[api].trend = recent.map(day => {
       const r = day.results.find(x => x.api === api);
       return r ? (r.success ? "✅" : "❌") : "-";
     }).join('');
 
-    // === 状态判断 ===
+    // 状态
     const latest = todayResults.find(x => x.api === api);
     if (stats[api].duplicate) stats[api].status = "🔁";
     else if (streak >= WARN_STREAK) stats[api].status = "🚨";
     else if (latest?.success) stats[api].status = "✅";
   }
 
-  // === 汇总统计 ===
   const totalAPIs = apiEntries.length;
   const duplicateAPIs = Object.values(apiCountMap).filter(c => c > 1).length;
 
   console.log(`✅ 检测完成：${totalAPIs} 个 API（重复 ${duplicateAPIs}）`);
 
-  // === 排序：异常优先 ===
+  // 排序：异常优先
   const sorted = Object.values(stats).sort((a, b) => {
     const order = { "🚨": 1, "❌": 2, "🔁": 3, "✅": 4 };
     return order[a.status] - order[b.status];
@@ -110,17 +110,27 @@ for (const { api } of apiEntries) {
   md += `最近更新：${now}\n\n`;
   md += `**总 API 数量:** ${totalAPIs}  |  **重复 API 数量:** ${duplicateAPIs}\n\n`;
   md += `## 最近 ${MAX_DAYS} 次 API 健康统计\n\n`;
-  md += "| 状态 | 名称 | 地址 | API | 成功次数 | 失败次数 | 可用率 | 连续失败 | 最近7天趋势 |\n";
-  md += "|------|------|-----|-----|----------:|----------:|--------:|-----------:|--------------|\n";
+  md += "| 状态 | 名称 | 来源 | 地址(主域名) | 成功次数 | 失败次数 | 可用率 | 连续失败 | 最近7天趋势 |\n";
+  md += "|------|------|-----------|---------------|----------:|----------:|--------:|-----------:|--------------|\n";
 
   for (const s of sorted) {
     const total = s.ok + s.fail;
     const rate = total > 0 ? ((s.ok / total) * 100).toFixed(1) + "%" : "-";
-    const shortUrl = s.api.length > 30 ? s.api.slice(0, 57) + "..." : s.api;
-    const detailLink = s.detail.startsWith('http')
-      ? `[🔗](${s.detail})`
-      : s.detail;
-    md += `| ${s.status} | ${s.name} | ${detailLink} | ${shortUrl} | ${s.ok} | ${s.fail} | ${rate} | ${s.fail_streak} | ${s.trend} |\n`;
+    const detailLink = s.detail.startsWith('http') ? `[🔗](${s.detail})` : s.detail;
+
+    // 提取主域名
+    let domain;
+    try {
+      const u = new URL(s.api);
+      domain = u.hostname.replace(/^www\./, '');
+    } catch {
+      domain = s.api.split('/')[2] || s.api;
+    }
+
+    // hover 查看完整地址
+    const link = `[${domain}](${s.api} "点击访问完整 API")`;
+
+    md += `| ${s.status} | ${s.name} | ${detailLink} | ${link} | ${s.ok} | ${s.fail} | ${rate} | ${s.fail_streak} | ${s.trend} |\n`;
   }
 
   md += `\n## 详细历史数据 (JSON)\n`;
