@@ -9,7 +9,7 @@
     "dbzy.tv": {
       "name": "🎬豆瓣资源",
       "api": "https://caiji.dbzy5.com/api.php/provide/vod",
-      "detail": "dbzy.tv"
+      "detail": "https://dbzy.tv"
     },
     "tyyszy.com": {
       "name": "🎬天涯影视",
@@ -119,7 +119,7 @@
     "www.subozy.com": {
       "name": "🎬速播资源",
       "api": "https://subocaiji.com/api.php/provide/vod",
-      "detail": "www.subozy.com"
+      "detail": "https://www.subozy.com"
     },
     "jinyingzy.com": {
       "name": "🎬金鹰点播",
