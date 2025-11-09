@@ -155,8 +155,7 @@ https://api.example.workers.dev/?config=1&encode=base58
 - 中等可用率（50%-79%）：1 个
 - 低可用率（<50%）：0 个
 
-<div style="font-size:10px; line-height:1.2;">
-
+<div style="font-size:9px; line-height:1.1;">
 <!-- API_TABLE_START -->
 | 状态 | 资源名称 | 地址 | 采集接口 | 成功次数 | 失败次数 | 可用率 | 连续失败 | 最近7天趋势 |
 |------|---------|------|---------|----------:|----------:|--------:|-----------:|--------------|
