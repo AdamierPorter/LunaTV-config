@@ -31,11 +31,11 @@ const rowsWithData = rows.map(line => {
     const cols = line.split('|').map(c => c.trim());
     const status = cols[1]; // 状态列
     const apiName = cols[2]; // API名称列
-    const apiAddress = cols[3]; // API地址列
-    const successCount = parseInt(cols[4]) || 0; // 成功次数
-    const failCount = parseInt(cols[5]) || 0; // 失败次数
-    const availabilityStr = cols[6]; // 可用率列
-    const consecutiveFailDays = parseInt(cols[7]) || 0; // 连续失败天数
+    const apiAddress = cols[4]; // API地址列
+    const successCount = parseInt(cols[5]) || 0; // 成功次数
+    const failCount = parseInt(cols[6]) || 0; // 失败次数
+    const availabilityStr = cols[7]; // 可用率列
+    const consecutiveFailDays = parseInt(cols[8]) || 0; // 连续失败天数
 
     // 提取可用率数字（去掉%符号）
     const availabilityMatch = availabilityStr.match(/(\d+\.?\d*)%/);
