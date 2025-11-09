@@ -110,8 +110,6 @@ for (const { api } of apiEntries) {
   md += `最近更新：${now}\n\n`;
   md += `**总 API 数量:** ${totalAPIs}  |  **重复 API 数量:** ${duplicateAPIs}\n\n`;
   md += `## 最近 ${MAX_DAYS} 次 API 健康统计\n\n`;
-  // 👇 用 HTML 控制表格字体大小
-  md += `<table style="font-size:12px; line-height:1.3;">\n`;
   md += "| 状态 | 资源名称 | 地址 | 采集接口 | 成功次数 | 失败次数 | 可用率 | 连续失败 | 最近7天趋势 |\n";
   md += "|------|---------|------|---------|----------:|----------:|--------:|-----------:|--------------|\n";
 
