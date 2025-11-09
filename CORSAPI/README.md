@@ -59,7 +59,8 @@ HTML 页面会根据当前域名自动生成示例链接，无需手动修改
 2. 新建一个 **Workers & Pages → Worker**
 3. 将 `worker.js` 代码粘贴到编辑器中
 4. 保存并部署
-5. 绑定自定义域名（可选）
+5. 在 Cloudflare Workers KV 中创建命名空间：名称：CONFIG_KV,绑定变量名：CONFIG_KV
+6. 绑定自定义域名（可选）
 
 ---
 
@@ -113,7 +114,7 @@ https://api.example.workers.dev/?format=1&source=full&prefix=https://my-proxy.co
 | `format` | 配置模式         | 0 或 raw = 原始 JSON  1 或 proxy = 添加代理前缀  2 或 base58 = 原始 Base58  3 或 proxy-base58 = 代理 Base58 | `?config=1` |
 | `source` | 配置源选择       | `jin18` = 精简版`jingjian` = 精简+成人`full` = 完整版） | `?source=jin18` |
 | `prefix` | 自定义代理前缀   | 任意代理地址                      | `?prefix=https://.../?url=` |
-
+|errors&limit=10 | 查看错误日志 | errors&limit=10                 | https://<你的域名>?errors&limit=10 |
 ---
 
 ---
