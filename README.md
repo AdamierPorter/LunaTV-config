@@ -42,7 +42,11 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 
 ---
 
-## ✨ 功能特性
+<details>
+  
+<summary>## ✨ 功能特性</summary>
+  
+# 
 
 ### 1. 通用 API 代理
 
@@ -70,6 +74,10 @@ https://<你的域名>/?url=https://ikunzyapi.com/api.php/provide/vod/
 - **`format=1`** 或 **`format=proxy`** - 添加代理前缀的 JSON
 - **`format=2`** 或 **`format=base58`** - 原始 JSON 的 Base58 编码
 - **`format=3`** 或 **`format=proxy-base58`** - 代理前缀 JSON 的 Base58 编码
+
+--- 
+
+</details>
 
 <details>
   
@@ -425,6 +433,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 17 | 3 | 85.0% | 0 | ❌✅✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 14 | 4 | 77.8% | 0 | ❌✅✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
