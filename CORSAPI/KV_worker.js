@@ -83,7 +83,7 @@ async function logError(type, info) {
     return
   }
   const key = `ERROR_${new Date().toISOString()}`
-  await CONFIG_KV.put(key, JSON.stringify({ type, ...info }))
+  await CONFIG_KV.put(key, JSON.stringify({ type, ...info }), { expirationTtl: 3600 })
 }
 
 async function handleRequest(request) {
