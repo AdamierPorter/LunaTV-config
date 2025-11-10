@@ -51,10 +51,10 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)
 2. 新建一个 **Workers & Pages → Worker**
-3. 将 `worker.js` 代码粘贴到编辑器中
+3. 将 `_worker.js` 代码粘贴到编辑器中
 4. 保存并部署
-5. 在 Cloudflare Workers KV 中创建KV 命名空间名称：自定义,绑定变量名：CONFIG_KV
-6. 绑定自定义域名（可选）
+5. 在 Cloudflare Workers KV 中创建KV 命名空间名称：自定义,绑定变量名：CONFIG_KV（可选）
+6. 绑定自定义域名
 
 部署完成后，你就拥有了自己的 API 代理与订阅转换服务！
 
@@ -378,6 +378,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 17 | 3 | 85.0% | 0 | ❌✅✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 14 | 4 | 77.8% | 0 | ❌✅✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
