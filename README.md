@@ -55,7 +55,7 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 2. 进入 Workers & Pages → Workers，点击 创建服务（Create Worker）。
 3. 将项目中的 worker.js 文件内容复制到在线编辑器中。
 4. 点击 保存并部署（Save and Deploy） 完成上线。
-5 （可选）若项目使用 KV 存储：
+5. （可选）若项目使用 KV 存储：
 - 在 Workers → KV 命名空间（KV Namespaces） 中创建一个新的命名空间。
 - 命名空间名称可自定义，例如：MyKVNamespace。
 - 在 Worker 设置中绑定变量名为：CONFIG_KV。
@@ -398,6 +398,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 17 | 3 | 85.0% | 0 | ❌✅✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 14 | 4 | 77.8% | 0 | ❌✅✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
