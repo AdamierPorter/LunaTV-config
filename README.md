@@ -49,12 +49,32 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
   
 ## 🚀 部署方法
 
-1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)
-2. 新建一个 **Workers & Pages → Worker**
-3. 将 `_worker.js` 代码粘贴到编辑器中
-4. 保存并部署
-5. 在 Cloudflare Workers KV 中创建KV 命名空间名称：自定义,绑定变量名：CONFIG_KV（可选）
-6. 绑定自定义域名
+🌐 部署到 Cloudflare Workers
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)。
+2. 进入 Workers & Pages → Workers，点击 创建服务（Create Worker）。
+3. 将项目中的 worker.js 文件内容复制到在线编辑器中。
+4. 点击 保存并部署（Save and Deploy） 完成上线。
+5 （可选）若项目使用 KV 存储：
+    在 Workers → KV 命名空间（KV Namespaces） 中创建一个新的命名空间。
+    命名空间名称可自定义，例如：MyKVNamespace。
+    在 Worker 设置中绑定变量名为：CONFIG_KV。
+6. （可选）绑定自定义域名：打开 Worker 设置 → Triggers → Custom Domains，添加你的域名并保存。
+
+📦 部署到 Cloudflare Pages
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)。
+2. 前往 Workers & Pages → 创建应用程序（Create Application）。
+3. 下载仓库中的 _worker.js 文件。
+4. 在本地新建一个空文件夹（名称随意），将 _worker.js 放入其中。
+5. 在创建页面时选择 “上传资产（Upload Assets）” 模式，上传该文件夹。
+6. 取一个项目名称，点击 创建项目（Create Project） → 部署站点（Deploy Site）。
+7. （可选）如需使用 KV：
+    部署完成后，前往 Pages 控制台 → 设置 → 绑定（Bindings） → KV 命名空间。
+    新建命名空间（名称随意），绑定变量名为：CONFIG_KV。
+    保存后返回 “部署” 选项卡。
+8. 点击 创建新部署（Create New Deployment），重新上传文件并点击 保存并部署 即可。
+
 
 部署完成后，你就拥有了自己的 API 代理与订阅转换服务！
 
@@ -378,6 +398,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 17 | 3 | 85.0% | 0 | ❌✅✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 14 | 4 | 77.8% | 0 | ❌✅✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
