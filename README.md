@@ -42,6 +42,35 @@ https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-c
 
 ---
 
+## ✨ 功能特性
+
+### 1. 通用 API 代理
+
+使用 `?url=` 参数转发任意 API 请求
+
+**示例：**
+
+```
+https://<你的域名>/?url=https://ikunzyapi.com/api.php/provide/vod/
+```
+
+### 2. 多配置源支持
+
+使用 `?source=` 参数选择不同的资源配置：
+
+- **`source=jin18`** - 精简版（31个资源，仅普通内容）
+- **`source=jingjian`** - 精简+成人版（61个资源）
+- **`source=full`** - 完整版（88个资源，**默认**）
+
+### 3. 统一的 format 参数
+
+使用 `?format=` 参数控制输出格式
+
+- **`format=0`** 或 **`format=raw`** - 原始 JSON
+- **`format=1`** 或 **`format=proxy`** - 添加代理前缀的 JSON
+- **`format=2`** 或 **`format=base58`** - 原始 JSON 的 Base58 编码
+- **`format=3`** 或 **`format=proxy-base58`** - 代理前缀 JSON 的 Base58 编码
+
 <details>
   
 <summary>🚀 部署方法</summary>
@@ -396,6 +425,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 17 | 3 | 85.0% | 0 | ❌✅✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 14 | 4 | 77.8% | 0 | ❌✅✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
