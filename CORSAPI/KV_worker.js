@@ -47,27 +47,41 @@ function addOrReplacePrefix(obj, newPrefix) {
   return newObj
 }
 
-// ---------- 新增：KV 辅助函数 ----------
+// ---------- 安全版：KV 辅助函数 ----------
 async function getCachedJSON(url) {
-  const cacheKey = 'CACHE_' + url
-  const cached = await CONFIG_KV.get(cacheKey)
-  if (cached) {
-    try {
-      return JSON.parse(cached)
-    } catch (e) {
-      await CONFIG_KV.delete(cacheKey) // 删除损坏缓存
+  // ✅ 自动检测是否绑定 KV
+  const kvAvailable = typeof CONFIG_KV !== 'undefined' && CONFIG_KV && typeof CONFIG_KV.get === 'function'
+
+  if (kvAvailable) {
+    const cacheKey = 'CACHE_' + url
+    const cached = await CONFIG_KV.get(cacheKey)
+    if (cached) {
+      try {
+        return JSON.parse(cached)
+      } catch (e) {
+        await CONFIG_KV.delete(cacheKey)
+      }
     }
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
+    const data = await res.json()
+    await CONFIG_KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 3600 })
+    return data
+  } else {
+    // ⚠️ 无 KV 时直接实时获取
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
+    return await res.json()
   }
-  // 无缓存或损坏，重新获取
-  const res = await fetch(url)
-  if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
-  const data = await res.json()
-  await CONFIG_KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 3600 })
-  return data
 }
 
-// ---------- 新增：错误日志函数 ----------
+// ---------- 安全版：错误日志函数 ----------
 async function logError(type, info) {
+  const kvAvailable = typeof CONFIG_KV !== 'undefined' && CONFIG_KV && typeof CONFIG_KV.put === 'function'
+  if (!kvAvailable) {
+    console.warn('[WARN] KV 未绑定，跳过错误日志：', type, info)
+    return
+  }
   const key = `ERROR_${new Date().toISOString()}`
   await CONFIG_KV.put(key, JSON.stringify({ type, ...info }))
 }
@@ -148,24 +162,22 @@ async function handleRequest(request) {
     }
   }
 
-  // -------------------- 根据 source 参数选择 JSON 源 --------------------
+  // -------------------- JSON 源 --------------------
   const JSON_SOURCES = {
     'jin18': 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jin18.json',
     'jingjian': 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.json',
     'full': 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json'
   }
 
-  // -------------------- JSON 配置 + format 参数处理 --------------------
+  // -------------------- format 参数 --------------------
   if (formatParam !== null) {
     try {
       const selectedSource = sourceParam && JSON_SOURCES[sourceParam]
         ? JSON_SOURCES[sourceParam]
         : JSON_SOURCES['full']
 
-      // ✅ 使用 KV 缓存读取 JSON
       const data = await getCachedJSON(selectedSource)
 
-      // 根据 format 参数决定处理逻辑
       let addPrefix = false
       let encodeBase58 = false
 
