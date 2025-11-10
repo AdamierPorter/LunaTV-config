@@ -172,8 +172,8 @@ https://api.example.workers.dev/?format=1&source=full&prefix=https://my-proxy.co
 | 参数     | 说明             | 可选值                          | 示例         |        
 | -------- | ---------------- | ------------------------------- | ------------ |
 | `url`    | 代理任意 API 请求 | 任意有效 URL                     | `?url=https://...` |
-| `format` | 配置模式         | `0 或 raw = 原始 JSON`  `1 或 proxy = 添加代理前缀`  `2 或 base58 = 原始 Base58`  `3 或 proxy-base58 = 代理 Base58` | `?format=0` |
-| `source` | 配置源选择       | `jin18` = 精简版`jingjian` = 精简+成人`full` = 完整版） | `?source=jin18` |
+| `format` | 配置模式         | `0 或 raw = 原始 JSON` <br> `1 或 proxy = 添加代理前缀` <br> `2 或 base58 = 原始 Base58` <br> `3 或 proxy-base58 = 代理 Base58` | `?format=0` |
+| `source` | 配置源选择       | `jin18` = 精简版 <br> `jingjian` = 精简+成人 <br> `full` = 完整版） | `?source=jin18` |
 | `prefix` | 自定义代理前缀   | 任意代理地址                      | `?prefix=https://.../?url=` |
 | `errors&limit=10` | 查看错误日志 | `errors&limit=10`                 | `https://<你的域名>?errors&limit=10` |
 
@@ -433,6 +433,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞大地资源 | [🔗](https://dadizy11.com) | [dadiapi.com](https://dadiapi.com/feifei "点击访问完整 API") | 17 | 3 | 85.0% | 0 | ❌✅✅✅✅✅✅ |
 | ✅ | 🔞丝袜资源 | [🔗](https://siwazyw.tv) | [siwazyw.tv](https://siwazyw.tv/api.php/provide/vod "点击访问完整 API") | 14 | 4 | 77.8% | 0 | ❌✅✅✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
