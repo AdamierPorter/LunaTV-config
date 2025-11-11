@@ -6,7 +6,7 @@ const axios = require("axios");
 // === 配置 ===
 const CONFIG_PATH = path.join(__dirname, "LunaTV-config.json");
 const REPORT_PATH = path.join(__dirname, "report.md");
-const MAX_DAYS = 100;
+const MAX_DAYS = 30;
 const WARN_STREAK = 3;
 const ENABLE_SEARCH_TEST = true;
 const SEARCH_KEYWORD = process.argv[2] || "斗罗大陆";
