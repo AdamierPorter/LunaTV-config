@@ -66,13 +66,13 @@ const testSearch = async (api, keyword) => {
     try {
       const url = `${api}?wd=${encodeURIComponent(keyword)}`;
       const res = await axios.get(url, { timeout: TIMEOUT_MS });
-      if (res.status !== 200 || !res.data || typeof res.data !== "object") return "404";
+      if (res.status !== 200 || !res.data || typeof res.data !== "object") return "❌";
       const list = res.data.list || [];
       if (!list.length) return "无结果";
-      return list.some(item => JSON.stringify(item).includes(keyword)) ? "可用" : "不匹配";
+      return list.some(item => JSON.stringify(item).includes(keyword)) ? "✅" : "不匹配";
     } catch {
       if (attempt < MAX_RETRY) await delay(RETRY_DELAY_MS);
-      else return "404";
+      else return "❌";
     }
   }
 };
