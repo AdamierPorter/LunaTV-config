@@ -24,9 +24,10 @@ jobs:
     - name: 安装依赖
       run: |
         npm install axios  # 安装 axios
+        npm install p-limit
 
     - name: 运行 API 检查脚本
-      run: node check_api.js 你好
+      run: node check_api.js 
 
     - name: 运行update_readme
       run: node update_readme.js
