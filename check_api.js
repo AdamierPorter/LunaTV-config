@@ -1,4 +1,4 @@
-// check_sources_queue.js
+// check_sources_queue_retry.js
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
@@ -12,6 +12,8 @@ const ENABLE_SEARCH_TEST = true;
 const SEARCH_KEYWORD = process.argv[2] || "斗罗大陆";
 const TIMEOUT_MS = 10000;
 const CONCURRENT_LIMIT = 5; // 并发限制
+const MAX_RETRY = 3;        // 请求最大重试次数
+const RETRY_DELAY_MS = 500; // 重试间隔(ms)
 
 // === 加载配置 ===
 if (!fs.existsSync(CONFIG_PATH)) {
@@ -44,53 +46,57 @@ const now = new Date(Date.now() + 8 * 60 * 60 * 1000)
   .replace("T", " ")
   .slice(0, 16) + " CST";
 
-// === 工具函数 ===
+// === 工具函数（带重试） ===
+const delay = ms => new Promise(r => setTimeout(r, ms));
+
 const safeGet = async (url) => {
-  try {
-    const res = await axios.get(url, { timeout: TIMEOUT_MS });
-    return res.status === 200;
-  } catch {
-    return false;
+  for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
+    try {
+      const res = await axios.get(url, { timeout: TIMEOUT_MS });
+      return res.status === 200;
+    } catch {
+      if (attempt < MAX_RETRY) await delay(RETRY_DELAY_MS);
+      else return false;
+    }
   }
 };
 
 const testSearch = async (api, keyword) => {
-  try {
-    const url = `${api}?wd=${encodeURIComponent(keyword)}`;
-    const res = await axios.get(url, { timeout: TIMEOUT_MS });
-    if (res.status !== 200 || !res.data || typeof res.data !== "object") return "404";
-    const list = res.data.list || [];
-    if (!list.length) return "无结果";
-    return list.some(item => JSON.stringify(item).includes(keyword)) ? "可用" : "不匹配";
-  } catch {
-    return "404";
+  for (let attempt = 1; attempt <= MAX_RETRY; attempt++) {
+    try {
+      const url = `${api}?wd=${encodeURIComponent(keyword)}`;
+      const res = await axios.get(url, { timeout: TIMEOUT_MS });
+      if (res.status !== 200 || !res.data || typeof res.data !== "object") return "404";
+      const list = res.data.list || [];
+      if (!list.length) return "无结果";
+      return list.some(item => JSON.stringify(item).includes(keyword)) ? "可用" : "不匹配";
+    } catch {
+      if (attempt < MAX_RETRY) await delay(RETRY_DELAY_MS);
+      else return "404";
+    }
   }
 };
 
 // === 队列并发执行函数 ===
 const queueRun = (tasks, limit) => {
   let index = 0;
+  let active = 0;
   const results = [];
-  return new Promise((resolve) => {
-    let active = 0;
 
+  return new Promise(resolve => {
     const next = () => {
-      if (index >= tasks.length && active === 0) {
-        resolve(results);
-        return;
-      }
       while (active < limit && index < tasks.length) {
         const i = index++;
         active++;
-        tasks[i]().then((res) => {
-          results[i] = res;
-        }).catch((err) => {
-          results[i] = { error: err };
-        }).finally(() => {
-          active--;
-          next();
-        });
+        tasks[i]().then(res => results[i] = res)
+                  .catch(err => results[i] = { error: err })
+                  .finally(() => {
+                    active--;
+                    next();
+                  });
       }
+
+      if (index >= tasks.length && active === 0) resolve(results);
     };
 
     next();
@@ -99,7 +105,7 @@ const queueRun = (tasks, limit) => {
 
 // === 主逻辑 ===
 (async () => {
-  console.log("⏳ 正在检测 API 与搜索功能可用性（队列并发限制）...");
+  console.log("⏳ 正在检测 API 与搜索功能可用性（队列并发 + 重试机制）...");
 
   const tasks = apiEntries.map(({ name, api, disabled }) => async () => {
     if (disabled) return { name, api, disabled, success: false, searchStatus: "无法搜索" };
@@ -156,6 +162,7 @@ const queueRun = (tasks, limit) => {
     else if (latest?.success) stats[api].status = "✅";
   }
 
+  // === 生成 Markdown 报告 ===
   let md = `# 源接口健康检测报告\n\n`;
   md += `最近更新时间：${now}\n\n`;
   md += `**总源数:** ${apiEntries.length} | **检测关键词:** ${SEARCH_KEYWORD}\n\n`;
