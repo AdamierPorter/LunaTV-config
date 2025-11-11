@@ -10,7 +10,7 @@ on:
     inputs:
       api_name:
         description: '搜索关键字'
-        default: 斗罗大陆
+        default: 你好
 
 jobs:
   check_apis:
