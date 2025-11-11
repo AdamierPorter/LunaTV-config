@@ -26,7 +26,7 @@ jobs:
         npm install axios  # 安装 axios
 
     - name: 运行 API 检查脚本
-      run: node check_api.js
+      run: node check_api.js 你好
 
     - name: 运行update_readme
       run: node update_readme.js
@@ -37,4 +37,4 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add report.md README.md
         git commit -m "更新 API 健康报告 ($(date -d '+8 hour' +'%Y-%m-%d %H:%M:%S CST'))" || echo "No changes to commit"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:test
