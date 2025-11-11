@@ -54,7 +54,7 @@ async function safeGetRetry(url, retries = RETRIES) {
   }
 }
 
-// 搜索检测函数，精准匹配关键字段
+// 搜索检测函数，返回四种状态
 const testSearch = async (api, keyword) => {
   try {
     const url = `${api}?wd=${encodeURIComponent(keyword)}`;
@@ -62,19 +62,32 @@ const testSearch = async (api, keyword) => {
     if (res.status !== 200 || !res.data || typeof res.data !== "object") return "404";
 
     const list = res.data.list || [];
-    if (!list.length) return "无结果";
+    if (list.length === 0) return "无结果"; // 如果没有返回任何数据
 
-    const kw = keyword.toLowerCase();
-    const matched = list.some(item => 
-      (item.title && item.title.toLowerCase().includes(kw)) ||
-      (item.name && item.name.toLowerCase().includes(kw))
-    );
+    const keywordLower = keyword.toLowerCase();
+    let matched = false;
+    
+    for (let item of list) {
+      if (item.title && item.title.toLowerCase().includes(keywordLower)) {
+        matched = true; // 找到匹配项，设置为"可用"
+        break;
+      }
+      if (item.name && item.name.toLowerCase().includes(keywordLower)) {
+        matched = true; // 找到匹配项，设置为"可用"
+        break;
+      }
+    }
 
-    return matched ? "可用" : "不匹配";
+    // 如果有匹配的项
+    if (matched) return "可用"; 
+    
+    // 如果没有匹配的项，但返回的列表不为空
+    return "不匹配";
   } catch {
-    return "404";
+    return "404"; // 请求失败
   }
 };
+
 
 // === 并发控制队列 ===
 async function runWithLimit(tasks, limit = CONCURRENT_LIMIT) {
