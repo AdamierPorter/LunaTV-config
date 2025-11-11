@@ -180,8 +180,10 @@ const queueRun = (tasks, limit) => {
     md += `| ${s.status} | ${s.name} | ${detailLink} | ${apiLink} | ${s.searchStatus} | ${s.ok} | ${s.fail} | ${s.successRate} | ${s.trend} |\n`;
   }
 
-  md += `\n## 历史检测数据 (JSON)\n`;
+  md += `\n<details>\n<summary>📜 点击展开查看历史检测数据 (JSON)</summary>\n\n`;
   md += "```json\n" + JSON.stringify(history, null, 2) + "\n```\n";
+  md += `</details>\n`;
+
 
   fs.writeFileSync(REPORT_PATH, md, "utf-8");
   console.log("📄 报告已生成:", REPORT_PATH);
