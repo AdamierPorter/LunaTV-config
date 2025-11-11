@@ -11,7 +11,7 @@ const WARN_STREAK = 3;
 const ENABLE_SEARCH_TEST = true;
 const SEARCH_KEYWORD = process.argv[2] || "斗罗大陆";
 const TIMEOUT_MS = 10000;
-const CONCURRENT_LIMIT = 5; // 并发限制
+const CONCURRENT_LIMIT = 10; // 并发限制
 const MAX_RETRY = 3;        // 请求最大重试次数
 const RETRY_DELAY_MS = 500; // 重试间隔(ms)
 
