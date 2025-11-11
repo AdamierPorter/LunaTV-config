@@ -6,7 +6,7 @@ const axios = require("axios");
 // === 配置 ===
 const CONFIG_PATH = path.join(__dirname, "LunaTV-config.json");
 const REPORT_PATH = path.join(__dirname, "report.md");
-const MAX_DAYS = 60;
+const MAX_DAYS = 100;
 const WARN_STREAK = 3;
 const ENABLE_SEARCH_TEST = true;
 const SEARCH_KEYWORD = process.argv[2] || "斗罗大陆";
@@ -159,8 +159,8 @@ const queueRun = (tasks, limit) => {
   let md = `# 源接口健康检测报告\n\n`;
   md += `最近更新时间：${now}\n\n`;
   md += `**总源数:** ${apiEntries.length} | **检测关键词:** ${SEARCH_KEYWORD}\n\n`;
-  md += "| 状态 | 资源名称 | 地址 | API | 搜索功能 | 成功 | 失败 | 成功率 | 最近7天趋势 |\n";
-  md += "|------|---------|-----|-----|---------|-----:|-----:|------:|--------------|\n";
+  md += "| 状态 | 资源名称 | 地址 | API | 搜索功能 | 成功次数 | 失败次数 | 成功率 | 最近7天趋势 |\n";
+  md += "|------|---------|-----|-----|---------|---------:|--------:|-------:|--------------|\n";
 
   const sorted = Object.values(stats).sort((a, b) => {
     const order = { "🚨": 1, "❌": 2, "✅": 3, "🚫": 4 };
