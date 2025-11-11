@@ -1,17 +1,20 @@
-// check_sources.js
+// check_sources_stable.js
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 const { URL } = require("url");
+const pLimit = require("p-limit");
 
 // === 配置 ===
 const CONFIG_PATH = path.join(__dirname, "LunaTV-config.json");
 const REPORT_PATH = path.join(__dirname, "report.md");
-const MAX_DAYS = 60;
+const MAX_DAYS = 100;
 const WARN_STREAK = 3;
 const ENABLE_SEARCH_TEST = true; // 是否启用搜索功能检测
 const SEARCH_KEYWORD = process.argv[2] || "斗罗大陆";
 const TIMEOUT_MS = 10000;
+const CONCURRENT_LIMIT = 5; // 同时最多请求数
+const RETRIES = 2;           // 失败重试次数
 
 // === 加载配置 ===
 if (!fs.existsSync(CONFIG_PATH)) {
@@ -45,14 +48,19 @@ const now = new Date(Date.now() + 8 * 60 * 60 * 1000)
   .slice(0, 16) + " CST";
 
 // === 工具函数 ===
-const safeGet = async (url) => {
-  try {
-    const res = await axios.get(url, { timeout: TIMEOUT_MS });
-    return res.status === 200;
-  } catch {
-    return false;
+
+// 带重试的安全 GET
+async function safeGetRetry(url, retries = RETRIES) {
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const res = await axios.get(url, { timeout: TIMEOUT_MS });
+      if (res.status === 200) return true;
+    } catch (err) {
+      if (i < retries) await new Promise(r => setTimeout(r, 500));
+      else return false;
+    }
   }
-};
+}
 
 // 搜索检测函数，返回四种状态
 const testSearch = async (api, keyword) => {
@@ -64,8 +72,7 @@ const testSearch = async (api, keyword) => {
     }
     const list = res.data.list || [];
     if (!list.length) return "无结果";
-
-    const matched = list.some(item => JSON.stringify(item).includes(keyword));
+    const matched = list.some(item => item.title && item.title.includes(keyword));
     return matched ? "可用" : "不匹配";
   } catch {
     return "404";
@@ -76,15 +83,27 @@ const testSearch = async (api, keyword) => {
 (async () => {
   console.log("⏳ 正在检测 API 与搜索功能可用性...");
 
+  const limit = pLimit(CONCURRENT_LIMIT);
+
   const results = await Promise.allSettled(
-    apiEntries.map(async ({ name, api, disabled }) => {
-      if (disabled) return { name, api, disabled, success: false, searchStatus: "无法搜索" };
+    apiEntries.map(({ name, api, disabled }) =>
+      limit(async () => {
+        if (disabled) {
+          console.log(`${name}: 🚫 被禁用`);
+          return { name, api, disabled, success: false, searchStatus: "无法搜索" };
+        }
 
-      const ok = await safeGet(api);
-      const searchStatus = ENABLE_SEARCH_TEST ? await testSearch(api, SEARCH_KEYWORD) : "-";
+        const ok = await safeGetRetry(api);
 
-      return { name, api, disabled, success: ok, searchStatus };
-    })
+        let searchStatus = "-";
+        if (ENABLE_SEARCH_TEST) {
+          searchStatus = await testSearch(api, SEARCH_KEYWORD);
+        }
+
+        console.log(`${name}: ${ok ? "✅" : "❌"}, 搜索: ${searchStatus}`);
+        return { name, api, disabled, success: ok, searchStatus };
+      })
+    )
   );
 
   const todayResults = results.map((r) => r.value || r.reason);
@@ -131,7 +150,6 @@ const testSearch = async (api, keyword) => {
     }
     const total = stats[api].ok + stats[api].fail;
     stats[api].successRate = total > 0 ? ((stats[api].ok / total) * 100).toFixed(1) + "%" : "-";
-
 
     // 最近7天趋势
     const recent = history.slice(-7);
