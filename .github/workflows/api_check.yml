@@ -1,6 +1,5 @@
 name: API Health Check
 
-
 on:
   schedule:
     - cron: "0 17 * * *"  # 每天北京时间凌晨1点运行 (UTC 17点)
@@ -8,6 +7,10 @@ on:
     paths:
       - LunaTV-config.json  # 监听 LunaTV-config.json 文件变更
   workflow_dispatch:  # 手动触发工作流
+    inputs:
+      api_name:
+        description: '搜索关键字'
+        default: 斗罗大陆
 
 jobs:
   check_apis:
@@ -22,15 +25,18 @@ jobs:
         node-version: "20"
 
     - name: 安装依赖
-      run: |
-        npm install axios  # 安装 axios
+      run: npm install axios
 
     - name: 运行 API 检查脚本
-      run: node check_api.js 斗罗大陆
+      # 如果是手动触发则使用输入参数，否则使用默认值 "斗罗大陆"
+      run: |
+        API_NAME="${{ github.event.inputs.api_name || '斗罗大陆' }}"
+        echo "检查 API: $API_NAME"
+        node check_api.js "$API_NAME"
 
-    - name: 运行update_readme
+    - name: 运行 update_readme
       run: node update_readme.js
-      
+
     - name: 提交并推送报告
       run: |
         git config --global user.name "github-actions[bot]"
