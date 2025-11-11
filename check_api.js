@@ -151,7 +151,7 @@ const queueRun = (tasks, limit) => {
     const recent = history.slice(-7);
     stats[api].trend = recent.map(day => {
       const r = day.results.find(x => x.api === api);
-      return r ? (r.success ? "✅" : "❌") : "-";
+      return r ? (r.success ? "O" : "X") : "-";
     }).join("");
 
     const latest = todayResults.find(x => x.api === api);
