@@ -175,8 +175,8 @@ const queueRun = (tasks, limit) => {
   });
 
   for (const s of sorted) {
-    const detailLink = s.detail.startsWith("http") ? `[🔗](${s.detail})` : s.detail;
-    const apiLink = `[🔗](${s.api})`;
+    const detailLink = s.detail.startsWith("http") ? `[Link](${s.detail})` : s.detail;
+    const apiLink = `[Link](${s.api})`;
     md += `| ${s.status} | ${s.name} | ${detailLink} | ${apiLink} | ${s.searchStatus} | ${s.ok} | ${s.fail} | ${s.successRate} | ${s.trend} |\n`;
   }
 
