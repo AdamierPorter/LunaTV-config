@@ -47,9 +47,8 @@ function addOrReplacePrefix(obj, newPrefix) {
   return newObj
 }
 
-// ---------- 安全版：KV 辅助函数 ----------
+// ---------- 安全版：KV 缓存 ----------
 async function getCachedJSON(url) {
-  // ✅ 自动检测是否绑定 KV
   const kvAvailable = typeof CONFIG_KV !== 'undefined' && CONFIG_KV && typeof CONFIG_KV.get === 'function'
 
   if (kvAvailable) {
@@ -68,24 +67,24 @@ async function getCachedJSON(url) {
     await CONFIG_KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 3600 })
     return data
   } else {
-    // ⚠️ 无 KV 时直接实时获取
     const res = await fetch(url)
     if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
     return await res.json()
   }
 }
 
-// ---------- 安全版：错误日志函数 ----------
+// ---------- 安全版：错误日志 ----------
 async function logError(type, info) {
   const kvAvailable = typeof CONFIG_KV !== 'undefined' && CONFIG_KV && typeof CONFIG_KV.put === 'function'
   if (!kvAvailable) {
     console.warn('[WARN] KV 未绑定，跳过错误日志：', type, info)
     return
   }
-  const key = `ERROR_${new Date().toISOString()}`
+  const key = `ERROR_${Date.now()}_${crypto.randomUUID()}`
   await CONFIG_KV.put(key, JSON.stringify({ type, ...info }), { expirationTtl: 3600 })
 }
 
+// ---------- 主逻辑 ----------
 async function handleRequest(request) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -94,7 +93,8 @@ async function handleRequest(request) {
     'Access-Control-Max-Age': '86400',
   }
 
-  if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders })
+  if (request.method === 'OPTIONS')
+    return new Response(null, { status: 204, headers: corsHeaders })
 
   const reqUrl = new URL(request.url)
   const targetUrlParam = reqUrl.searchParams.get('url')
@@ -105,7 +105,27 @@ async function handleRequest(request) {
   const currentOrigin = reqUrl.origin
   const defaultPrefix = currentOrigin + '/?url='
 
-  // -------------------- 通用 API 中转代理 --------------------
+  // 🩺 健康检查
+  if (reqUrl.pathname === '/health')
+    return new Response('OK', { status: 200, headers: corsHeaders })
+
+  // 🚨 防止递归调用自身
+  if (targetUrlParam && targetUrlParam.startsWith(currentOrigin)) {
+    return new Response(
+      JSON.stringify({ error: 'Loop detected: self-fetch blocked', url: targetUrlParam }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+    )
+  }
+
+  // 🚨 防止无效 URL
+  if (targetUrlParam && !/^https?:\/\//i.test(targetUrlParam)) {
+    return new Response(
+      JSON.stringify({ error: 'Invalid target URL', url: targetUrlParam }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+    )
+  }
+
+  // -------------------- 通用代理 --------------------
   if (targetUrlParam) {
     let fullTargetUrl = targetUrlParam
     const urlMatch = request.url.match(/[?&]url=([^&]+(?:&.*)?)/)
@@ -114,9 +134,9 @@ async function handleRequest(request) {
     let targetURL
     try {
       targetURL = new URL(fullTargetUrl)
-    } catch (e) {
+    } catch {
       await logError('proxy', { message: 'Invalid URL', url: fullTargetUrl })
-      return new Response(JSON.stringify({ error: 'Invalid URL', url: fullTargetUrl }, null, 2), {
+      return new Response(JSON.stringify({ error: 'Invalid URL', url: fullTargetUrl }), {
         status: 400,
         headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
       })
@@ -126,11 +146,13 @@ async function handleRequest(request) {
       const proxyRequest = new Request(targetURL.toString(), {
         method: request.method,
         headers: request.headers,
-        body: request.method !== 'GET' && request.method !== 'HEAD' ? await request.arrayBuffer() : undefined,
+        body: request.method !== 'GET' && request.method !== 'HEAD'
+          ? await request.arrayBuffer()
+          : undefined,
       })
 
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 9000)
+      const timeoutId = setTimeout(() => controller.abort(), 9000) // ⏳ 改为 9s
       const response = await fetch(proxyRequest, { signal: controller.signal })
       clearTimeout(timeoutId)
 
@@ -169,7 +191,7 @@ async function handleRequest(request) {
     'full': 'https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/LunaTV-config.json'
   }
 
-  // -------------------- format 参数 --------------------
+  // -------------------- 格式输出 --------------------
   if (formatParam !== null) {
     try {
       const selectedSource = sourceParam && JSON_SOURCES[sourceParam]
@@ -177,18 +199,11 @@ async function handleRequest(request) {
         : JSON_SOURCES['full']
 
       const data = await getCachedJSON(selectedSource)
+      let addPrefix = false, encodeBase58 = false
 
-      let addPrefix = false
-      let encodeBase58 = false
-
-      if (formatParam === '1' || formatParam === 'proxy') {
-        addPrefix = true
-      } else if (formatParam === '2' || formatParam === 'base58') {
-        encodeBase58 = true
-      } else if (formatParam === '3' || formatParam === 'proxy-base58') {
-        addPrefix = true
-        encodeBase58 = true
-      }
+      if (['1', 'proxy'].includes(formatParam)) addPrefix = true
+      if (['2', 'base58'].includes(formatParam)) encodeBase58 = true
+      if (['3', 'proxy-base58'].includes(formatParam)) { addPrefix = true; encodeBase58 = true }
 
       const newData = addPrefix
         ? addOrReplacePrefix(data, prefixParam || defaultPrefix)
@@ -212,7 +227,6 @@ async function handleRequest(request) {
       })
     }
   }
-
 
   // -------------------- 根目录返回说明页面 --------------------
   const html = `<!DOCTYPE html>
