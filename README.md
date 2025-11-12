@@ -95,9 +95,9 @@ https://<你的域名>/?url=https://ikunzyapi.com/api.php/provide/vod/
 - 存储和数据库 → Workers KV → Ceate instance  → 命名空间名称（KV Namespaces） 创建一个新的命名空间。
 - 命名空间名称可自定义，例如：MyKVNamespace。
 - 在 Worker设置 绑定 → 添加绑定 → KV命名空间 → 添加绑定 → 变量名为：CONFIG_KV → 创建的KV命名空间 → 添加绑定 。
-6. （可选）绑定自定义域名：打开 Worker 设置 → Triggers(域和路由) → 添加 → Custom Domains(自定义域名)，添加你的域名并保存。
+6. 绑定自定义域名：打开 Worker 设置 → Triggers(域和路由) → 添加 → Custom Domains(自定义域名)，添加你的域名并保存。
 
-部署完成后，你就拥有了自己的 API 代理与订阅转换服务！
+- 部署完成后，你就拥有了自己的 API 代理与订阅转换服务！
 
 ---   
 
@@ -419,6 +419,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞香蕉资源 | [Link](https://www.xiangjiaozyw.com) | [Link](https://www.xiangjiaozyw.com/api.php/provide/vod) | 无结果 | 27 | 3 | 90.0% | ✅✅✅✅✅✅✅ |
 | ✅ | 🔞杏吧资源 | [Link](https://xingba111.com) | [Link](https://pz.168188.dpdns.org/?url=https://xingba222.com/api.php/provide/vod) | 无结果 | 24 | 4 | 85.7% | ✅✅✅❌✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
