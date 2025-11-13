@@ -102,7 +102,7 @@ https://<你的域名>/?url=https://ikunzyapi.com/api.php/provide/vod/
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)。
 2. 下载仓库中的 _worker.js 文件。
 3. 在本地新建一个空文件夹（名称随意），将 _worker.js 放入其中。
-4. 前往 Workers & Pages → 创建应用程序（Create Application） → Pages → 上传资产（Upload Assets） → 项目命名 → 创建项目 → 从计算机中选择 → 上传文件夹 → 选择新建的文件 → 部署站点（Deploy Site）。
+4. 前往 Workers & Pages → 创建应用程序（Create Application） → Pages → 上传资产（开始使用） → 项目命名 → 创建项目 → 从计算机中选择 → 上传文件夹 → 选择新建的文件 → 部署站点（Deploy Site）。
 5. （可选）如需使用 KV：
 - 存储和数据库 → Workers KV → Ceate instance  → 命名空间名称（KV Namespaces） 创建一个KV命名空间。
 - 新建命名空间（名称随意），绑定变量名为：CONFIG_KV。
@@ -432,6 +432,7 @@ console.log(`Request from: ${request.headers.get('cf-connecting-ip')}`)
 | ✅ | 🔞香蕉资源 | [Link](https://www.xiangjiaozyw.com) | [Link](https://www.xiangjiaozyw.com/api.php/provide/vod) | ✅ | 27 | 3 | 90.0% | ✅✅✅✅✅✅✅ |
 | ✅ | 🔞杏吧资源 | [Link](https://xingba111.com) | [Link](https://pz.168188.dpdns.org/?url=https://xingba222.com/api.php/provide/vod) | ✅ | 25 | 4 | 86.2% | ✅✅❌✅✅✅✅ |
 <!-- API_TABLE_END -->
+
 
 
 
