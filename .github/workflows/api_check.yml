@@ -28,9 +28,9 @@ jobs:
       run: npm install axios
 
     - name: 运行 API 检查脚本
-      # 如果是手动触发则使用输入参数，否则使用默认值 "斗罗大陆"
+      # 如果是手动触发则使用输入参数，否则使用默认值 "你好"
       run: |
-        API_NAME="${{ github.event.inputs.api_name || '斗罗大陆' }}"
+        API_NAME="${{ github.event.inputs.api_name || '你好' }}"
         echo "检查 API: $API_NAME"
         node check_api.js "$API_NAME"
 
