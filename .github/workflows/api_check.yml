@@ -46,7 +46,8 @@ jobs:
         git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
         
     - name: Delete workflow runs
+      # 删除工作流运行记录只保留8条
       uses: Mattraks/delete-workflow-runs@main
       with:
         retain_days: 5
-        keep_minimum_runs: 5
+        keep_minimum_runs: 8
