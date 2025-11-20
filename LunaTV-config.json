@@ -177,11 +177,6 @@
       "api": "https://api.yzzy-api.com/inc/apijson.php",
       "detail": "https://1080zyk4.com"
     },
-    "jazy": {
-      "name": "🎬建安资源",
-      "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod",
-      "detail": "http://154.219.117.232:9981"
-    },
     "www.huyaapi.com": {
       "name": "🎬虎牙资源",
       "api": "https://www.huyaapi.com/api.php/provide/vod",
