@@ -113,13 +113,11 @@ async function getCachedJSON(url) {
 
 // ---------- 安全版：错误日志 ----------
 async function logError(type, info) {
-  const kvAvailable = typeof KV !== 'undefined' && KV && typeof KV.put === 'function'
-  if (!kvAvailable) {
-    console.warn('[WARN] KV 未绑定，跳过错误日志：', type, info)
-    return
-  }
-  const key = `ERROR_${Date.now()}_${crypto.randomUUID()}`
-  await KV.put(key, JSON.stringify({ type, ...info }), { expirationTtl: 3600 })
+  // 保留错误输出，便于调试
+  console.error('[ERROR]', type, info)
+
+  // 禁止写入 KV
+  return
 }
 
 // ---------- 主逻辑 ----------
