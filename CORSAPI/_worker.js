@@ -102,7 +102,7 @@ async function getCachedJSON(url) {
     const res = await fetch(url)
     if (!res.ok) throw new Error(`Fetch failed: ${res.status}`)
     const data = await res.json()
-    await KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 3600 })
+    await KV.put(cacheKey, JSON.stringify(data), { expirationTtl: 21600 })   // 缓存6小时
     return data
   } else {
     const res = await fetch(url)
