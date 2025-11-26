@@ -49,5 +49,5 @@ jobs:
       # 删除工作流记录/只保留1天记录
       uses: Mattraks/delete-workflow-runs@main
       with:
-        retain_days: 1
-        keep_minimum_runs: 5
+        retain_days: 0
+        keep_minimum_runs: 10
