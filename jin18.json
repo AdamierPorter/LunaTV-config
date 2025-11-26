@@ -56,11 +56,6 @@
       "api": "https://360zy.com/api.php/provide/vod",
       "detail": "https://360zy.com"
     },
-    "collect.wolongzyw.com": {
-      "name": "🎬卧龙影视",
-      "api": "https://collect.wolongzy.cc/api.php/provide/vod",
-      "detail": "https://wolongzyw.com"
-    },
     "jszyapi.com": {
       "name": "🎬极速资源",
       "api": "https://jszyapi.com/api.php/provide/vod",
