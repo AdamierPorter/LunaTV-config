@@ -370,12 +370,7 @@
       "api": "https://www.xiangjiaozyw.com/api.php/provide/vod",
       "detail": "https://www.xiangjiaozyw.com"
     },
-    "xingba111.com": {
-      "_comment": "403 Forbidden",
-      "name": "🔞杏吧资源",
-      "api": "https://pz.168188.dpdns.org/?url=https://xingba222.com/api.php/provide/vod",
-      "detail": "https://xingba111.com"
-    },
+
     "www.msnii.com": {
       "_comment": "JSON 里所有中文字符为 Unicode 编码",
       "name": "🔞-美少女-",
@@ -393,6 +388,12 @@
       "name": "🔞白嫖资源",
       "api": "https://www.kxgav.com/api/json.php",
       "detail": "https://www.kxgav.com"
+    },
+    "xingba111.com": {
+      "_comment": "403 Forbidden",
+      "name": "🔞杏吧资源",
+      "api": "https://pz.168188.dpdns.org/?url=https://xingba222.com/api.php/provide/vod",
+      "detail": "https://xingba111.com"
     },
     "dadizy11.com": {
       "_comment": "污染搜索结果",
