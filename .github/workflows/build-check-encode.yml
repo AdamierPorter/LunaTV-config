@@ -1,4 +1,4 @@
-name: Build, Check API and Encode JSON
+name: JSON Build, API Check & Encoding
 
 on:
   schedule:
