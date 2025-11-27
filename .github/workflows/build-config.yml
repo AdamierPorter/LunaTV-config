@@ -94,17 +94,24 @@ jobs:
       - name: Update report
         run: node update_readme.js
 
-      # 8️⃣ 提交并推送所有生成文件
-      - name: Commit and push
+      # 8️⃣ 提交并推送所有生成文件（优化版）
+      - name: Commit and push all generated files
         run: |
+          # 配置 Git
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add jingjian.json jin18.json LunaTV-config.txt jingjian.txt jin18.txt report.md README.md
-          git commit -m "自动更新 JSON、Base58 和 API 报告 ($(date -d '+8 hour' +'%Y-%m-%d %H:%M:%S CST'))" || echo "No changes"
-          # 拉取远程并重置，解决推送被拒问题
+          
+          # 拉取远程 main 分支，避免冲突
           git fetch origin main
-          git reset --hard origin/main
+          git reset --soft origin/main
+
+          # 添加所有生成文件
           git add jingjian.json jin18.json LunaTV-config.txt jingjian.txt jin18.txt report.md README.md
-          git commit -m "自动更新 JSON、Base58 和 API 报告 ($(date -d '+8 hour' +'%Y-%m-%d %H:%M:%S CST'))" || echo "No changes"
+
+          # 提交更新，如果没有变化则输出提示
+          git commit -m "自动更新 JSON、Base58 和 API 报告 ($(date -d '+8 hour' +'%Y-%m-%d %H:%M:%S CST'))" || echo "⚠️ 没有文件变化可提交"
+
+          # 推送到远程 main
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+
 
