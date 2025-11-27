@@ -1,23 +1,38 @@
-name: Build Filtered JSON
+name: Build, Check API and Encode JSON
 
 on:
+  schedule:
+    - cron: "0 17 * * *"  # 每天北京时间凌晨1点运行 (UTC 17点)
   push:
     paths:
-      - "LunaTV-config.json"
+      - 'LunaTV-config.json'
   workflow_dispatch:
+    inputs:
+      api_name:
+        description: '搜索关键字'
+        default: 你好
 
 jobs:
-  build-json:
+  build-check-encode:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # 允许推送
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      # 1️⃣ 检出仓库
+      - uses: actions/checkout@v4
 
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+      # 2️⃣ 安装系统依赖 & Node.js
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl
+          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          npm install bs58 axios
 
-      # ---- Step 1: 删除含有 _comment 字段的数据组 ----
+      # 3️⃣ JSON 处理：生成 jingjian.json
       - name: Generate jingjian.json (strip _comment)
         run: |
           jq '{
@@ -28,11 +43,10 @@ jobs:
             )
           }' LunaTV-config.json > jingjian.json
 
-      # ---- Step 2: 验证 JSON 文件格式 ----
       - name: Validate jingjian.json
         run: jq empty jingjian.json
 
-      # ---- Step 3: 删除所有 name 中带 "🔞" 的数据组 ----
+      # 4️⃣ JSON 处理：生成 jin18.json（去掉 adult）
       - name: Generate jin18.json (strip adult resources)
         run: |
           jq '{
@@ -46,11 +60,57 @@ jobs:
       - name: Validate jin18.json
         run: jq empty jin18.json
 
-      # ---- 提交自动生成的文件 ----
+      # 5️⃣ Base58 编码
+      - name: Encode JSON to Base58
+        run: |
+          cat > encode.js <<'EOF'
+          const fs = require('fs');
+          const bs58 = require('bs58');
+
+          const files = [
+            { input: 'LunaTV-config.json', output: 'LunaTV-config.txt' },
+            { input: 'jingjian.json', output: 'jingjian.txt' },
+            { input: 'jin18.json', output: 'jin18.txt' }
+          ];
+
+          files.forEach(file => {
+            if (!fs.existsSync(file.input)) return;
+            const data = fs.readFileSync(file.input);
+            const encoded = bs58.encode(Buffer.from(data));
+            fs.writeFileSync(file.output, encoded);
+          });
+          EOF
+
+          node encode.js
+
+      # 6️⃣ 运行 API 检查脚本
+      - name: Run API check
+        run: |
+          API_NAME="${{ github.event.inputs.api_name || '你好' }}"
+          echo "检查 API: $API_NAME"
+          node check_api.js "$API_NAME"
+
+      # 7️⃣ 更新 README 或报告
+      - name: Update report
+        run: node update_readme.js
+
+      # 8️⃣ 提交并推送所有生成文件
       - name: Commit and push
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add jingjian.json jin18.json
-          git commit -m "Auto-generate jingjian.json & jin18.json" || echo "Nothing to commit"
-          git push
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add jingjian.json jin18.json LunaTV-config.txt jingjian.txt jin18.txt report.md README.md
+          git commit -m "自动更新 JSON、Base58 和 API 报告 ($(date -d '+8 hour' +'%Y-%m-%d %H:%M:%S CST'))" || echo "No changes"
+          # 拉取远程并重置，解决推送被拒问题
+          git fetch origin main
+          git reset --hard origin/main
+          git add jingjian.json jin18.json LunaTV-config.txt jingjian.txt jin18.txt report.md README.md
+          git commit -m "自动更新 JSON、Base58 和 API 报告 ($(date -d '+8 hour' +'%Y-%m-%d %H:%M:%S CST'))" || echo "No changes"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+
+      # 9️⃣ 删除过期 workflow runs，只保留最近 10 条
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 0
+          keep_minimum_runs: 10
