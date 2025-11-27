@@ -126,11 +126,6 @@
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "detail": "https://caiji.moduapi.cc"
     },
-    "zy.jinchancaiji.com": {
-      "name": "🎬金蝉影视",
-      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
-      "detail": "https://zy.jinchancaiji.com"
-    },
     "www.ryzyw.com": {
       "name": "🎬如意资源",
       "api": "https://pz.168188.dpdns.org/?url=https://cj.rycjapi.com/api.php/provide/vod",
@@ -147,9 +142,16 @@
       "detail": "https://bdzy1.com"
     },
     "zy.sh0o.cn": {
+      "_comment": "无搜索结果",
       "name": "🎬山海资源",
       "api": "https://zy.sh0o.cn/api.php/provide/vod",
       "detail": "https://zy.sh0o.cn"
+    },
+    "zy.jinchancaiji.com": {
+      "_comment": "无搜索结果",
+      "name": "🎬金蝉影视",
+      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
+      "detail": "https://zy.jinchancaiji.com"
     },
     "lzizy.net": {
       "_comment": "备用",
@@ -349,6 +351,7 @@
       "detail": "https://heiliaozy.cc"
     },
     "api.sexnguon.com": {
+      "_comment": "无搜索结果",
       "name": "🔞-色南国-",
       "api": "https://api.sexnguon.com/api.php/provide/vod",
       "detail": "https://api.sexnguon.com"
