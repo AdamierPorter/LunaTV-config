@@ -1,4 +1,4 @@
-name: Build Config JSON
+name: Build Filtered JSON
 
 on:
   push:
@@ -6,53 +6,51 @@ on:
       - "LunaTV-config.json"
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   build-json:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Install jq
-        run: sudo apt-get install -y jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-      # Step1：生成 jingjian.json（剔除 "_comment"）
-      - name: Create jingjian.json
+      # ---- Step 1: 删除含有 _comment 字段的数据组 ----
+      - name: Generate jingjian.json (strip _comment)
         run: |
-          jq 'del(.api_site | to_entries[] | select(.value | has("_comment")))' \
-            LunaTV-config.json > jingjian.json
+          jq '{
+            cache_time: .cache_time,
+            api_site: (
+              .api_site
+              | with_entries(select(.value._comment | not))
+            )
+          }' LunaTV-config.json > jingjian.json
 
-      # Step2：验证 jingjian.json
+      # ---- Step 2: 验证 JSON 文件格式 ----
       - name: Validate jingjian.json
         run: jq empty jingjian.json
 
-      # Step3：生成 jin18.json（剔除 "🔞"）
-      - name: Create jin18.json
+      # ---- Step 3: 删除所有 name 中带 "🔞" 的数据组 ----
+      - name: Generate jin18.json (strip adult resources)
         run: |
-          jq 'del(.api_site | to_entries[] | select(.value.name | contains("🔞")))' \
-            jingjian.json > jin18.json
+          jq '{
+            cache_time: .cache_time,
+            api_site: (
+              .api_site
+              | with_entries(select(.value.name | startswith("🔞") | not))
+            )
+          }' jingjian.json > jin18.json
 
-      # Step4：验证 jin18.json
       - name: Validate jin18.json
         run: jq empty jin18.json
 
-      # Step5：提交修改
-      - name: Commit changes
+      # ---- 提交自动生成的文件 ----
+      - name: Commit and push
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add jingjian.json jin18.json
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto update JSON: jingjian + jin18"
-            git push
-          fi
+          git commit -m "Auto-generate jingjian.json & jin18.json" || echo "Nothing to commit"
+          git push
