@@ -56,12 +56,6 @@
       "api": "https://360zy.com/api.php/provide/vod",
       "detail": "https://360zy.com"
     },
-    "collect.wolongzyw.com": {
-      "_comment": "待官方源修复证书",
-      "name": "🎬卧龙影视",
-      "api": "https://collect.wolongzy.cc/api.php/provide/vod",
-      "detail": "https://wolongzyw.com"
-    },
     "jszyapi.com": {
       "name": "🎬极速资源",
       "api": "https://jszyapi.com/api.php/provide/vod",
@@ -182,6 +176,12 @@
       "name": "🎬优质资源",
       "api": "https://api.yzzy-api.com/inc/apijson.php",
       "detail": "https://1080zyk4.com"
+    },
+    "collect.wolongzyw.com": {
+      "_comment": "待官方源修复证书",
+      "name": "🎬卧龙影视",
+      "api": "https://collect.wolongzy.cc/api.php/provide/vod",
+      "detail": "https://wolongzyw.com"
     },
     "www.huyaapi.com": {
       "_comment": "污染搜索结果",
@@ -329,12 +329,6 @@
       "api": "https://xzybb2.com/api.php/provide/vod",
       "detail": "https://xzytv.com"
     },
-    "zuisezy.com": {
-      "_comment": "待官方源修复dns",
-      "name": "🔞最色资源",
-      "api": "https://api.zuiseapi.com/api.php/provide/vod",
-      "detail": "https://api.zuiseapi.com"
-    },
     "doudouzy.com": {
       "name": "🔞豆豆资源",
       "api": "https://api.douapi.cc/api.php/provide/vod",
@@ -370,7 +364,6 @@
       "api": "https://www.xiangjiaozyw.com/api.php/provide/vod",
       "detail": "https://www.xiangjiaozyw.com"
     },
-
     "www.msnii.com": {
       "_comment": "JSON 里所有中文字符为 Unicode 编码",
       "name": "🔞-美少女-",
@@ -388,6 +381,12 @@
       "name": "🔞白嫖资源",
       "api": "https://www.kxgav.com/api/json.php",
       "detail": "https://www.kxgav.com"
+    },
+    "zuisezy.com": {
+      "_comment": "待官方源修复dns",
+      "name": "🔞最色资源",
+      "api": "https://api.zuiseapi.com/api.php/provide/vod",
+      "detail": "https://api.zuiseapi.com"
     },
     "xingba111.com": {
       "_comment": "403 Forbidden",
