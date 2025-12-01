@@ -183,12 +183,6 @@
       "api": "https://api.yzzy-api.com/inc/apijson.php",
       "detail": "https://1080zyk4.com"
     },
-    "collect.wolongzyw.com": {
-      "_comment": "待官方源修复证书",
-      "name": "🎬卧龙影视",
-      "api": "https://collect.wolongzy.cc/api.php/provide/vod",
-      "detail": "https://wolongzyw.com"
-    },
     "www.huyaapi.com": {
       "_comment": "污染搜索结果",
       "name": "🎬虎牙资源",
@@ -391,12 +385,6 @@
       "name": "🔞白嫖资源",
       "api": "https://www.kxgav.com/api/json.php",
       "detail": "https://www.kxgav.com"
-    },
-    "zuisezy.com": {
-      "_comment": "待官方源修复dns",
-      "name": "🔞最色资源",
-      "api": "https://api.zuiseapi.com/api.php/provide/vod",
-      "detail": "https://api.zuiseapi.com"
     },
     "xingba111.com": {
       "_comment": "403 Forbidden",
